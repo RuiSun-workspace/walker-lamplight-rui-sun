@@ -42,3 +42,22 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Noted risk (Claude):** a lantern spirit has an unusual body, so a diffusion model may drift between
   poses more than it would for a humanoid. The character sheet's consistency rules need to be strict.
 - **Still unresolved:** whether jumping should also cost oil; how fast oil drains (needs playtest).
+
+## 2026-10-03 — storyboard sketches
+
+- **Wanted:** eight moments of play, in order, that fix what each asset has to do, with at least three
+  shot sizes and three angles.
+- **Asked (Rui → Claude):** draw the storyboard as SVG sketches instead of hand-drawn photos.
+- **Got (Claude, no generative model):** `design/storyboard/src/make_storyboard.py`, which draws all
+  eight panels from one Wick-drawing function so his construction (lantern body, handle ring, flame
+  face, brass limbs) is identical in every panel. PNGs rasterised with headless Chrome.
+- **First render problem (Claude caught on review):** in P2, P5 and P7 the spike pit sat under the
+  caption strip, so the hazard was half hidden — the opposite of "Fair in the dark". Pit floors raised
+  by about 20 px and re-rendered.
+- **Design choices made in the sketches (Claude proposed, for Rui to accept or change):** spikes and oil
+  drops stay faintly visible outside the light (glint / halo); respawn refills oil only to the
+  checkpoint's level; P6's Dutch angle is a design view because the slice camera stays level.
+- **Human / Claude / model:** Rui chose SVG sketches. Claude wrote the script, the panel text and the
+  asset IDs. No generative model.
+- **Still unresolved:** whether the exit's pale edge on the right of every gameplay frame is too strong
+  a hint; needs a playtest.
