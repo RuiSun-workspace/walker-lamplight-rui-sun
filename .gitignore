@@ -1,0 +1,31 @@
+# Engine caches and local editor state
+.godot/
+.DS_Store
+.idea/
+.vscode/
+
+# Course rule: MP3/MP4 and large media stay out of GitHub (film goes to course media storage).
+# Game audio is delivered as OGG (WAV allowed only for short effects we choose to keep uncompressed).
+*.[mM][pP]3
+*.[mM][pP]4
+*.avi
+*.mov
+exports/
+builds/
+
+# Raw generation dumps and model weights live on F:\7270\a2-gen, never in the repo.
+# Only accepted assets (in godot/) and rejected-output thumbnails (design/rejected/) are committed.
+gen-raw/
+*.safetensors
+*.ckpt
+*.onnx
+
+# Local credentials/configuration
+.env
+.env.*
+!.env.example
+credentials/
+*.p12
+*.pfx
+
+# Git cannot ignore by size: inspect staged files before committing (>25 MB).
