@@ -61,3 +61,25 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   asset IDs. No generative model.
 - **Still unresolved:** whether the exit's pale edge on the right of every gameplay frame is too strong
   a hint; needs a playtest.
+
+## 2026-10-03 — character sheet
+
+- **Wanted:** a contract precise enough that I can reject a generated pose by measuring it, not by taste.
+- **Asked (Rui → Claude):** draw the character sheet in the same SVG style as the storyboard.
+- **Got (Claude, no generative model):** `design/character/src/make_character_sheet.py` → turnaround,
+  11 poses, 1× silhouette, collision overlay, palette contrast table. Wick's numbers were fitted to the
+  18 × 28 collider kept from walker-jumpman, so the jump tuning does not change.
+- **Found while checking the sheet (Claude's checks, written down for Rui to verify in the engine):**
+  - Silhouette: ember is identical to idle in black. Ember must be told apart by colour and the light
+    radius, not by outline.
+  - Palette: the brass frame is only 2.1:1 against lit rock (`#6b5a44`) — the colour right around Wick
+    inside his own light. Either the generated rock stays darker/bluer there, or the sprite needs a dark
+    1 px outline. Not decided yet; it goes into CHANGE-BRIEF as a predicted failure.
+  - Collision: arms, handle and the tall flame stand outside the box; the fall pose's feet are 1 px
+    below it; the tilted hurt pose leaves it. Recorded as fair or harmless in CHARACTER-SHEET.md.
+  - First render had the three-quarter view nearly identical to the front view (only the eyes moved);
+    the cage bars now shift toward the facing side too. A label and a caption were cut off and moved.
+- **Human / Claude / model:** Rui asked for the SVG approach; Claude drew, measured and wrote the sheet.
+  No generative model.
+- **Still unresolved:** whether 8 required + 3 optional poses is too many to keep consistent with a
+  diffusion model on an 8 GB card.
