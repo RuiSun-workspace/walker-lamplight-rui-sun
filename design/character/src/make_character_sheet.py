@@ -37,6 +37,7 @@ LEGS = {
     "fall": [[(-4, -6), (-6, 1)], [(4, -6), (6, 1)]],
     "land": [[(-4, -6), (-8, -3), (-6, 0)], [(4, -6), (8, -3), (6, 0)]],
     "hurt": [[(-4, -6), (-9, -1)], [(4, -6), (9, -3)]],
+    "climb": [[(-4, -6), (-5, 0)], [(4, -6), (6, -4)]],
     "side": [[(-1, -6), (-3, 0)], [(1, -6), (3, 0)]],
 }
 ARMS = {
@@ -62,6 +63,7 @@ POSES = {
     "hurt": ("hurt", "hurt", "hurt", "three"),
     "respawn": ("idle", "idle", "kindle", "three"),
     "celebrate": ("idle", "up", "joy", "three"),
+    "climb": ("climb", "up", "full", "back"),  # added 2026-10-06: ladder is in the slice
 }
 
 
@@ -201,44 +203,54 @@ def turnaround():
     return svg(1010, 360, body)
 
 
+def ladder(cx, gy):
+    rails = "".join(f'<rect x="{cx + dx}" y="{gy - 165}" width="6" height="165" fill="#3b2a1c" stroke="#5a412a"/>' for dx in (-46, 40))
+    rungs = "".join(f'<rect x="{cx - 46}" y="{y}" width="92" height="5" fill="#3b2a1c" stroke="#5a412a"/>' for y in range(gy - 155, gy, 30))
+    return rails + rungs
+
+
 def poses():
     S = 4
     order = [("idle", "1 idle"), ("bored", "2 bored (idle > 4 s)"), ("walk", "3 walk"),
              ("jump", "4 jump (rising)"), ("fall", "5 fall"), ("land", "6 land"),
              ("pickup", "7 oil pickup"), ("ember", "8 ember (oil = 0)"), ("hurt", "9 hurt / fail"),
-             ("respawn", "10 respawn"), ("celebrate", "11 celebrate (exit)")]
+             ("respawn", "10 respawn"), ("celebrate", "11 celebrate (exit)"),
+             ("climb", "12 climb (on ladder)")]
     body = text(20, 28, "Wick — poses (right-facing; left = runtime flip) · drawn at 4x, feet on the line", 14)
     for i, (p, label) in enumerate(order):
         col, row = i % 4, i // 4
         cx, gy = 110 + col * 200, 210 + row * 210
         body += f'<line x1="{cx - 80}" y1="{gy}" x2="{cx + 80}" y2="{gy}" stroke="#6a7190" stroke-width="2"/>'
-        lift = -24 if p in ("jump", "fall") else 0
+        lift = -24 if p in ("jump", "fall") else (-28 if p == "climb" else 0)
         rot = -10 if p == "hurt" else 0
+        if p == "climb":
+            body += ladder(cx, gy)
         body += wick(cx, gy + lift, S, p, rot=rot)
         if p == "respawn":
             body += f'<circle cx="{cx}" cy="{gy - 60}" r="70" fill="none" stroke="#ffe08a" stroke-width="2" stroke-dasharray="3 9"/>'
         body += text(cx, gy + 26, label, 12, anchor="middle")
-    body += text(620, 676, "12 turnaround → turnaround.png", 12, "#9aa3bf")
-    return svg(820, 690, body)
+    body += text(20, 704, "13 turnaround → turnaround.png · climb is the back view, seen while on a ladder", 12, "#9aa3bf")
+    return svg(820, 720, body)
 
 
 def collision():
     S = 4
-    order = ["idle", "bored", "walk", "jump", "fall", "land", "pickup", "ember", "hurt", "respawn", "celebrate"]
+    order = ["idle", "bored", "walk", "jump", "fall", "land", "pickup", "ember", "hurt", "respawn", "celebrate", "climb"]
     x0, y0, w, h = COLLIDER
     body = text(20, 28, "Collision overlay · RectangleShape2D 18 x 28 px, bottom-centre on the feet · 4x", 14)
     for i, p in enumerate(order):
         col, row = i % 4, i // 4
         cx, gy = 110 + col * 200, 210 + row * 210
-        lift = -24 if p in ("jump", "fall") else 0
+        lift = -24 if p in ("jump", "fall") else (-28 if p == "climb" else 0)
         rot = -10 if p == "hurt" else 0
+        if p == "climb":
+            body += ladder(cx, gy)
         body += wick(cx, gy + lift, S, p, rot=rot)
         body += (f'<rect x="{cx + x0 * S}" y="{gy + lift + y0 * S}" width="{w * S}" height="{h * S}" '
                  f'fill="#ff3b3b" fill-opacity="0.18" stroke="#ff3b3b" stroke-width="2" stroke-dasharray="6 4"/>')
         body += text(cx, gy + 26, p, 12, anchor="middle")
-    body += text(560, 662, "red = collider", 12, "#ff8a8a")
-    body += text(560, 680, "outside it: handle, arms, tall flame", 11, "#9aa3bf")
-    return svg(820, 690, body)
+    body += text(20, 704, "red = collider · outside it: handle, arms, tall flame", 12, "#ff8a8a")
+    return svg(820, 720, body)
 
 
 def silhouette_1x():

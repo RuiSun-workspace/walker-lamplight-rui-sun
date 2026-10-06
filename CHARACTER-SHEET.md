@@ -123,3 +123,17 @@ dark backgrounds by design: they are interior colours, always surrounded by bras
    pickup and celebrate; ember coal only in ember.
 7. **Pixel art:** hard pixel edges, no anti-aliased blur, Godot texture filter = Nearest.
 8. **Right-facing three-quarter view** for every gameplay pose.
+
+## Revision log
+
+- **2026-10-06 — drawings stay as Claude-written SVG (Rui's decision).** The instructor asked for
+  hand-drawn design pictures; the storyboard was redrawn by hand. For this sheet Rui chose to keep the
+  SVG drawings. They are made by `design/character/src/make_character_sheet.py`, written by Claude, not by
+  a generative model. Rui reviewed and accepts the measurements, collider, palette and consistency rules
+  as the contract.
+- **2026-10-06 — pose 12 "climb" added** because the ladder from storyboard P1 is now in the slice. It
+  uses the **back view** from the turnaround, with arms up on the rungs and one leg raised. It is
+  the only gameplay pose that is not the right-facing three-quarter view (an exception to consistency
+  rule 8); it is not flipped. The collider is unchanged and covers the body on the ladder. `poses.png` and
+  `collision.png` were re-rendered with the new pose; the 11-pose versions are in commit `088bce6`.
+  Game state: on a ladder (`climb` state), required in the slice.

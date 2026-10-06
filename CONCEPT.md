@@ -56,3 +56,10 @@ The player should feel **tense but in control**: a steady pulse that says "keep 
 One short tunnel: start, a few jumps, at least one oil drop, one spike hazard, one checkpoint lamp post,
 and the exit. Controllable Wick with static state images, one looping music track, four event sounds,
 and separate music / effects mute keys. The full game (more tunnels, more hazard types) is out of scope here.
+
+## Revision log
+
+- **2026-10-06 (Rui):** the slice scope grows from "one short tunnel" to a lower and an upper tunnel
+  joined by a **ladder** (from the hand-drawn storyboard P1); climbing becomes a verb. When the oil runs out
+  the light shrinks to **a very small ring around Wick's body**, never fully dark. The ending is
+  **outdoors** in daylight (storyboard P8). The text above is the v1 record and is left unchanged.
