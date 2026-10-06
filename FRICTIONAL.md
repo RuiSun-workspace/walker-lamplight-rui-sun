@@ -136,3 +136,81 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   so it is the riskiest part of the slice to build (see F8). The four sound events stay the same;
   climbing has no sound.
 - **Human / Claude / model:** decisions Rui's; edits Claude's. No generative model.
+
+## 2026-10-06 — local models installed; first character reference attempts (CHAR-REF)
+
+- **Setup:** ComfyUI 0.39.0 + SDXL base 1.0 and MusicGen medium on F:, reusing Rui's existing PyTorch
+  2.11 + CUDA 12.8 from a D: conda environment (Rui pointed it out; it saved a 2.7 GB download). Rui
+  chose MusicGen only for all audio, so no Hugging Face account or gated license is needed.
+- **Wanted:** one reference image of Wick that meets CHARACTER-SHEET.md, so every pose can be derived
+  from it.
+- **Asked / got (SDXL, 28 images in 7 runs, all in gen-log.jsonl and the asset log):**
+  - txt2img with a green background (seed 1001) → green glass, piles of lanterns, a robot. The key
+    colour leaked into the design.
+  - txt2img with white background (1002) → poster / character-sheet layouts with fake text, and one
+    image that looked like a famous copyrighted character. Rejected on rights grounds too; added
+    "animal, ears, text" to the negative prompt.
+  - img2img from the sheet's idle pose: at denoise 0.6 (1003) the model returned the SVG almost
+    unchanged; that would be Claude's drawing, not a generated asset. At 0.75–0.85 (1004–1005) real pixel
+    rendering appeared, but the flame face kept coming out with **one** eye. At 0.8 with "two round
+    black eyes side by side" (1006–1007) one image, **1006-b1**, has the right face.
+- **Judgment so far (Claude's check against the sheet, for Rui to decide):** 1006-b1 passes rules 1,
+  3, 4, 5-ish and 7; fails rule 2 because of a small extra flame on top of the handle (removable by hand),
+  and its eyebrows read as "sly" rather than neutral.
+- **Human / Claude / model:** SDXL made the images; Claude wrote the prompts, the scripts and the
+  checks; **Rui decides whether 1006-b1 becomes CHAR-REF.**
+- **Still unresolved:** _Rui's decision on 1006-b1._
+
+## 2026-10-06 — CHAR-REF round 2: "make the pixel blocks smaller"
+
+- **Rui's judgment on 1006-b1:** "a bit ugly"; wants smaller pixel blocks. Not accepted.
+- **Asked (Claude's prompt P5):** the same img2img set-up with "highly detailed pixel art, fine small
+  pixels, 128x128 sprite" and "chunky / large pixels" in the negative; denoise 0.8 (seeds 1008, 1009)
+  and 0.9 (1010).
+- **Got:** 12 images, none usable. The prompt did not make the pixels finer; it made the images smoother
+  and less pixel-like, and the flame face disappeared in almost all of them.
+- **What this showed (Claude's analysis):** the block size in the *game* is not set by the generated
+  image at all. It is set by the sprite size the image is reduced to. Reducing 1006-b1 to the sheet's
+  32 × 40 frame (`design/generation/candidates/sprite-size-demo-1006-b1.png`) turns the face into a
+  smudge, so the eyes do not read. At 64 × 80 they do. This is a problem with the character sheet's size
+  decision. Prompting will not fix it.
+- **Human / Claude / model:** Rui judged and asked; Claude prompted and analysed; SDXL generated.
+- **Still unresolved:** _Rui to choose the sprite / viewport size._
+
+## 2026-10-07 — CHAR-REF round 3: new method (illustrate, then pixelise ourselves)
+
+- **Decided (Rui):** change the generation method. SDXL no longer draws pixel art. It draws a flat
+  cartoon illustration, and `tools/gen/pixelize.py` (Claude) makes the sprite: remove background, scale
+  to the sprite size, hard alpha, quantise to the six sheet colours. Rui has **not** chosen the sprite
+  size yet, so every candidate is shown at 32×40, 48×60 and 64×80.
+- **Got:** txt2img (1011) produced realistic lantern objects, not a character. img2img at denoise 0.75
+  (1012) produced two cute candidates with closed-eye smiling flames. At 0.85 (1013) the brass got
+  shinier but the faces went wrong.
+- **Bug found in my own tool (Claude):** the first pixelise pass only removed white that touched the
+  image border, so the hole inside the handle ring stayed as a pale blob. Fixed to remove all near-white
+  pixels; the flame core is pale yellow, not white, so it survives. Logged in the script's docstring.
+- **What the pixelised comparison shows:** the lantern body now reads well as clean pixel art at
+  every size. The **thin face lines dissolve**: area averaging mixes the 2–3 px dark eye lines with the
+  yellow flame, and quantisation then turns them into brass-coloured smudges. Only 1013-b3's huge face
+  survives, and that one breaks rule 3.
+- **Human / Claude / model:** method choice is Rui's; prompts, pixeliser and analysis are Claude's;
+  images are SDXL's.
+- **Still unresolved:** _Rui: sprite size, which candidate, and how to keep the face (see options in chat)._
+
+## 2026-10-07 — CHAR-REF accepted (1012-b1, oval face)
+
+- **Decided (Rui):** 1012-b1 over 1012-b2. Asked for the eye and mouth lines to be thicker and the
+  shapes nicer, because the face "looks awkward". Then chose **variant 3, oval eyes**, out of three.
+- **What Claude did:** wrote `face_edit.py`. It removes the leftover ring pixels above the handle,
+  turns the brass specks that pixelisation left inside the flame back into flame, and paints the face
+  from fixed pixel patterns in 2 px ink. The first preview put the eye highlight in a corner, which read
+  as a frown, and the mouth was too wide. Claude revised both before showing Rui the three variants.
+  Claude also wrote `normalize_sprite.py` so every state image shares one anchor (feet on the last row,
+  cap centred). Its first version measured the arms as the cap, because the arms are the widest brass
+  row. Fixed to use the longest *continuous* brass run.
+- **Honest authorship note:** body, flame outline and colours come from SDXL (after quantisation). The
+  **face is a hand-specified edit**: Rui chose it, Claude's script painted it. It is not model output.
+- **Consequence:** the sprite is 64×80 in a 1280×720 viewport; collider and tuning ×2 (revisions
+  appended to CHARACTER-SHEET.md and CHANGE-BRIEF.md). The proportions contract is now the measured
+  reference: cap 30, feet-to-cap 47, feet-to-handle 56 px.
+- **Next:** derive the other poses from this reference with the same pipeline.

@@ -137,3 +137,18 @@ dark backgrounds by design: they are interior colours, always surrounded by bras
   rule 8); it is not flipped. The collider is unchanged and covers the body on the ladder. `poses.png` and
   `collision.png` were re-rendered with the new pose; the 11-pose versions are in commit `088bce6`.
   Game state: on a ladder (`climb` state), required in the slice.
+- **2026-10-07 — size change and new contract (Rui chose CHAR-REF = 1012-b1, oval face).** At 32×40 the
+  generated flame face dissolved and the pixel blocks read as too coarse
+  (`design/generation/candidates/sprite-size-demo-1006-b1.png`), so:
+  - **Viewport 1280×720** (was 640×360). The 4K capture stays an exact ×3.
+  - **Sprite frame 64×80**, feet on the bottom row (y = 79), cap centred on x ≈ 31.5.
+  - **Collider 36×56** (×2 of the inherited 18×28), bottom-centre on the feet.
+  - **The proportions contract is now the accepted reference** `design/generation/accepted/CHAR-REF.png`.
+    The SVG ×2 numbers no longer apply, because the generated body is a little shorter than the
+    drawing. Measured by `tools/gen/normalize_sprite.py`: cap width **30 px**, feet-to-cap-top
+    **47 px**, feet-to-handle-top **56 px**. Rule 1 becomes: every pose within ±2 px of these.
+  - **Face (rule 3, refined):** neutral eyes are 2×4 ink ovals with a 1 px core highlight, at
+    x = 35 / 40, y = 44; mouth is a 5-px smile at x = 36, y = 50 (`tools/gen/face_edit.py`, face `oval`).
+    Other states swap the face pattern at the same anchor.
+  - The collider (cols 14–49, rows 24–79) covers cap, glass, base and handle; only the arms stand
+    outside it.

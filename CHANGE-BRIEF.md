@@ -152,3 +152,15 @@ animation: each state is one static image swapped in. No voice.
 ## 8. Revision log
 
 _Append dated entries here after this file is first committed._
+
+- **2026-10-07 — resolution, sprite size and pipeline (follows Rui's choice of CHAR-REF).**
+  - Viewport 640×360 → **1280×720**; Wick sprite 32×40 → **64×80**; collider 18×28 → **36×56**.
+  - All walker-jumpman tuning in pixels is scaled ×2 so jump feel is unchanged: speed 320,
+    acceleration 2560, deceleration 3840, jump velocity −640, gravity 1920, terminal velocity 960 (frame
+    counts — coyote 6, buffer 6 — unchanged). Level geometry and the oil light radius (now ~240 → ~56 px)
+    scale ×2 too.
+  - **F1 check now measures against `design/generation/accepted/CHAR-REF.png`:** cap 30 ± 2,
+    feet-to-cap-top 47 ± 2, feet-to-handle-top 56 ± 2 px.
+  - **F6 pipeline changed:** SDXL draws a flat illustration (not "pixel art") → `pixelize.py` (remove
+    white, scale, hard alpha, 6-colour quantise) → `face_edit.py` (clean flame, paint face pattern) →
+    `normalize_sprite.py` (feet / cap anchor). Every step is logged in `design/generation/edit-log.jsonl`.
