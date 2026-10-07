@@ -299,3 +299,18 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   across the cut.
 - **Still unresolved:** Rui has not described what each chosen effect sounds like; MusicGen effects
   may sound more "musical" than event-like. To be judged in the running scene (TEST-REPORT).
+
+## 2026-10-07 — slice step 2: level and environment in the engine
+
+- **Built (Claude):** `levels/lamplight_tunnel.json`. Lower tunnel (spawn lamp post, a 56 px teaching
+  step, a 140 px spike pit, an 80 px oil ledge) → ladder at x 1792 → upper tunnel (second lamp post, a
+  96 px spike strip, a floating oil drop) → code-drawn daylight exit. The sizes come from the ×2 physics:
+  rise ~112 px, flat jump ~213 px, so the pit can be cleared but not carelessly.
+- **Seen in the first engine screenshots:** the mirrored background copies were missing, because a
+  negative rect size does not flip in Godot 4; fixed with a transform. The mirror seam makes a symmetric
+  "pillar" in the wall; it reads as part of the mine, so it was left in.
+- **Tests:** the inherited full-route test could not pass before climbing exists, so it became
+  "lower route reaches the ladder foot with zero deaths" (real inputs only) plus "standing in the exit
+  completes". The full route returns in step 3. test_game 26/0, test_keyboard 9/9.
+- **Human / Claude / model:** level layout and code are Claude's proposals inside Rui's storyboard;
+  Rui has not played it yet.

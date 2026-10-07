@@ -2,6 +2,18 @@ extends Node2D
 
 const Player = preload("res://features/player/player.gd")
 const Hud = preload("res://ui/hud.gd")
+# Generated environment art (SOURCES.md, environment round 1). Lamp posts and the exit light are code-drawn.
+const BG := preload("res://assets/env/bg_rock.png")
+const TILE := preload("res://assets/env/tiles_rock.png")
+const TILE_TOP := preload("res://assets/env/tiles_rock_top.png")
+const SPIKES := preload("res://assets/env/spikes.png")
+const LADDER := preload("res://assets/env/ladder.png")
+const OIL := preload("res://assets/env/oil_drop.png")
+const BRASS := Color("b8863b")
+const FLAME := Color("ffcf5a")
+const TIMBER := Color("5a412a")
+const TIMBER_DARK := Color("3b2a1c")
+const DAYLIGHT := Color("dfeaf5")
 enum State { MENU, PLAYING, PAUSED, DYING, COMPLETE }
 var state: State = State.MENU
 var player: CharacterBody2D
@@ -20,7 +32,8 @@ var contact_settle_ticks: int = 0
 
 func _ready() -> void:
 	process_physics_priority = 10
-	level = JSON.parse_string(FileAccess.get_file_as_string("res://levels/first_steps.json"))
+	level = JSON.parse_string(FileAccess.get_file_as_string("res://levels/lamplight_tunnel.json"))
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED  # tiles, spikes and ladder are drawn as repeating textures
 	_setup_input()
 	for entry in level.solids:
 		_add_solid(Rect2(entry[0], entry[1], entry[2], entry[3]))
@@ -74,10 +87,10 @@ func _add_area(rect: Rect2, layer: int, spikes: bool) -> Area2D:
 	area.collision_layer = layer
 	area.collision_mask = 2
 	if spikes:
-		# Three exact triangular trigger silhouettes; no oversized invisible box.
-		for i in range(3):
+		# One exact triangular trigger per drawn spike (16 px each, matching spikes.png); no oversized box.
+		for i in range(maxi(1, roundi(rect.size.x / 16.0))):
 			var triangle := CollisionPolygon2D.new()
-			var x := float(i) * rect.size.x / 3.0
+			var x := float(i) * 16.0
 			triangle.polygon = PackedVector2Array([Vector2(x, rect.size.y), Vector2(x + 8, 0), Vector2(x + 16, rect.size.y)])
 			area.add_child(triangle)
 	else:
@@ -180,32 +193,44 @@ func _unhandled_input(event: InputEvent) -> void:
 func _draw() -> void:
 	if level.is_empty():
 		return
-	var font := ThemeDB.fallback_font
-	var ink := Color("25354a")
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(2, 2))  # placeholder: old 640x360 drawing, replaced in the level step
-	var k := 0.5
-	# All visual assets are original Godot vector drawing, not recovered art.
-	draw_rect(Rect2(-400, -200, 1800, 900), Color("f6f3ec"))
-	for x in range(0, 961, 32):
-		draw_line(Vector2(x, 80), Vector2(x, 320), Color("e7e5df"), 1)
-	for y in range(96, 321, 32):
-		draw_line(Vector2(0, y), Vector2(960, y), Color("e7e5df"), 1)
-	for x in [100, 470, 770]:
-		draw_colored_polygon(PackedVector2Array([Vector2(x-90,320),Vector2(x+50,180),Vector2(x+190,320)]), Color("e4e8e3"))
+	# Back wall: the generated 1280x720 rock, every other copy mirrored so the repeat seam matches.
+	for i in range(int(ceil(float(level.width) / 1280.0)) + 1):
+		var x := float(i) * 1280.0
+		if i % 2 == 0:
+			draw_texture(BG, Vector2(x, 0))
+		else:  # a negative rect size does not flip in Godot 4; mirror with a transform instead
+			draw_set_transform(Vector2(x + 1280, 0), 0.0, Vector2(-1, 1))
+			draw_texture(BG, Vector2.ZERO)
+			draw_set_transform(Vector2.ZERO)
 	for entry in level.solids:
-		var r := Rect2(entry[0]*k, entry[1]*k, entry[2]*k, entry[3]*k)
-		draw_rect(r, ink)
-		draw_rect(Rect2(r.position, Vector2(r.size.x, 4)), Color("438e7d"))
-		for x in range(int(r.position.x)+12, int(r.end.x), 24):
-			draw_line(Vector2(x, r.position.y+12), Vector2(x+7, r.position.y+19), Color("405166"), 1)
+		var r := Rect2(entry[0], entry[1], entry[2], entry[3])
+		draw_texture_rect(TILE, r, true)
+		var top_h := minf(64.0, r.size.y)
+		draw_texture_rect_region(TILE_TOP, Rect2(r.position, Vector2(r.size.x, top_h)), Rect2(0, 0, r.size.x, top_h))
 	for entry in level.hazards:
-		for i in range(3):
-			var x: float = entry[0]*k + i*8
-			draw_colored_polygon(PackedVector2Array([Vector2(x,320),Vector2(x+4,304),Vector2(x+8,320)]), Color("d24e42"))
-	var finish_x: float = level.finish[0]*k
-	draw_line(Vector2(finish_x+3, 320), Vector2(finish_x+3, 250), ink, 3)
-	draw_colored_polygon(PackedVector2Array([Vector2(finish_x+5,250),Vector2(finish_x+32,260),Vector2(finish_x+5,274)]), Color("287c68"))
-	draw_string(font, Vector2(33, 251), "01 / GET MOVING", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, ink)
-	draw_string(font, Vector2(33, 273), "Read the landing. Then jump.", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, ink)
-	draw_string(font, Vector2(474, 227), "02 / MIND THE GAP", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, ink)
-	draw_string(font, Vector2(878, 225), "FINISH", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, ink)
+		draw_texture_rect(SPIKES, Rect2(entry[0], entry[1], entry[2], entry[3]), true)
+	for entry in level.ladders:
+		draw_texture_rect(LADDER, Rect2(entry[0], entry[1], entry[2], entry[3]), true)
+	for entry in level.oil:
+		draw_texture(OIL, Vector2(entry[0], entry[1]) - OIL.get_size() / 2.0)
+	for entry in level.lamp_posts:
+		_draw_lamp_post(Vector2(entry[0], entry[1]))
+	_draw_exit_light()
+
+func _draw_lamp_post(foot: Vector2) -> void:
+	# Code-drawn checkpoint (Rui, 2026-10-07: no generated lamp post was usable). Timber post, brass lamp.
+	draw_rect(Rect2(foot.x - 5, foot.y - 112, 10, 112), TIMBER)
+	draw_rect(Rect2(foot.x - 5, foot.y - 112, 3, 112), TIMBER_DARK)
+	draw_rect(Rect2(foot.x - 5, foot.y - 116, 26, 6), TIMBER)
+	draw_rect(Rect2(foot.x + 12, foot.y - 110, 14, 18), BRASS)
+	draw_rect(Rect2(foot.x + 14, foot.y - 107, 10, 12), Color("241f2c"))
+	draw_rect(Rect2(foot.x + 17, foot.y - 105, 4, 8), FLAME)
+
+func _draw_exit_light() -> void:
+	# Code-drawn daylight at the exit (Rui, 2026-10-07). The only cool light in the level (pillar "The way out glows").
+	var f: Array = level.finish
+	var x0: float = f[0] - 40.0
+	var floor_y: float = f[1] + f[3]
+	draw_polygon(PackedVector2Array([Vector2(x0 + 40, 0), Vector2(level.width, 0), Vector2(level.width, floor_y), Vector2(x0 - 60, floor_y)]),
+		PackedColorArray([Color(DAYLIGHT, 0.85), Color(DAYLIGHT, 0.85), Color(DAYLIGHT, 0.35), Color(DAYLIGHT, 0.0)]))
+	draw_rect(Rect2(x0 + 40, 0, level.width - x0 - 40, 24), DAYLIGHT)

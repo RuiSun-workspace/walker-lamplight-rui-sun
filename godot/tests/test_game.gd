@@ -65,7 +65,7 @@ func run() -> void:
 	# Actual geometry fixtures at a ledge; tick ages exercise inclusive 6 / expired 7.
 	for age in [5,6,7]:
 		await fresh()
-		game.player.position = Vector2(956, 570)
+		game.player.position = Vector2(960, 570)  # just past the spike-pit edge at x 900
 		await steps(2)
 		game.player.last_floor_tick = game.player.tick + 1 - age
 		game.player.opportunity_consumed = false
@@ -100,7 +100,7 @@ func run() -> void:
 	check("focus-loss-pauses", game.state == Game.State.PAUSED, {"state":game.state})
 	game.test_mode = true
 	await fresh()
-	game.player.position = Vector2(660,620)
+	game.player.position = Vector2(970,700)  # inside the spike pit
 	await steps(4)
 	check("actual-spike-collision", game.state == Game.State.DYING and game.deaths == 1, {"state":game.state,"deaths":game.deaths})
 	game.resolve_contacts(true,true)
@@ -126,17 +126,24 @@ func run() -> void:
 	await steps(1)
 	check("fall-boundary", game.state == Game.State.DYING, {"state":game.state})
 	await fresh()
+	# Step 2 (2026-10-07): the full route needs the ladder (step 3). Until then the real-input route covers
+	# the lower tunnel and must reach the ladder foot without dying; completion is checked at the exit.
 	var route = Route.new()
 	var route_ticks := 0
-	while game.state == Game.State.PLAYING and route_ticks < 900:
+	while game.state == Game.State.PLAYING and route_ticks < 600:
 		route.step(game.player)
 		await steps(1)
 		route_ticks += 1
-	check("complete-real-route", game.state == Game.State.COMPLETE and game.deaths == 0, {"state":game.state,"deaths":game.deaths,"ticks":route_ticks,"position":str(game.player.position),"jump_marks_used":route.next_jump})
+	var ladder: Array = game.level.ladders[0]
+	check("lower-route-to-ladder", game.state == Game.State.PLAYING and game.deaths == 0 and game.player.is_on_floor() and game.player.position.x >= ladder[0] and game.player.position.x <= ladder[0] + ladder[2], {"state":game.state,"deaths":game.deaths,"ticks":route_ticks,"position":str(game.player.position),"jump_marks_used":route.next_jump})
+	await fresh()
+	game.player.position = Vector2(3120, 360)
+	await steps(4)
+	check("exit-completes", game.state == Game.State.COMPLETE and game.deaths == 0, {"state":game.state})
 	game.start_session()
 	game.start_session()
 	check("replay-idempotent", game.state == Game.State.PLAYING and game.deaths == 0 and game.player.jumps == 0, {"state":game.state,"deaths":game.deaths,"jumps":game.player.jumps})
-	var report := {"scope":"First Steps slice; not full GDD acceptance or human playtesting", "engine":Engine.get_version_info().string,"created_at":Time.get_datetime_string_from_system(true),"results":results,"failures":failures}
+	var report := {"scope":"Lamplight asset slice (lamplight_tunnel.json); not human playtesting", "engine":Engine.get_version_info().string,"created_at":Time.get_datetime_string_from_system(true),"results":results,"failures":failures}
 	var out := ProjectSettings.globalize_path("res://../evidence")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/mechanics-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)
