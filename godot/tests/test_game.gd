@@ -59,13 +59,13 @@ func run() -> void:
 		min_y = minf(min_y, game.player.position.y)
 		if i == 12:
 			game.player.test_jump_pressed = true
-	check("fixed-jump-and-no-double", game.player.jumps == 1 and absf((640-min_y)-106.6667) < 10, {"rise_px":640-min_y, "jumps":game.player.jumps})
+	check("fixed-jump-and-no-double", game.player.jumps == 1 and absf((1320-min_y)-106.6667) < 10, {"rise_px":1320-min_y, "jumps":game.player.jumps})
 	await steps(30)
 	check("held-jump-no-bounce", game.player.jumps == 1 and game.player.is_on_floor(), {"jumps":game.player.jumps})
 	# Actual geometry fixtures at a ledge; tick ages exercise inclusive 6 / expired 7.
 	for age in [5,6,7]:
 		await fresh()
-		game.player.position = Vector2(960, 570)  # just past the spike-pit edge at x 900
+		game.player.position = Vector2(960, 1250)  # just past the spike-pit edge at x 900 (v2 floor y 1320)
 		await steps(2)
 		game.player.last_floor_tick = game.player.tick + 1 - age
 		game.player.opportunity_consumed = false
@@ -78,14 +78,14 @@ func run() -> void:
 		await steps(1)
 		check("buffer-%d" % age, (game.player.jumps == 1) == (age <= 6), {"age":age, "jumps":game.player.jumps})
 	await fresh()
-	game._add_solid(Rect2(64,520,128,24))
+	game._add_solid(Rect2(64,1200,128,24))
 	await steps(2)
 	game.player.test_jump_pressed = true
-	min_y = 640
+	min_y = 1320
 	for i in range(45):
 		await steps(1)
 		min_y = minf(min_y,game.player.position.y)
-	check("low-ceiling", min_y >= 600-0.4 and game.player.jumps == 1 and game.player.is_on_floor(), {"minimum_feet_y":min_y,"jumps":game.player.jumps})
+	check("low-ceiling", min_y >= 1280-0.4 and game.player.jumps == 1 and game.player.is_on_floor(), {"minimum_feet_y":min_y,"jumps":game.player.jumps})
 	await fresh()
 	game.player.test_jump_pressed = true
 	await steps(5)
@@ -100,13 +100,13 @@ func run() -> void:
 	check("focus-loss-pauses", game.state == Game.State.PAUSED, {"state":game.state})
 	game.test_mode = true
 	await fresh()
-	game.player.position = Vector2(970,700)  # inside the spike pit
+	game.player.position = Vector2(970,1380)  # inside the spike pit
 	await steps(4)
 	check("actual-spike-collision", game.state == Game.State.DYING and game.deaths == 1, {"state":game.state,"deaths":game.deaths})
 	game.resolve_contacts(true,true)
 	check("duplicate-death-ignored", game.deaths == 1, {"deaths":game.deaths})
 	await steps(38)
-	check("respawn", game.state == Game.State.PLAYING and game.player.position.distance_to(Vector2(128,640)) < 1, {"state":game.state,"position":str(game.player.position)})
+	check("respawn", game.state == Game.State.PLAYING and game.player.position.distance_to(Vector2(128,1320)) < 1, {"state":game.state,"position":str(game.player.position)})
 	game.restart_attempt()
 	check("manual-restart-not-death", game.deaths == 1, {"deaths":game.deaths})
 	var largest_retry_ticks: int = 0
@@ -122,20 +122,20 @@ func run() -> void:
 	game.resolve_contacts(true,true)
 	check("death-before-finish", game.state == Game.State.DYING, {"state":game.state})
 	await fresh()
-	game.player.position = Vector2(830,864)
+	game.player.position = Vector2(830,1544)
 	await steps(1)
 	check("fall-boundary", game.state == Game.State.DYING, {"state":game.state})
 	await fresh()
 	# Full real-input route (restored in step 3 once climbing exists): lower tunnel, ladder, upper tunnel, exit.
 	var route = Route.new()
 	var route_ticks := 0
-	while game.state == Game.State.PLAYING and route_ticks < 1500:
+	while game.state == Game.State.PLAYING and route_ticks < 4000:
 		route.step(game.player)
 		await steps(1)
 		route_ticks += 1
 	check("complete-real-route", game.state == Game.State.COMPLETE and game.deaths == 0, {"state":game.state,"deaths":game.deaths,"ticks":route_ticks,"position":str(game.player.position),"jump_marks_used":route.next_jump,"phase":route.phase})
 	await fresh()
-	game.player.position = Vector2(3120, 360)
+	game.player.position = Vector2(3100, 600)
 	await steps(4)
 	check("exit-completes", game.state == Game.State.COMPLETE and game.deaths == 0, {"state":game.state})
 	game.start_session()

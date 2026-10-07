@@ -29,7 +29,7 @@ const OIL_MAX := 100.0
 const OIL_DRAIN := 6.0         # per second (Rui playtest 2026-10-07: was 4; empty must actually happen)
 const OIL_DROP := 35.0
 const PICKUP_LOOK_TIME := 0.3  # seconds the pickup image shows
-const EMBER_LIMIT := 8.0       # Rui playtest 2026-10-07: at zero oil the ember burns out after 8 s (a failure)
+const EMBER_LIMIT := 4.0       # Rui playtests 2026-10-07: ember burns out at zero oil; 8 s, then shortened to 4 s
 
 enum State { MENU, PLAYING, PAUSED, DYING, COMPLETE }
 var state: State = State.MENU
@@ -65,8 +65,8 @@ func _ready() -> void:
 	_setup_input()
 	for entry in level.solids:
 		_add_solid(Rect2(entry[0], entry[1], entry[2], entry[3]))
-	_add_solid(Rect2(-64, 0, 64, 860))
-	_add_solid(Rect2(level.width, 0, 64, 860))
+	_add_solid(Rect2(-64, 0, 64, level_height() + 140))
+	_add_solid(Rect2(level.width, 0, 64, level_height() + 140))
 	for entry in level.hazards:
 		hazard_areas.append(_add_area(Rect2(entry[0], entry[1], entry[2], entry[3]), 8, true))
 	var f: Array = level.finish
@@ -84,8 +84,11 @@ func _ready() -> void:
 	lighting.game = self
 	add_child(lighting)
 	camera = Camera2D.new()
-	camera.position = Vector2(640, 360)
+	camera.position_smoothing_enabled = true  # facing-aware look-ahead must not jump 400 px on a turn
+	camera.position_smoothing_speed = 6.0
 	add_child(camera)
+	follow_camera()
+	camera.reset_smoothing()
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	hud = Hud.new()
@@ -142,6 +145,14 @@ func _add_area(rect: Rect2, layer: int, spikes: bool) -> Area2D:
 	add_child(area)
 	return area
 
+func level_height() -> float:
+	return float(level.get("height", 720))
+
+func follow_camera() -> void:
+	## x as before; y follows too since v2 has three tunnels stacked (clamped to the level)
+	camera.position.x = clampf(player.position.x + 200.0 * player.facing, 640, float(level.width) - 640)
+	camera.position.y = clampf(player.position.y - 120.0, 360, level_height() - 360)
+
 func _reset_run() -> void:
 	## A whole new run: first lamp post, full oil, every drop back.
 	collected.clear()
@@ -182,7 +193,8 @@ func restart_attempt() -> void:
 	player.look_override = ""
 	player.reset_at(_checkpoint_position())
 	player.enabled = true
-	camera.position.x = clampf(player.position.x + 200, 640, float(level.width) - 640)
+	follow_camera()
+	camera.reset_smoothing()  # respawn cuts straight to the lamp post
 	if is_instance_valid(lighting):
 		lighting.snap_radius()
 	if was_dying:
@@ -252,7 +264,7 @@ func _physics_process(delta: float) -> void:
 			contact_settle_ticks -= 1
 		else:
 			resolve_contacts(fatal, goal.overlaps_body(player))
-		camera.position.x = clampf(player.position.x + 200, 640, float(level.width) - 640)
+		follow_camera()
 		if state == State.PLAYING:  # a death / exit this tick already set hurt / celebrate; keep it
 			_update_event_look()
 	if is_instance_valid(hud):
@@ -320,14 +332,16 @@ func _draw() -> void:
 	if level.is_empty():
 		return
 	# Back wall: the generated 1280x720 rock, every other copy mirrored so the repeat seam matches.
-	for i in range(int(ceil(float(level.width) / 1280.0)) + 1):
-		var x := float(i) * 1280.0
-		if i % 2 == 0:
-			draw_texture(BG, Vector2(x, 0))
-		else:  # a negative rect size does not flip in Godot 4; mirror with a transform instead
-			draw_set_transform(Vector2(x + 1280, 0), 0.0, Vector2(-1, 1))
-			draw_texture(BG, Vector2.ZERO)
-			draw_set_transform(Vector2.ZERO)
+	for row in range(int(ceil(level_height() / 720.0))):
+		for i in range(int(ceil(float(level.width) / 1280.0)) + 1):
+			var x := float(i) * 1280.0
+			var y := float(row) * 720.0
+			if (i + row) % 2 == 0:
+				draw_texture(BG, Vector2(x, y))
+			else:  # a negative rect size does not flip in Godot 4; mirror with a transform instead
+				draw_set_transform(Vector2(x + 1280, y), 0.0, Vector2(-1, 1))
+				draw_texture(BG, Vector2.ZERO)
+				draw_set_transform(Vector2.ZERO)
 	for entry in level.solids:
 		var r := Rect2(entry[0], entry[1], entry[2], entry[3])
 		draw_texture_rect(TILE, r, true)

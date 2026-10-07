@@ -14,6 +14,7 @@ const CUTOFF_LOW := 800.0     # oil nearly empty
 const CUTOFF_EMBER := 400.0   # oil empty: mostly the low pulse
 const EMBER_DB := -4.0
 const DUCK_DB := -12.0        # failure window
+const JUMP_DB := -8.0         # Rui playtest 2026-10-07: the jump was too loud (mix decision; the file is unchanged)
 
 var game: Node2D
 var sfx: Dictionary = {}
@@ -29,6 +30,8 @@ func _ready() -> void:
 		var p := AudioStreamPlayer.new()
 		p.stream = STREAMS[id]
 		p.bus = &"SFX"
+		if id == "jump":
+			p.volume_db = JUMP_DB
 		add_child(p)
 		sfx[id] = p
 	music = AudioStreamPlayer.new()

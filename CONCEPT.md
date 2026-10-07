@@ -68,3 +68,8 @@ and separate music / effects mute keys. The full game (more tunnels, more hazard
   oil the ember now burns out after 8 seconds (a failure, back to the last lamp post)**, and oil drains
   at 6/s instead of 4/s. The spikes' faint glint stays, so "Fair in the dark" is kept; the risk now
   comes from time ("Every second burns") instead of from hiding the hazards.
+- **2026-10-07 (Rui, third playtest, the first with sound):** the slice level becomes **three tunnels**
+  (bottom → right, middle → left, top → right) joined by two ladders. This is the route of Rui's own
+  hand-drawn storyboard P1, about 2.5× longer, with 3 lamp posts, 4 oil drops, a double-jump spike pit
+  with a pillar, floor gaps that drop onto the spikes of the tunnel below, a tight landing between two
+  spike strips, and steps. **Ember limit shortened from 8 s to 4 s.**

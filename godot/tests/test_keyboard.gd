@@ -49,7 +49,7 @@ func run() -> void:
 	await tap(KEY_ENTER)
 	check("enter-resume",game.state == Game.State.PLAYING,"state="+str(game.state))
 	await tap(KEY_R)
-	check("r-retry",game.player.position.distance_to(Vector2(128,640)) < 1 and game.deaths == 0,"position="+str(game.player.position))
+	check("r-retry",game.player.position.distance_to(Vector2(128,1320)) < 1 and game.deaths == 0,"position="+str(game.player.position))
 	game.resolve_contacts(false,true)
 	await tap(KEY_ENTER)
 	check("enter-replay",game.state == Game.State.PLAYING and game.player.jumps == 0,"state="+str(game.state))

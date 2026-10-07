@@ -62,7 +62,7 @@ func run() -> void:
 		await steps(3)
 	await steps(40)
 	check("jump-one-sound-per-jump", pc("jump") == p.jumps and p.jumps >= 4, {"jump_sounds": pc("jump"), "jumps": p.jumps})
-	await fresh(Vector2(1819, 640))
+	await fresh(Vector2(2852, 1320))
 	p = game.player
 	p.test_climb_axis = -1
 	await steps(40)
@@ -72,27 +72,32 @@ func run() -> void:
 		await steps(2)
 	check("jump-off-ladder-mash-one-sound", pc("jump") == 1 and p.jumps == 1, {"jump_sounds": pc("jump"), "jumps": p.jumps})
 	# --- F3: pickup ---
-	await fresh(Vector2(1260, 560))
+	await fresh(Vector2(1260, 1240))
 	game.player.test_axis = 1
 	await steps(25)
 	game.player.test_axis = 0
 	await steps(90)                           # stand around on the spot
 	check("pickup-one-sound-per-drop", pc("pickup") == 1 and game.collected.count(true) == 1, {"pickup_sounds": pc("pickup")})
 	# --- F3: hurt ---
-	await fresh(Vector2(970, 700))            # inside the spike pit
+	await fresh(Vector2(970, 1380))           # inside the spike pit
 	await steps(3)
 	game.resolve_contacts(true, true)          # a second fatal contact in the same window is ignored
 	await steps(10)
 	check("hurt-one-sound-per-death", pc("hurt") == 1 and game.deaths == 1, {"hurt_sounds": pc("hurt"), "deaths": game.deaths})
-	await fresh(Vector2(970, 862))            # spike area AND below fall_y in the same tick
+	# Two fatal causes in one tick: spikes AND the ember burning out (v2 has no spot that is both spikes
+	# and below fall_y, which the v1 version of this check used)
+	await fresh()
+	game.oil = 0.0
+	game.ember_time = game.EMBER_LIMIT
+	game.player.position = Vector2(970, 1380)
 	await steps(3)
-	check("spike-and-fall-same-tick-one-sound", pc("hurt") == 1 and game.deaths == 1, {"hurt_sounds": pc("hurt"), "deaths": game.deaths})
+	check("two-causes-same-tick-one-sound", pc("hurt") == 1 and game.deaths == 1, {"hurt_sounds": pc("hurt"), "deaths": game.deaths})
 	await steps(40)
-	game.player.position = Vector2(970, 700)
+	game.player.position = Vector2(970, 1380)
 	await steps(50)
 	check("hurt-again-after-respawn", pc("hurt") == 2 and game.deaths == 2, {"hurt_sounds": pc("hurt"), "deaths": game.deaths})
 	# --- F3: exit ---
-	await fresh(Vector2(3120, 360))
+	await fresh(Vector2(3100, 600))
 	await steps(90)                           # stand in the exit
 	check("exit-one-sound", pc("exit") == 1 and game.state == Game.State.COMPLETE, {"exit_sounds": pc("exit")})
 	var ev := InputEventAction.new()
@@ -123,12 +128,12 @@ func run() -> void:
 	await steps(60)
 	check("music-ember-mostly-pulse", game.audio.cutoff < 500.0 and game.audio.music.volume_db <= -3.9, {"cutoff": game.audio.cutoff, "volume_db": game.audio.music.volume_db})
 	game.oil = 100.0
-	game.player.position = Vector2(970, 700)
+	game.player.position = Vector2(970, 1380)
 	await steps(8)
 	check("music-ducks-on-death", game.audio.music.volume_db < -6.0 and game.audio.music.playing, {"volume_db": game.audio.music.volume_db})
 	await steps(60)
 	check("music-returns-after-respawn", game.audio.music.volume_db > -1.0 and game.state == Game.State.PLAYING, {"volume_db": game.audio.music.volume_db})
-	game.player.position = Vector2(3120, 360)
+	game.player.position = Vector2(3100, 600)
 	await steps(6)
 	check("music-stops-at-exit", not game.audio.music.playing and game.state == Game.State.COMPLETE, {"playing": game.audio.music.playing})
 	game.start_session()
@@ -160,7 +165,7 @@ func run() -> void:
 		var route = Route.new()
 		var trace := []
 		var t := 0
-		while game.state == Game.State.PLAYING and t < 1500:
+		while game.state == Game.State.PLAYING and t < 4000:
 			route.step(game.player)
 			await steps(1)
 			t += 1

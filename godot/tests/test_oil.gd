@@ -54,8 +54,8 @@ func run() -> void:
 	await steps(60)
 	check("no-drain-while-paused", game.oil == paused_oil, {"oil": game.oil})
 	game.set_paused(false)
-	# Pickup on the oil ledge (drop 0 at 1320,520; ledge top y 560)
-	await fresh(Vector2(1260, 560))
+	# Pickup on the oil ledge (v2: drop 0 at 1320,1200; ledge top y 1240)
+	await fresh(Vector2(1260, 1240))
 	game.oil = 50.0
 	game.player.test_axis = 1
 	var t := 0
@@ -70,7 +70,7 @@ func run() -> void:
 	check("pickup-look-ends", game.player.look != "pickup", {"look": game.player.look})
 	await steps(30)
 	check("standing-on-drop-no-repeat", counts["oil_collected"] == 1, {"signals": counts["oil_collected"]})
-	await fresh(Vector2(1260, 560))
+	await fresh(Vector2(1260, 1240))
 	game.player.test_axis = 1
 	await steps(30)
 	check("pickup-capped-at-100", counts["oil_collected"] == 1 and game.oil <= 100.0, {"oil": game.oil})
@@ -87,22 +87,22 @@ func run() -> void:
 	await steps(3)
 	check("ember-look-at-zero", game.player.look == "ember" and game.state == Game.State.PLAYING, {"look": game.player.look, "state": game.state})
 	check("still-playing-at-zero", game.state == Game.State.PLAYING, {"state": game.state})
-	await fresh(Vector2(1819, 640))
+	await fresh(Vector2(2852, 1320))
 	game.oil = 0.0
 	game.player.test_climb_axis = -1
 	await steps(6)
 	check("climb-look-beats-ember", game.player.look == "climb", {"look": game.player.look})
-	# Ember burns out (Rui playtest 2026-10-07): 8 s at zero oil is a failure; a drop in time resets it
+	# Ember burns out (Rui playtests 2026-10-07): 8 s at zero oil, then shortened to 4 s; a drop in time resets it
 	await fresh()
 	game.oil = 0.0
-	await steps(60 * 5)
+	await steps(60 * 2)
 	var r_mid: float = game.lighting.wick_radius
-	check("ember-ring-shrinks", r_mid < 56.0 and r_mid > 28.0 and game.state == Game.State.PLAYING, {"radius_after_5s": r_mid})
-	await steps(60 * 3 + 5)
-	check("ember-burns-out-after-8s", game.state == Game.State.DYING and counts["died"] == 1 and game.death_reason == "Your flame went out" and game.killer_hazard == -1, {"state": game.state, "reason": game.death_reason})
-	await fresh(Vector2(1260, 560))
+	check("ember-ring-shrinks", r_mid < 56.0 and r_mid > 28.0 and game.state == Game.State.PLAYING, {"radius_after_2s": r_mid})
+	await steps(60 * 2 + 5)
+	check("ember-burns-out-after-4s", game.state == Game.State.DYING and counts["died"] == 1 and game.death_reason == "Your flame went out" and game.killer_hazard == -1, {"state": game.state, "reason": game.death_reason})
+	await fresh(Vector2(1260, 1240))
 	game.oil = 0.0
-	await steps(60 * 5)
+	await steps(60 * 2)
 	game.player.test_axis = 1
 	t = 0
 	while counts["oil_collected"] == 0 and t < 60:
@@ -111,37 +111,40 @@ func run() -> void:
 	game.player.test_axis = 0
 	await steps(60 * 4)
 	check("drop-in-time-saves-the-ember", game.state == Game.State.PLAYING and counts["died"] == 0 and game.ember_time == 0.0, {"state": game.state, "oil": game.oil})
-	# Lamp post checkpoint (P7): touch post 2, collect drop 1, die on the upper spikes, come back
-	await fresh(Vector2(1980, 360))
-	game.player.test_axis = 1
-	await steps(4)
-	game.player.test_axis = 0
-	check("lamp-post-saves", game.checkpoint == 1, {"checkpoint": game.checkpoint, "saved_oil": game.checkpoint_oil})
-	var saved: float = game.checkpoint_oil
-	game.player.position = Vector2(2650, 360)
-	await steps(2)
+	# The floating drop in the bottom tunnel (v2 drop 1 at 2650,1220) is reachable with a plain jump
+	await fresh(Vector2(2650, 1320))
 	game.player.test_jump_pressed = true
 	t = 0
 	while counts["oil_collected"] == 0 and t < 40:
 		await steps(1)
 		t += 1
 	check("floating-drop-reachable-by-jump", counts["oil_collected"] == 1 and game.collected[1], {"signals": counts["oil_collected"], "ticks": t})
-	await steps(40)
-	game.player.position = Vector2(2448, 350)
+	# Lamp post checkpoint (P7): touch post 1 (middle tunnel), take drop 2, die on the middle spikes, come back
+	await fresh(Vector2(2760, 960))
+	game.player.test_axis = -1
+	await steps(20)  # walk into the post's 48 px reach (the first version stopped after 4 ticks, 5 px)
+	game.player.test_axis = 0
+	check("lamp-post-saves", game.checkpoint == 1, {"checkpoint": game.checkpoint, "saved_oil": game.checkpoint_oil})
+	var saved: float = game.checkpoint_oil
+	game.player.position = Vector2(1480, 880)
 	await steps(3)
-	check("killer-hazard-recorded", game.state == Game.State.DYING and game.killer_hazard == 1, {"state": game.state, "killer": game.killer_hazard})
+	check("drop-after-checkpoint-taken", game.collected[2], {"collected": game.collected})
+	await steps(30)
+	game.player.position = Vector2(2398, 950)
+	await steps(3)
+	check("killer-hazard-recorded", game.state == Game.State.DYING and game.killer_hazard == 4, {"state": game.state, "killer": game.killer_hazard})
 	await steps(40)
-	check("respawn-at-lamp-post", game.state == Game.State.PLAYING and game.player.position.distance_to(Vector2(2040, 360)) < 1.0, {"pos": str(game.player.position)})
+	check("respawn-at-lamp-post", game.state == Game.State.PLAYING and game.player.position.distance_to(Vector2(2740, 960)) < 1.0, {"pos": str(game.player.position)})
 	# measured at the moment of respawn (the first version compared after ~6 more ticks of normal drain)
-	check("respawn-restores-saved-oil-and-drop", oil_at_respawn == saved and not game.collected[1], {"oil_at_respawn": oil_at_respawn, "saved": saved, "drop1_collected": game.collected[1]})
+	check("respawn-restores-saved-oil-and-drop", oil_at_respawn == saved and not game.collected[2], {"oil_at_respawn": oil_at_respawn, "saved": saved, "drop2_collected": game.collected[2]})
 	check("died-and-respawned-once", counts["died"] == 1 and counts["respawned"] == 1, {"counts": counts})
 	game.restart_attempt()
 	check("r-restart-is-not-death", game.deaths == 1 and counts["died"] == 1 and game.checkpoint == 1, {"deaths": game.deaths})
 	# A new run resets everything
-	game.player.position = Vector2(3120, 360)
+	game.player.position = Vector2(3100, 600)
 	await steps(3)
 	game.start_session()
-	check("new-run-resets", game.checkpoint == 0 and is_equal_approx(game.oil, 100.0) and not game.collected.has(true) and game.player.position.distance_to(Vector2(128, 640)) < 1.0, {"checkpoint": game.checkpoint, "oil": game.oil})
+	check("new-run-resets", game.checkpoint == 0 and is_equal_approx(game.oil, 100.0) and not game.collected.has(true) and game.player.position.distance_to(Vector2(128, 1320)) < 1.0, {"checkpoint": game.checkpoint, "oil": game.oil})
 	var out := ProjectSettings.globalize_path("res://../evidence")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/oil-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)

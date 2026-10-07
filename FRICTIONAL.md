@@ -416,3 +416,24 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Only a human can check:** whether each sound fits its moment in play, whether the loop seam stays
   clean in the engine, whether the muffling is audible on laptop speakers (F7), and whether the game
   still reads with sound off.
+
+## 2026-10-07 — third playtest (Rui, with sound) → level v2
+
+- **Rui's words:** the jump sound is too loud, make it quieter; "I want the map to be more complex,
+  longer, with more things in it"; shorten the ember to four seconds.
+- **Claude proposed** building the three-tunnel zig-zag from Rui's own storyboard P1 (the slice had
+  only built two of its tunnels) and laid out the contents. Rui's request set the direction, and the
+  layout follows Rui's drawing; the details (pit with a pillar, gaps over the spikes below, double strip,
+  steps) are Claude's proposals.
+- **What broke on the way:** (1) the real-input route died between the double spikes: a platform
+  dropped Wick past his take-off point, so it moved right 100 px; (2) a step exactly as high as the
+  maximum rise was lowered to 100 px; (3) all tests had v1 coordinates and were moved to v2, and one
+  check (spike + fall in one tick) is impossible in the new geometry. It became "spikes + ember
+  burn-out in one tick", still two fatal causes and one sound; (4) the F5 muted-vs-sound comparison
+  failed again even after the warm-up. The cause: positions were identical, but oil was one 6/s tick
+  apart, because a headless run decides from real time how many physics ticks fit in a frame. Fixed at
+  the root with `--fixed-fps 60` in `tools/run_tests.sh`; the comparison was not loosened.
+- **Results (twice in a row):** test_game 26/0 (full v2 route, zero deaths, ~30 s), test_keyboard 9/9,
+  test_wick 17/0, test_oil 24/0, test_audio 23/0. Map: `design/level-v2-overview.png`.
+- **Human / Claude / model:** requests and the storyboard route are Rui's; layout details, code and
+  tests are Claude's; no new generated assets (v2 reuses the accepted ones).

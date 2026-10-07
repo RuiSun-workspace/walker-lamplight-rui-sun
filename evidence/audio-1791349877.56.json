@@ -1,0 +1,190 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "failures": 0,
+  "results": [
+    {
+      "id": "jump-one-sound-per-jump",
+      "observed": {
+        "jump_sounds": 5,
+        "jumps": 5
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "jump-off-ladder-mash-one-sound",
+      "observed": {
+        "jump_sounds": 1,
+        "jumps": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "pickup-one-sound-per-drop",
+      "observed": {
+        "pickup_sounds": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "hurt-one-sound-per-death",
+      "observed": {
+        "deaths": 1,
+        "hurt_sounds": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "two-causes-same-tick-one-sound",
+      "observed": {
+        "deaths": 1,
+        "hurt_sounds": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "hurt-again-after-respawn",
+      "observed": {
+        "deaths": 2,
+        "hurt_sounds": 2
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "exit-one-sound",
+      "observed": {
+        "exit_sounds": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "replay-no-exit-sound",
+      "observed": {
+        "exit_sounds": 1,
+        "state": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-loop-enabled",
+      "observed": {
+        "loop": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-plays-on-title",
+      "observed": {
+        "playing": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-full-bright-at-start",
+      "observed": {
+        "cutoff": 19052.8817378085
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-pauses",
+      "observed": {
+        "stream_paused": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-resumes",
+      "observed": {
+        "playing": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-muffles-with-low-oil",
+      "observed": {
+        "cutoff_at_20_oil": 1883.93142282343
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-ember-mostly-pulse",
+      "observed": {
+        "cutoff": 448.083802845676,
+        "volume_db": -4.0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-ducks-on-death",
+      "observed": {
+        "volume_db": -10.0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-returns-after-respawn",
+      "observed": {
+        "volume_db": 0.0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-stops-at-exit",
+      "observed": {
+        "playing": false
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "music-restarts-new-run",
+      "observed": {
+        "playing": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "n-mutes-music-only",
+      "observed": {
+        "music": true,
+        "sfx": false
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "b-mutes-effects",
+      "observed": {
+        "sfx": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "toggles-back",
+      "observed": {},
+      "status": "PASS"
+    },
+    {
+      "id": "muted-run-identical-to-sound-run",
+      "observed": {
+        "end_muted": [
+          "end",
+          1784,
+          4,
+          0,
+          17,
+          4
+        ],
+        "end_sound": [
+          "end",
+          1784,
+          4,
+          0,
+          17,
+          4
+        ],
+        "samples": 179
+      },
+      "status": "PASS"
+    }
+  ],
+  "scope": "F3 sound-per-event counts, music behaviour, mute keys, F5 muted-trace equality; scripted inputs, not listening"
+}

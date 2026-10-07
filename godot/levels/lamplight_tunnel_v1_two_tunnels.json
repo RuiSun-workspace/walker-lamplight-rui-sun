@@ -1,0 +1,22 @@
+{
+  "id": "lamplight-tunnel",
+  "title": "Lamplight - asset slice",
+  "scope": "Assignment 2 asset slice: a lower and an upper tunnel joined by a ladder (STORYBOARD v2, CHANGE-BRIEF 4b)",
+  "width": 3200,
+  "fall_y": 860,
+  "spawn": [128, 640],
+  "solids": [
+    [0, 640, 900, 80],
+    [1040, 640, 860, 80],
+    [900, 704, 140, 16],
+    [320, 584, 96, 56],
+    [1240, 560, 160, 24],
+    [1900, 400, 64, 320],
+    [1840, 360, 1360, 40]
+  ],
+  "hazards": [[900, 668, 140, 36], [2400, 324, 96, 36]],
+  "ladders": [[1803, 360, 32, 280]],
+  "oil": [[1320, 520], [2650, 290]],
+  "lamp_posts": [[96, 640], [2000, 360]],
+  "finish": [3080, 200, 80, 160]
+}

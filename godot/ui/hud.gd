@@ -73,7 +73,7 @@ func _draw() -> void:
 		button = "ENTER  /  PLAY AGAIN"
 	centered(title, 280, 48, title_col)
 	centered(detail, 340, 20)
-	centered("Oil drains every second. At zero your ember lasts 8 seconds.", 380, 16, DIM)
+	centered("Oil drains every second. At zero your ember lasts 4 seconds.", 380, 16, DIM)
 	var b := button_rect()
 	draw_rect(b, BRASS)
 	centered(button, b.position.y + 36, 22, Color("14151c"))

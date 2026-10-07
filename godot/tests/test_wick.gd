@@ -66,7 +66,7 @@ func run() -> void:
 	await steps(1)
 	check("look-fall", p.look == "fall" and p.velocity.y > 0, {"look": p.look, "vy": p.velocity.y, "ticks_to_apex": w})
 	# Ladder (F8)
-	await fresh(Vector2(1819, 640))
+	await fresh(Vector2(2852, 1320))
 	p = game.player
 	p.test_axis = -1
 	await steps(2)
@@ -75,16 +75,17 @@ func run() -> void:
 	await steps(4)
 	check("grab-ladder", p.climbing and p.look == "climb" and not p.sprite.flip_h, {"climbing": p.climbing, "look": p.look, "flip": p.sprite.flip_h})
 	var t := 0
-	while p.position.y > 356 and t < 200:
+	while p.position.y > 956 and t < 300:
 		await steps(1)
 		t += 1
+	var up_ticks := t
 	await steps(10)
-	check("climb-to-top-holds", p.climbing and absf(p.position.y - 354) < 3, {"y": p.position.y, "ticks": t})
+	check("climb-to-top-holds", p.climbing and absf(p.position.y - 954) < 3, {"y": p.position.y, "ticks": t})
 	p.test_climb_axis = 0
-	p.test_axis = 1
+	p.test_axis = -1  # v2: the middle tunnel is to the LEFT of the first ladder
 	await steps(20)
-	check("step-onto-upper-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 360) < 1 and p.position.x > 1822, {"pos": str(p.position)})
-	await fresh(Vector2(1819, 640))
+	check("step-onto-upper-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 960) < 1 and p.position.x < 2848, {"pos": str(p.position)})
+	await fresh(Vector2(2852, 1320))
 	p = game.player
 	p.test_climb_axis = -1
 	await steps(40)
@@ -97,36 +98,36 @@ func run() -> void:
 		p.test_jump_pressed = true
 		await steps(2)
 	check("mash-jump-on-ladder-no-extra", jumped_count == 1, {"jumped_signals": jumped_count})
-	await fresh(Vector2(1819, 640))
+	await fresh(Vector2(2852, 1320))
 	p = game.player
 	p.test_climb_axis = -1
 	await steps(40)
 	p.test_climb_axis = 1
 	t = 0
-	while p.climbing and t < 200:
+	while p.climbing and t < 300:
 		await steps(1)
 		t += 1
-	check("climb-down-to-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 640) < 1, {"pos": str(p.position), "ticks": t})
+	check("climb-down-to-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 1320) < 1, {"pos": str(p.position), "ticks": t})
 	# Rui playtest 2026-10-07: getting down felt stuck. Down at the ladder top grabs; down is faster than up.
-	await fresh(Vector2(1830, 360))
+	await fresh(Vector2(2840, 960))  # standing on the middle floor's right edge, next to ladder 1
 	p = game.player
 	await steps(3)
 	p.test_climb_axis = 1
 	await steps(3)
 	var grabbed_from_top: bool = p.climbing
 	t = 0
-	while p.climbing and t < 200:
+	while p.climbing and t < 300:
 		await steps(1)
 		t += 1
-	check("down-from-upper-floor", grabbed_from_top and not p.climbing and p.is_on_floor() and absf(p.position.y - 640) < 1, {"grabbed": grabbed_from_top, "ticks_down": t, "pos": str(p.position)})
-	check("down-faster-than-up", t > 0 and t < 70, {"ticks_down_280px": t, "up_speed": p.CLIMB_SPEED, "down_speed": p.CLIMB_DOWN_SPEED})
+	check("down-from-upper-floor", grabbed_from_top and not p.climbing and p.is_on_floor() and absf(p.position.y - 1320) < 1, {"grabbed": grabbed_from_top, "ticks_down": t, "pos": str(p.position)})
+	check("down-faster-than-up", t > 0 and t < up_ticks, {"ticks_down_360px": t, "ticks_up": up_ticks, "up_speed": p.CLIMB_SPEED, "down_speed": p.CLIMB_DOWN_SPEED})
 	# Event looks
-	await fresh(Vector2(970, 700))
+	await fresh(Vector2(970, 1380))
 	await steps(2)
 	check("look-hurt-on-death", game.state == Game.State.DYING and game.player.look == "hurt", {"state": game.state, "look": game.player.look})
 	await steps(40)
 	check("look-cleared-on-respawn", game.state == Game.State.PLAYING and game.player.look == "idle", {"look": game.player.look})
-	await fresh(Vector2(3120, 360))
+	await fresh(Vector2(3100, 600))
 	await steps(3)
 	check("look-celebrate-on-exit", game.state == Game.State.COMPLETE and game.player.look == "celebrate", {"look": game.player.look})
 	var out := ProjectSettings.globalize_path("res://../evidence")

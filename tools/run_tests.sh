@@ -9,7 +9,10 @@ cd "$(dirname "$0")/../godot"
 status=0
 for t in test_game test_keyboard test_wick test_oil test_audio; do
   [ -f "tests/$t.gd" ] || continue
-  out=$(timeout 600 "$G" --headless --path . --script "res://tests/$t.gd" 2>&1); code=$?
+  # --fixed-fps 60: exactly one physics tick per frame. Without it a fast headless run decides from real
+  # time how many physics ticks fit in a frame, so "wait 2 frames" was sometimes 1 extra tick (found by
+  # the F5 muted-vs-sound trace check: same positions, oil 0.1 apart = one 6/s tick).
+  out=$(timeout 600 "$G" --headless --fixed-fps 60 --path . --script "res://tests/$t.gd" 2>&1); code=$?
   pass=$(grep -c '"status":"PASS"' <<<"$out"); fail=$(grep -c '"status":"FAIL"' <<<"$out")
   errs=$(grep -c 'SCRIPT ERROR' <<<"$out")
   verdict=OK

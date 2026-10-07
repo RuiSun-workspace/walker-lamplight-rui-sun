@@ -171,3 +171,13 @@ _Append dated entries here after this file is first committed._
   `died` signal and SFX-HURT as spikes / falls; no spike flash). Any drop resets the timer. Options Rui
   did not choose: glint fading with distance, no glint at all, flickering glint. New checks:
   `ember-ring-shrinks`, `ember-burns-out-after-8s`, `drop-in-time-saves-the-ember`.
+
+- **2026-10-07 — level v2, ember 4 s, quieter jump (Rui's third playtest).** `lamplight_tunnel.json`
+  v2 (v1 kept as `lamplight_tunnel_v1_two_tunnels.json`): 3200×1440, three tunnels in storyboard-P1
+  order, ladders at x 2836 and 260 (3–6 px clear of the slabs), camera follows y as well and looks
+  ahead in the facing direction (smoothed). Ember limit 8 → **4 s**. **SFX-JUMP plays at −8 dB**: Rui
+  found it too loud; a mixing decision in `audio_director.gd`, the file is unchanged. Spacing was
+  checked against the ×2 physics (213 px jump, 36 px collider). Two placements failed the real-input
+  route and were moved: the oil platform sat too close to the double spikes, and a 112 px step equalled
+  the maximum rise. The tests now run at `--fixed-fps 60`; without it the number of physics ticks per
+  frame varied, which broke the F5 trace comparison by one tick of oil.
