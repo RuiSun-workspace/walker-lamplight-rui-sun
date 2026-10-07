@@ -6,7 +6,7 @@
 - **Engine:** Godot 4.7.2.stable.official.ed1daf0bf (portable), GL Compatibility renderer.
 - **Machine:** Windows 11 Home (China), NVIDIA GeForce RTX 3070 Laptop GPU (driver 572.16), 32 GB RAM.
 - **Date:** 2026-10-07.
-- **Who did what:** Rui played and listened (every human result below is Rui's, quoted); Claude wrote
+- **Who did what:** Rui played and listened in six sessions (every human result below is Rui's, quoted); Claude wrote
   the code, the automated checks and this report; no other person playtested.
 
 ## 1. Startup and controls
@@ -76,10 +76,10 @@ now). Rui chose each sound by ear before it went into the engine (SOURCES.md).
 
 | Behaviour (CHANGE-BRIEF 3) | Automated | Human |
 |---|---|---|
-| Loop repeats cleanly | stream `loop = true`; cut at 8 bars of a measured 90 bpm, seam sample jump 0.0020 vs median step 0.0006 | Rui, standalone 3× repeat: b1 "no problem at the seam" (b0 rejected for "a slight problem"). **In-engine seam: to be confirmed in the final listening pass (section 6).** |
+| Loop repeats cleanly | stream `loop = true`; cut at 8 bars of a measured 90 bpm, seam sample jump 0.0020 vs median step 0.0006 | Rui, standalone 3× repeat: b1 "no problem at the seam" (b0 rejected for "a slight problem"). **In engine (playtest 6): "没有断拍" (no broken beat).** |
 | Pause / resume in place | PASS | — |
 | Dip on death, return after respawn | PASS (−9.9 dB at 8 ticks, 0 dB after) | — |
-| Muffles with low oil; ember = mostly pulse, −4 dB | PASS (cutoff 1918 Hz at 20 oil, 452 Hz at 0) | **F7 (audible on laptop speakers?): not yet asked of Rui.** |
+| Muffles with low oil; ember = mostly pulse, −4 dB | PASS (cutoff 1918 Hz at 20 oil, 452 Hz at 0) | **F7, Rui (playtest 6): "音乐有一点区别" (the music has a little difference).** Audible but subtle; the playback device was not stated. |
 | Stops at the exit, restarts on a new run | PASS | Rui heard the exit (playtests 3–5) |
 | N / B mute music / effects separately | PASS | — |
 
@@ -91,8 +91,8 @@ now). Rui chose each sound by ear before it went into the engine (SOURCES.md).
 - **Every sound has a visual twin** (CHANGE-BRIEF 5): jump image, pickup image + gauge + light, hurt
   image + red spike flash + message, celebrate + end card; the ember warning is the shrinking ring and the
   faster blinking gauge.
-- **Human muted playtest: PENDING.** Rui's five playtests were with sound. A muted session (N then B)
-  with Rui's own judgement is still required and will be added here.
+- **Human muted playtest (Rui, playtest 6, music and effects muted with N and B):** "静音时没问题"
+  (no problem when muted). Rui could follow the game without sound.
 
 ## 7. Automated checks
 
@@ -132,9 +132,9 @@ Test problems found and fixed honestly, never by weakening an assertion:
 | F2 | Wick disappears against lit rock (2.1:1 on the sheet) | **Did not happen in the engine:** 4.8–9.6:1 measured on captures. The warm light lifts the brass and the generated rock is dark and cold. |
 | F3 | a sound fires twice | PASS in all scripted cases. |
 | F4 | loop clicks at the seam | Numbers clean; Rui's standalone listening fine for b1. b0 *did* have an audible seam problem that the numbers missed, so b1 was chosen. |
-| F5 | muting changes the game / unreadable muted | Automated PASS; **human muted play pending**. |
+| F5 | muting changes the game / unreadable muted | Automated PASS (identical traces); Rui's muted playtest: "no problem". |
 | F6 | generated pixel art not on a grid | Happened (SDXL "pixel art" was soft, extra colours). Solved by illustrate-then-pixelise; 5 colours per sprite, no semi-transparency, Nearest. |
-| F7 | muffling too subtle | **Pending Rui.** |
+| F7 | muffling too subtle | **Partly happened:** Rui hears "a little difference". The pass condition (distinguishable) is met, but only just. The planned fallback (add the −4 dB step earlier, or a deeper cutoff) was not applied; it is listed as a limitation. |
 | F8 | the ladder breaks movement | Happened twice (stuck under the slab; up-and-down loop at the top) and once for Rui ("coming down feels stuck"); all fixed and covered. |
 
 ## 9. Human playtests (Rui), and the revisions they caused
@@ -146,6 +146,7 @@ Test problems found and fixed honestly, never by weakening an assertion:
 | 3 | step 5, first with sound | "跳跃的声音太大了……地图能够更加复杂一点，更长一点……余烬时间减到四秒" (jump too loud; map more complex and longer; ember 4 s) | jump −8 dB; level v2 (three tunnels from Rui's storyboard P1); ember 4 s (`d195a92`) |
 | 4 | level v2 | "跳跃的声音还是大，其他部分没有什么问题，油有点少" (jump still loud; the rest fine; oil a bit scarce) | jump −16 dB; two more oil drops on the route (`77d0573`) |
 | 5 | final volume | "没问题了" (no problem now) | — |
+| 6 | muted, then music on | "静音时没问题，音乐有一点区别，没有断拍" (fine when muted; the music has a little difference; no broken beat) | none; F7 recorded as subtle |
 
 Inspect-and-revise cycles driven by observation (details in FRICTIONAL.md): CHAR-REF rounds 1–3 and
 the switch to illustrate-then-pixelise; the 32×40 → 64×80 size change after a measured reduction showed
@@ -155,7 +156,8 @@ playtest revisions above.
 
 ## 10. Honest limitations
 
-- **Muted human playtest and F7 still to do** (sections 5–6).
+- **The oil-to-music muffling is subtle** (Rui: "a little difference"; F7). It is the main audio signal of
+  "Every second burns"; a stronger curve is the first audio change for the full game.
 - MusicGen is a music model; the effects are short cuts of musical textures rather than designed one-shots.
 - Climb uses a front view standing in for the back view; the fall image's eyes are off-centre.
 - The mirrored repeat of the generated back wall is visible as symmetric crates/pillars where the light reaches.

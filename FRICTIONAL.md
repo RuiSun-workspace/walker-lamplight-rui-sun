@@ -464,3 +464,11 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   could not reproduce it; the next full run produced all 18.
 - **Still owed by Rui (not invented):** one muted playtest, and the F7 question (is the muffling
   audible on laptop speakers?). The in-engine loop seam has only been judged as part of general play.
+
+## 2026-10-07 — sixth playtest (Rui): muted, then music on
+
+- **Rui's words:** "静音时没问题，音乐有一点区别，没有断拍" (fine when muted; the music has a little
+  difference; no broken beat).
+- **Recorded as:** F5 human check passed. F7 only just: the muffling is audible but subtle, and the
+  device was not stated. The in-engine loop seam is fine. No change was made; the subtle muffling is
+  listed as a limitation and as the first audio change for the full game.
