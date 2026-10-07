@@ -437,3 +437,13 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   test_wick 17/0, test_oil 24/0, test_audio 23/0. Map: `design/level-v2-overview.png`.
 - **Human / Claude / model:** requests and the storyboard route are Rui's; layout details, code and
   tests are Claude's; no new generated assets (v2 reuses the accepted ones).
+
+## 2026-10-07 — fourth playtest (Rui, level v2)
+
+- **Rui's words:** "the jump sound is still loud; everything else is fine; there is a bit too little oil."
+- **Changed:** jump to −16 dB (−8 was not enough; the file stays untouched, it is a mix level).
+  Rather than lowering the drain again (Rui chose 6/s), there are two more drops, placed where the
+  player is already doing something hard: on the pillar in the double-jump pit and on the top step.
+  Claude chose the spots. The real-input route now picks up 6 of 6 drops.
+- **Results:** all suites 99 checks, 0 failures, 0 script errors.
+- **Not yet confirmed by Rui:** whether −16 dB is right.

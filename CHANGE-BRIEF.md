@@ -181,3 +181,7 @@ _Append dated entries here after this file is first committed._
   route and were moved: the oil platform sat too close to the double spikes, and a 112 px step equalled
   the maximum rise. The tests now run at `--fixed-fps 60`; without it the number of physics ticks per
   frame varied, which broke the F5 trace comparison by one tick of oil.
+- **2026-10-07 — fourth playtest (Rui):** jump still too loud → SFX-JUMP **−16 dB** (was −8). "Oil is a
+  bit scarce" → **two more drops** (6 total), placed as rewards on the route: on the pit-B pillar
+  (landing the double jump) and on the top tunnel's second step. The real-input route now collects
+  all 6 (was 4). Everything else in level v2 was fine for Rui.

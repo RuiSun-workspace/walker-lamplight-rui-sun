@@ -14,7 +14,7 @@ const CUTOFF_LOW := 800.0     # oil nearly empty
 const CUTOFF_EMBER := 400.0   # oil empty: mostly the low pulse
 const EMBER_DB := -4.0
 const DUCK_DB := -12.0        # failure window
-const JUMP_DB := -8.0         # Rui playtest 2026-10-07: the jump was too loud (mix decision; the file is unchanged)
+const JUMP_DB := -16.0        # Rui playtests 2026-10-07: jump too loud; -8 dB was still too loud, now -16 (mix only; file unchanged)
 
 var game: Node2D
 var sfx: Dictionary = {}
