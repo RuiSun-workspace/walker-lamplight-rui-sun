@@ -1,0 +1,17 @@
+[
+  {"id": "SFX-JUMP", "seed": 3001, "seconds": 2, "batch": 4,
+   "prompt": "a single short dry sound effect of a small metal object hopping, a quick light metallic clink, no music, no melody",
+   "note": "audio round 1; MusicGen is a music model, asked explicitly for no music"},
+  {"id": "SFX-PICKUP", "seed": 3002, "seconds": 2, "batch": 4,
+   "prompt": "a single short bright sound effect, a liquid gulp followed by a quick rising sparkling chime, no drums, no melody",
+   "note": "audio round 1"},
+  {"id": "SFX-HURT", "seed": 3003, "seconds": 2, "batch": 4,
+   "prompt": "a single short harsh sound effect, a sharp metallic clang hit followed by a short hiss, no music",
+   "note": "audio round 1"},
+  {"id": "SFX-EXIT", "seed": 3004, "seconds": 4, "batch": 4,
+   "prompt": "a short airy sound effect of wind opening up into a soft bright resolving chime, peaceful relief, no drums",
+   "note": "audio round 1"},
+  {"id": "MUS-LOOP", "seed": 3101, "seconds": 30, "batch": 2,
+   "prompt": "tense dark ambient game music for an underground mine, a steady low synth pulse at 90 bpm, sparse warm plucked melody, subtle metallic percussion, minimal, constant tempo, no vocals",
+   "note": "audio round 1; 30 s so a loop can be cut at a bar boundary"}
+]

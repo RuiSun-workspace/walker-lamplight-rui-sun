@@ -269,3 +269,33 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   **Rui has not reviewed yet.**
 - **Decided (Rui):** environment round 1 accepted. The lamp post and the outdoor exit scene are still
   open (asked, not answered yet); the slice can run without them.
+
+## 2026-10-07 — audio round 1 (MusicGen medium, waiting for Rui's ears)
+
+- **Wanted:** four short event sounds (jump, pickup, hurt, exit) and one tense loop (CONCEPT audio
+  direction: steady pulse, "keep going" rather than "panic").
+- **Asked:** `tools/gen/audio_round1.json` (MusicGen medium @ `d3bd7b0`, guidance 3, top-k 250): 4
+  candidates per sound (2 s; exit 4 s), 2 music clips of 30 s at "90 bpm". Prompts say "no music / no
+  melody" for the effects, because MusicGen is a music model.
+- **Got (by measurement only, since Claude cannot listen):** every effect clip is a continuous 2-second
+  texture, not a one-shot. Only a few have a clear attack at the start (waveforms:
+  `design/rejected/AUDIO-round1-waveforms.png`). JUMP-b3 is silence for 0.9 s, then three hits. The
+  music came out at 90.09 bpm by autocorrelation, so the prompt's tempo was followed.
+- **Claude's edits for listening:** `tools/gen/audio_tools.py`. `sfx` cuts each clip from its onset
+  (jump 350 ms, pickup 600 ms, hurt 500 ms, exit 2 s), with a 30 ms fade-out, peak −1 dBFS. `loop`
+  cuts 8 bars at 90 bpm (21.33 s), starting on the strongest onset after the first second, both ends on
+  rising zero crossings. Seam jump is 0.0016 / 0.0020 against a median sample step of 0.0020 / 0.0006,
+  so no sample-level click is expected. Musical continuity across the seam is unknown until a human
+  listens.
+- **Two of my own bugs, caught:** (1) the first `sfx` pass used −40 dB to find the onset; JUMP-b3's
+  noise floor passed that, so its cut was 350 ms of silence. Now −25 dB. (2) the first tempo estimate
+  (hop 512) said 89.3 bpm, about 0.2 s of drift over 8 bars; hop 64 gives 90.09.
+- **Human / Claude / model:** MusicGen generated; Claude prompted, measured and cut; **Rui listens and
+  picks** (listening page `F:\7270\a2-gen\listen\listen.html`, outside the repo).
+- **Decided (Rui, by listening):** jump b0, pickup b1, hurt b0, exit b2; music b1. Rui says b1's seam is
+  fine over three repeats and **b0 had a slight problem at the seam**. This is the first time the
+  numbers and the ear disagreed: b0's seam measured *cleaner* (jump 0.0016 vs its median 0.0020) than
+  b1's. The sample check only rules out clicks. It says nothing about whether the music makes sense
+  across the cut.
+- **Still unresolved:** Rui has not described what each chosen effect sounds like; MusicGen effects
+  may sound more "musical" than event-like. To be judged in the running scene (TEST-REPORT).

@@ -103,3 +103,19 @@ outputs: `design/rejected/ENV-round1-contact.png`. Composite check: `design/gene
 | ENV-OIL | s2005-b3 | **Accepted, edited.** No output was a single drop; the drop hanging on the right of b3 was cropped off its holder. | crop, near-white removed (corner key left a white box), 22×24 | `godot/assets/env/oil_drop.png` |
 | ENV-LADDER | s2006-b2 | **Accepted, edited.** A straight front-on run of rungs in the middle of a wooden frame. | crop, 32×32 vertical tile, dark interior → transparent | `godot/assets/env/ladder.png` |
 | ENV-LAMPPOST | s2007 b0–b3 | **Not used (pending Rui).** b0 is another lantern (confusable with Wick); b1 reduces to a white smudge; b2/b3 are scenes. | b1 processed to 40×64 for review only | — |
+
+### Sound effects and music (audio round 1, 2026-10-07) — picked by Rui by ear
+
+MusicGen medium (`facebook/musicgen-medium` @ `d3bd7b0`, CC-BY-NC 4.0), local, guidance 3.0, temperature
+1.0, top-k 250, fp16; exact prompts and seeds in `tools/gen/audio_round1.json` and gen-log.jsonl.
+Edits by `tools/gen/audio_tools.py` (logged in edit-log.jsonl). Waveforms of all 18 raw clips:
+`design/rejected/AUDIO-round1-waveforms.png`. Exported files were checked sample-for-sample against
+the versions Rui auditioned.
+
+| Asset ID | Pick | Outcome (Rui listened; Claude cannot) | Edits | Where used |
+|---|---|---|---|---|
+| SFX-JUMP | s3001-b0 | **Accepted** (Rui's pick of 4). | cut from onset, 350 ms, 30 ms fade-out, peak −1 dBFS, OGG q6 | `godot/assets/audio/sfx_jump.ogg` (P3) |
+| SFX-PICKUP | s3002-b1 | **Accepted** (Rui's pick of 4). | 600 ms, same chain | `godot/assets/audio/sfx_pickup.ogg` (P4) |
+| SFX-HURT | s3003-b0 | **Accepted** (Rui's pick of 4). | 500 ms, same chain | `godot/assets/audio/sfx_hurt.ogg` (P6) |
+| SFX-EXIT | s3004-b2 | **Accepted** (Rui's pick of 4). | 2000 ms, same chain | `godot/assets/audio/sfx_exit.ogg` (P8) |
+| MUS-LOOP | s3101-b1 | **Accepted.** Rui: seam fine over three repeats. b0 rejected: Rui heard "a slight problem" at its seam. | 8 bars at 90 bpm (measured 90.09) = 21.344 s from 1.899 s, ends on rising zero crossings, seam jump 0.0020 (median step 0.0006), peak −3 dBFS, OGG q6 | `godot/assets/audio/mus_loop.ogg` (P1–P7) |
