@@ -76,11 +76,40 @@ Design documents: [CONCEPT](CONCEPT.md) · [STORYBOARD](STORYBOARD.md) (hand-dra
 
 ## Known limitations
 
-See [TEST-REPORT.md §10](TEST-REPORT.md). In short: the effects are cut from a music model's output;
-climb uses a front view instead of a back view; the fall image's eyes are off-centre; the mirrored
-background repeat is visible; the outdoor exit scene was not generated; the character-sheet drawings
-are SVG while the storyboard is hand-drawn.
+Full list: [TEST-REPORT.md §10](TEST-REPORT.md). In short:
+
+- The oil-to-music muffling is subtle (Rui: "a little difference"); it is the main audio signal of
+  "every second burns".
+- The effects are cut from a music model's output, not designed one-shots.
+- Chaining the jump between the middle tunnel's two spike strips at full speed needs near-frame-perfect
+  timing; stopping in the gap works. Widening it is the first level change for the full game.
+- Climb uses a front view with a faceless flame standing in for the back view (the model drew no back view);
+  the fall image's eyes are off-centre; no animation (one static image per state).
+- The mirrored repeat of the generated back wall is visible; the outdoor exit scene was not generated.
+- The character-sheet drawings are SVG (Rui's choice); the storyboard is hand-drawn.
+- The film's gameplay is scripted input through real `Input` actions, not human play.
 
 ## Final film
 
-_TBD — filename, course media storage link, SHA-256._
+**[▶ Watch the film](https://northeastern-my.sharepoint.com/:v:/g/personal/sun_r3_northeastern_edu/IQApLUVOtRgNSa8IJEat3WgqAatgl7QkgIaf07zQCJS8u24?e=Lqm1EB)** — Northeastern OneDrive, viewable by anyone signed in with a Northeastern account.
+
+| Field | Value |
+| --- | --- |
+| Filename | `claude-liam-walker-lamplight-gamedev.mp4` |
+| SHA-256 | `f0ae62846568d6013f68f96b63f891486d3302910da23aca04f36d2bd12c41d7` |
+| Format | 3840×2160 H.264, 30 fps, AAC 48 kHz stereo |
+| Duration | 329.93 s (5 min 30 s) · 64.7 MB |
+| Game revision shown | `a70758da954068bafc3de1058f9eaebff318b16a` (capture `build_id` `718aeab3…7c71e`) |
+| Workflow | Brutalist `godot-gamedev`, walker mode; narration Kokoro `am_onyx` ("Liam") |
+| Hosting | Northeastern OneDrive; link scope "People in Northeastern University with the link", view-only |
+
+The film's beat sheet, prompts, fact-check, shot list, capture hashes and input logs, evidence ledger
+and QC reports are in [`youtube/claude-liam-walker-lamplight-gamedev/`](youtube/claude-liam-walker-lamplight-gamedev/).
+MP4 and MP3 files are kept out of the repository.
+
+Check that you have the same file:
+
+```bash
+sha256sum claude-liam-walker-lamplight-gamedev.mp4
+# f0ae62846568d6013f68f96b63f891486d3302910da23aca04f36d2bd12c41d7
+```

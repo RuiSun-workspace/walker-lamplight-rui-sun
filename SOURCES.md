@@ -12,7 +12,8 @@
 |---|---|---|---|
 | Godot Engine | 4.7.2.stable.official.ed1daf0bf (portable, Windows) | Engine | MIT |
 | Claude Code (Claude Opus 5.5, `claude-opus-5-5`) | — | Code, plans, prompt drafts, document drafts. **Not** an image or audio generator. | Anthropic terms; Northeastern access |
-| Brutalist (course-provided) | `29ba0e8` | Explainer film workflow | Course-provided |
+| Brutalist (course-provided) | `29ba0e8` | Explainer film workflow (godot-gamedev skill, Remotion scenes, compiler, QC gates); the outro's stock @NikBearBrown jingle `logos/bear-brown/bear-brown-6.mp3` | Course-provided |
+| Kokoro TTS | `kokoro-v1.0.onnx`, voice `am_onyx` ("Liam"), run locally through the Brutalist toolkit | Film narration only (not in the game) | Apache-2.0 |
 
 ## Generative models
 
@@ -21,7 +22,7 @@ Each model is added here **when it is first used**.
 | Model | Exact version | Where it ran | License / terms | First used |
 |---|---|---|---|---|
 | Stable Diffusion XL base 1.0 (Stability AI) | `sd_xl_base_1.0.safetensors`, SHA-256 `31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b` | Locally, RTX 3070 Laptop 8 GB, through ComfyUI 0.39.0 (git `7a5dad69`) | CreativeML Open RAIL++-M (use restrictions; no attribution fee; outputs usable) | 2026-10-06, CHAR-REF |
-| MusicGen medium (Meta) | Hugging Face `facebook/musicgen-medium` @ `d3bd7b0` | Locally, same GPU, Hugging Face transformers 5.14.1 | **CC-BY-NC 4.0 — non-commercial, attribution required** (fine for coursework) | downloaded 2026-10-06, not used yet |
+| MusicGen medium (Meta) | Hugging Face `facebook/musicgen-medium` @ `d3bd7b0` | Locally, same GPU, Hugging Face transformers 5.14.1 | **CC-BY-NC 4.0 — non-commercial, attribution required** (fine for coursework) | downloaded 2026-10-06; first used 2026-10-07, audio round 1 |
 
 Runtime: PyTorch 2.11.0+cu128 reused from an existing local conda environment, in a separate venv on
 F: (`F:Ǘ02-genenv`); the original environment was not modified.
@@ -32,10 +33,11 @@ FRICTIONAL.md has the dated detail. In summary:
 
 | Who | Contributed |
 |---|---|
-| **Rui (human)** | Chose the game, tone, hero, ending and rules in the vision intake; **drew the storyboard by hand**; picked the concept and the art style; accepted or rejected every generated image and chose the reference face; **chose every sound and the music loop by listening**; playtested five times and asked for every gameplay revision (ladder descent, ember burn-out 8 s → 4 s, drain 6/s, longer three-tunnel map, jump volume, more oil); decided to keep the SVG character sheet. |
+| **Rui (human)** | Chose the game, tone, hero, ending and rules in the vision intake; **drew the storyboard by hand**; picked the concept and the art style; accepted or rejected every generated image and chose the reference face; **chose every sound and the music loop by listening**; playtested six times (one fully muted) and asked for every gameplay revision (ladder descent, ember burn-out 8 s → 4 s, drain 6/s, longer three-tunnel map, jump volume, more oil); decided to keep the SVG character sheet. |
 | **Claude (Claude Code, Opus 5.5)** | Wrote the outline, the CONCEPT / CHARACTER-SHEET / CHANGE-BRIEF drafts and the SVG sketches (storyboard v1, character sheet); every prompt and the generation scripts; the post-processing tools (pixelize, face edit, normalise, environment processing, audio cuts and loop); all Godot code, the level layouts and all tests; the asset checks, captures and this documentation. Painted the reference face from Rui's chosen pattern (an edit, not model output). Claude cannot hear, so audio judgements are Rui's. |
 | **Stable Diffusion XL base 1.0** | Every generated image: Wick's body and flame in all states, back wall, tiles, spikes, oil drop, ladder (see the asset log for what was kept and edited). |
 | **MusicGen medium** | The four sound effects and the music loop (cut and levelled by Claude's tools, chosen by Rui). |
+| **Explainer film** | Claude built it (script, captures, scenes, cut) with the Brutalist toolkit; the narration is Kokoro TTS. Rui approved making it, watched the master, chose the outro jingle and asked for the climb-image correction. Details: `youtube/claude-liam-walker-lamplight-gamedev/`. |
 | **Code-drawn (not generated)** | Lamp posts, the exit daylight, the light and darkness, the HUD, the spike flash, the ledge-top rim edit, and the reference face pattern. |
 
 ## Asset log
