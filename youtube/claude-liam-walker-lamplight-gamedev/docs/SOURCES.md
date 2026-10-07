@@ -10,6 +10,7 @@
 | Asset-trace strips (B05, B06 images) | composed by Claude from repo files and raw generations (`assets/b05-*.png`, `b06-*.png`) | this reel | 1002-b2 (a look-alike of a copyrighted character) deliberately not shown |
 | Test output (B18) | verbatim stdout of `bash tools/run_tests.sh` and `python tools/check_assets.py`, 2026-10-07 (`capture/test-output.txt`) | `assets/b18-test-output.png` | own |
 | Narration | Kokoro v1.0 ONNX, voice `am_onyx` (Liam, in for Bear), local | `mp3/` | toolkit-provided local model |
-| Scenes, outro, jingle | Brutalist (course-provided) Remotion components: ClaudeComposerAsk, BrutalistHesitantWriter, GodotDesignBoard, GodotDevWorkbench, ClaudeVerdictArtifact, ClaudeTitleOutro | brutalist.art `29ba0e8` | course-provided |
+| Scenes, outro | Brutalist (course-provided) Remotion components: ClaudeComposerAsk, BrutalistHesitantWriter, GodotDesignBoard, GodotDevWorkbench, ClaudeVerdictArtifact, ClaudeTitleOutro | brutalist.art `29ba0e8` | course-provided |
+| Outro jingle | `logos/bear-brown/bear-brown-6.mp3`, stock @NikBearBrown jingle; picked by sha256(slug) mod 6 + 1 = 6; −8 dB, otherwise unchanged (`mix/B21-jingle.wav`) | brutalist.art `29ba0e8` | course-provided |
 
 No paid service, API key or network call was used to make this film (models were downloaded once earlier).

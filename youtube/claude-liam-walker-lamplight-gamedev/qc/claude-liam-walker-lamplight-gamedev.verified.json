@@ -1,8 +1,8 @@
 {
   "status": "ready",
   "output": "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\exports\\landscape\\claude-liam-walker-lamplight-gamedev.mp4",
-  "sha256": "00e9e6af92c48b1322d5516826327eadc50bc63ae190cbc61694afbd8058d4f6",
-  "duration_s": 324.5,
+  "sha256": "8a5988fd7a716cd4dd4236182f22d8a617057b5de27c6e37846a6800e3150f16",
+  "duration_s": 326.8666666666667,
   "input_sha256": {
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B00.mp4": "1c9d8a9ddaf89135a93468b024e6f2f75d8fa46eb0b805e2db4b96e3b67f5a37",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B01.mp4": "9b21d8fef3118b3c92eac7b566bdcdc3e0990eb4aca02e0b51767eae1a312c74",
@@ -25,13 +25,14 @@
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B18.png": "9226cc17d20782b74629cec81861be70134e8a928e0509adf2ca5667c5137029",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B19.mp4": "30748f0a1eead6ec6a8e59581f5a5b839441fe56f10308c625d24bc14fbfcb6a",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B20.mp4": "6252a857ea3cc8e11b7b3c1ff76cf216621c97ad89bb01e55610b443b7728dcb",
-    "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B21.mp4": "128ede07b0ddab86ebdee84b9d40813362754ebb1a554188aace026b5fdf48d3",
+    "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\media\\B21.mp4": "2b67bbff0f61130261ee3414e8c1bc6d010236df1ff2a60c931c6de6a0920489",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B02.wav": "950fc563c4bf9891e92ecf0623251b9f7505bf3c7ab6cd39739955a2ff0ee60e",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B08.wav": "d6076a83c2f6893d85eea5159c80a74add53fda3e1b527b33ec8e680bf18421d",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B10.wav": "92070d0a0a20b9545e64a5483b55c31418f0b29fa24ea4396acb64f0484fb94e",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B12.wav": "6be2fb197b0a0310d5605902201a00e67c7846e6dc4c3c570a0d56ce1a671f0d",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B13-game.wav": "8550128a34a31a8e80f04135b82f7cfe6b626a9580c3ef6ade4ab13cea95c735",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B15.wav": "9496e9b8371ec671672d705954817ada7b2c0462731ecd580e2325b73a661dcb",
+    "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mix\\B21-jingle.wav": "1e84c4699805a196d05e6f158436c9e6c5b83503221104b34cd8cb37bb5c2fcb",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mp3\\beat-B00.mp3": "f86e216d895193ce9049d9cb43b4adeffaa6285b1cc9f968c281cb47fabcada6",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mp3\\beat-B01.mp3": "ead801b83efbbd894186c52f193ed2f417a2359ab13fdf5bd7ab1f606352fb5c",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mp3\\beat-B03.mp3": "cba8aa36807ec81e12e099ccd74b80f33d5b6bf5a9380231869edce2da72242e",
@@ -48,5 +49,5 @@
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mp3\\beat-B19.mp3": "722b1f5aff780ff53b90391232203a366d83cbf7d6595c77d81602a01cfe8776",
     "F:\\7270\\reels\\claude-liam-walker-lamplight-gamedev\\mp3\\beat-B20.mp3": "8d943b6add34070052b61aa2b49dac3f08cc4b4c935f91db3e27371b8d841021"
   },
-  "at": "2026-10-07T21:18:15.285208+00:00"
+  "at": "2026-10-07T23:06:46.423939+00:00"
 }

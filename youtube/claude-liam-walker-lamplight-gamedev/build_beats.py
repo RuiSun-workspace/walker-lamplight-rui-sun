@@ -299,6 +299,14 @@ for _b in beats:
         _p["source"] = _qc["source"][_b["beat_id"]]
     if _b["beat_id"] == "B19":
         _p["artifactLines"] = _qc["B19_artifactLines"]
+    if _b["beat_id"] == "B21":
+        # Rui, 2026-10-07: "配一下吧" -> the stock jingle, slug-seeded; mix/B21-jingle.wav is made by ffmpeg
+        # (volume=-8dB) from the toolkit file. The card runs for the jingle's length.
+        _j = _qc["B21_jingle"]
+        _b.pop("audio_policy", None); _b.pop("audio_policy_note", None)
+        _b["audio_file"] = _j["audio_file"]
+        _b["jingle"] = {k: _j[k] for k in ("source", "pick", "gain_db")}
+        _b["estimated_duration_s"] = _j["duration_s"]
 
 sheet = {"metadata": {
     "title": TITLE, "slug": SLUG, "topic": "WALKER · LAMPLIGHT", "kind": "gamedev", "playlist": "Brutalist",

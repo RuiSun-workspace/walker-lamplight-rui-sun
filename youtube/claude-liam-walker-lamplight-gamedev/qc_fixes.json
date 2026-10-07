@@ -13,5 +13,12 @@
   "next — widen that gap; strengthen the muffling curve",
   "who — SDXL: every image · MusicGen: every sound · Rui: design, storyboard, every pick and change · Claude: prompts, tools, code, tests, film",
   "source — commit a70758d · build 718aeab3e08b · Godot 4.7.2 · captures are scripted input, not human play"
- ]
+ ],
+ "B21_jingle": {
+  "source": "brutalist.art logos/bear-brown/bear-brown-6.mp3 (stock @NikBearBrown jingle, unchanged except gain)",
+  "pick": "sha256(slug) mod 6 + 1 = 6 (OUTRO-LOCK: jingle seeded by the reel slug; the toolkit has no picker code)",
+  "gain_db": -8,
+  "audio_file": "mix/B21-jingle.wav",
+  "duration_s": 9.366666666666667
+ }
 }

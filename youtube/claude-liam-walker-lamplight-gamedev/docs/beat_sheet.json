@@ -28,7 +28,7 @@
     "episode_id": "walker-lamplight-gamedev",
     "note": "godot-gamedev in walker mode over walker-lamplight-rui-sun (CSYE 7270 Assignment 2). Source commit a70758da954068bafc3de1058f9eaebff318b16a, build_id 718aeab3e08bc7e2bf1882f21ae7f2f84cebf1fe938c7d31cfd736d85a67c71e, Godot 4.7.2.stable.official.ed1daf0bf. Gameplay beats are native 3840x2160 Godot Movie Maker output from scripted-input takes (capture/run-01..03.mp4) driven through Input actions; not human play. B13 carries the game's own audio with no narration; other gameplay beats keep the game audio quietly under narration.",
     "build": {
-      "at": "2026-10-07T17:18:15",
+      "at": "2026-10-07T19:06:46",
       "cut": "master",
       "filled": 22,
       "of": 22,
@@ -80,7 +80,7 @@
         "status": "VIDEO",
         "src": "media\\B00.mp4",
         "filled_by": "remotion:ClaudeComposerAsk",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -126,7 +126,7 @@
         "status": "VIDEO",
         "src": "media\\B01.mp4",
         "filled_by": "remotion:BrutalistHesitantWriter",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -195,7 +195,7 @@
         "status": "VIDEO",
         "src": "media\\B02.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -271,7 +271,7 @@
         "status": "VIDEO",
         "src": "media\\B03.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -318,7 +318,7 @@
         "status": "VIDEO",
         "src": "media\\B04.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -365,7 +365,7 @@
         "status": "VIDEO",
         "src": "media\\B05.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -412,7 +412,7 @@
         "status": "VIDEO",
         "src": "media\\B06.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -486,7 +486,7 @@
         "status": "VIDEO",
         "src": "media\\B07.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -556,7 +556,7 @@
         "status": "VIDEO",
         "src": "media\\B08.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -626,7 +626,7 @@
         "status": "VIDEO",
         "src": "media\\B09.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -696,7 +696,7 @@
         "status": "VIDEO",
         "src": "media\\B10.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -770,7 +770,7 @@
         "status": "VIDEO",
         "src": "media\\B11.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -840,7 +840,7 @@
         "status": "VIDEO",
         "src": "media\\B12.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -888,7 +888,7 @@
         "status": "VIDEO",
         "src": "media\\B13.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -962,7 +962,7 @@
         "status": "VIDEO",
         "src": "media\\B14.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1032,7 +1032,7 @@
         "status": "VIDEO",
         "src": "media\\B15.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1108,7 +1108,7 @@
         "status": "VIDEO",
         "src": "media\\B16.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1178,7 +1178,7 @@
         "status": "VIDEO",
         "src": "media\\B17.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1204,7 +1204,7 @@
         "status": "STILL",
         "src": "media\\B18.png",
         "filled_by": "still",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1247,7 +1247,7 @@
         "status": "VIDEO",
         "src": "media\\B19.mp4",
         "filled_by": "remotion:ClaudeVerdictArtifact",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
@@ -1293,18 +1293,16 @@
         "status": "VIDEO",
         "src": "media\\B20.mp4",
         "filled_by": "remotion:ClaudeComposerAsk",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
       }
     },
     {
       "beat_id": "B21",
       "act": "OUTRO",
-      "audio_policy": "silence",
-      "audio_policy_note": "Intentional. OUTRO-LOCK.md: the outro card is silent under the jingle; no narration, no game audio.",
       "role_note": "OUTRO LOCK - ClaudeTitleOutro, exact title, @NikBearBrown, slug-seeded mascot/jingle.",
       "narration_text": "",
       "estimated_duration_s": 7,
-      "actual_duration_s": 7.0,
+      "actual_duration_s": 9.366666666666667,
       "shot": {
         "type": "GRAPHIC",
         "source": "remotion",
@@ -1314,20 +1312,26 @@
           "props": {
             "title": "Lamplight: Generated, Then Played.",
             "slug": "claude-liam-walker-lamplight-gamedev",
-            "durationSeconds": 7.0
+            "durationSeconds": 9.366666666666667
           },
           "rendered": {
             "out": "media/B21.mp4",
-            "at": "2026-10-07T20:39:35.000545+00:00"
+            "at": "2026-10-07T23:02:33.927303+00:00"
           }
         }
       },
-      "render_duration_s": 7.0,
+      "render_duration_s": 9.366666666666667,
       "build": {
         "status": "VIDEO",
         "src": "media\\B21.mp4",
         "filled_by": "remotion:ClaudeTitleOutro",
-        "at": "2026-10-07T17:18:15"
+        "at": "2026-10-07T19:06:46"
+      },
+      "audio_file": "mix/B21-jingle.wav",
+      "jingle": {
+        "source": "brutalist.art logos/bear-brown/bear-brown-6.mp3 (stock @NikBearBrown jingle, unchanged except gain)",
+        "pick": "sha256(slug) mod 6 + 1 = 6 (OUTRO-LOCK: jingle seeded by the reel slug; the toolkit has no picker code)",
+        "gain_db": -8
       }
     }
   ]

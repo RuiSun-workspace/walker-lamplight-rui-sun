@@ -1,6 +1,6 @@
 # SHOTLIST — Lamplight: Generated, Then Played.
 
-Total 324.5 s (compiled master; the plan summed to ≈ 324.2 s) at 30 fps, 3840×2160. Gameplay = scripted-input Movie Maker captures (labelled on screen per beat in `shot.label`); every gameplay interval is contiguous, at normal speed, never retimed; run-01 intervals do not overlap.
+Total 326.9 s (compiled master) at 30 fps, 3840×2160. Gameplay = scripted-input Movie Maker captures (labelled on screen per beat in `shot.label`); every gameplay interval is contiguous, at normal speed, never retimed; run-01 intervals do not overlap.
 
 | Beat | Start s | Dur s | Act | Component / shot | Source | Audio | On-screen label |
 |---|---|---|---|---|---|---|---|
@@ -25,4 +25,4 @@ Total 324.5 s (compiled master; the plan summed to ≈ 324.2 s) at 30 fps, 3840�
 | B18 |  249.1 | 15.79 | RESULT | STILL | media/B18.png | narration | Recorded tool output, verbatim (capture/test-output.txt) |
 | B19 |  264.9 | 32.44 | VERDICT | ClaudeVerdictArtifact | media/B19.mp4 | narration |  |
 | B20 |  297.3 | 19.90 | HANDOFF | ClaudeComposerAsk | media/B20.mp4 | narration |  |
-| B21 |  317.2 |  7.00 | OUTRO | ClaudeTitleOutro | media/B21.mp4 | silent (outro jingle only) |  |
+| B21 |  317.5 |  9.37 | OUTRO | ClaudeTitleOutro | media/B21.mp4 | stock jingle bear-brown-6, −8 dB (no narration) |  |

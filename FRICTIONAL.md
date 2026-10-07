@@ -518,3 +518,14 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
     dims the HUD, so only the label is measured there and the card is checked by eye.
 - **A race to remember:** `remotion_scenes.py` rewrites `beat_sheet.json` when it stamps provenance, so
   edits made to the sheet while a render runs are lost. The contrast fields had to be applied again.
+
+## 2026-10-07 — film master review (Rui): the outro jingle
+
+- **Claude reported two things:** B13's slice audio is about 10 dB louder than the narration, and B21 was
+  silent because the jingle folder OUTRO-LOCK names (`svg/claude/mp3/`) is not in the toolkit.
+- **Rui's words:** "一不用改，2配一下吧" (1: no change; 2: add it).
+- **Done:** the toolkit does ship stock @NikBearBrown jingles in `logos/bear-brown/` (six files, three
+  distinct tunes). OUTRO-LOCK says the jingle is picked by the reel slug, but no picker code exists, so
+  the pick is `sha256(slug) mod 6 + 1` = `bear-brown-6.mp3` (9.36 s), at −8 dB so it sits just above
+  the narration instead of 11 dB over it. The outro card now runs for the jingle's length (9.37 s), and
+  the film is 326.9 s. B13 is unchanged.
