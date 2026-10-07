@@ -29,3 +29,6 @@ credentials/
 *.pfx
 
 # Git cannot ignore by size: inspect staged files before committing (>25 MB).
+
+# film capture input logs are copied into the reel folder; local runs are scratch
+capture-logs/

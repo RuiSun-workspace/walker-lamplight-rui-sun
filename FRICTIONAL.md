@@ -472,3 +472,23 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Recorded as:** F5 human check passed. F7 only just: the muffling is audible but subtle, and the
   device was not stated. The in-engine loop seam is fine. No change was made; the subtle muffling is
   listed as a limitation and as the first audio change for the full game.
+
+## 2026-10-07 — film capture driver: real Input is one tick late
+
+- **Rui approved** (before going to sleep): local runs (Godot capture, ffmpeg, Python, Remotion,
+  Kokoro), writing to F:\7270\reels and a capture copy, local commits without pushing, AI narration
+  (Liam / Kokoro am_onyx), keep-awake. For the "slice audio, no narration" segment Rui chose "use the
+  toolkit's own mechanism and ask the instructor". The compiler takes a per-beat `audio_file`. Claude
+  uses it to put the capture's own game audio on that beat, instead of the `clock: source` /
+  `preserve` path that the toolkit reserves for fellows' SOURCE_REPORTs (its docs warn against
+  labelling gameplay that way). Rui should still ask the instructor.
+- **Found while building `capture_film.gd`** (drives the game through `Input.action_press`, as the
+  capture contract requires): the same route that passes with the test hooks died between the middle
+  tunnel's two spike strips. With real Input, `is_action_just_pressed` is true on the tick *after* the
+  press. At full speed that shifted the previous landing about 5 px left, to 9 px from the next strip,
+  and the stop-slide carried the collider in. Two changes: the route's take-off mark for that jump moved
+  1237 → 1262 so it lands mid-gap, and the film driver settles 8 ticks after a landing before a chained
+  jump, as a person would. The tests still pass with the new mark.
+- **What it says about the level:** chaining that section at full speed is close to frame-perfect. Rui
+  got through it (probably by stopping in the gap). Worth a wider gap in the full game; recorded as a
+  limitation.

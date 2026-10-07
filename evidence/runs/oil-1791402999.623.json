@@ -1,0 +1,201 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "failures": 0,
+  "results": [
+    {
+      "id": "oil-starts-full",
+      "observed": {
+        "elapsed": 0.0333333333333333,
+        "oil": 99.8
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "drain-6-per-second",
+      "observed": {
+        "drained_in_60_ticks": 5.99999999999966
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "no-drain-while-paused",
+      "observed": {
+        "oil": 93.8000000000004
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "pickup-adds-35",
+      "observed": {
+        "oil": 84.1,
+        "signals": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "pickup-look",
+      "observed": {
+        "look": "pickup"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "pickup-look-ends",
+      "observed": {
+        "look": "idle"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "standing-on-drop-no-repeat",
+      "observed": {
+        "signals": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "pickup-capped-at-100",
+      "observed": {
+        "oil": 97.9000000000001
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "light-radius-follows-oil",
+      "observed": {
+        "radii": {
+          "0": 56.0,
+          "50": 148.0,
+          "100": 240.0
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "ember-look-at-zero",
+      "observed": {
+        "look": "ember",
+        "state": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "still-playing-at-zero",
+      "observed": {
+        "state": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "climb-look-beats-ember",
+      "observed": {
+        "look": "climb"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "ember-ring-shrinks",
+      "observed": {
+        "radius_after_2s": 42.8750063817626
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "ember-burns-out-after-4s",
+      "observed": {
+        "reason": "Your flame went out",
+        "state": 3
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "drop-in-time-saves-the-ember",
+      "observed": {
+        "oil": 10.9999999999998,
+        "state": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "floating-drop-reachable-by-jump",
+      "observed": {
+        "signals": 1,
+        "ticks": 4
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "lamp-post-saves",
+      "observed": {
+        "checkpoint": 1,
+        "saved_oil": 99.2
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "drop-after-checkpoint-taken",
+      "observed": {
+        "collected": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "killer-hazard-recorded",
+      "observed": {
+        "killer": 4,
+        "state": 3
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "respawn-at-lamp-post",
+      "observed": {
+        "pos": "(2740.0, 960.0)"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "respawn-restores-saved-oil-and-drop",
+      "observed": {
+        "drop2_collected": false,
+        "oil_at_respawn": 99.2,
+        "saved": 99.2
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "died-and-respawned-once",
+      "observed": {
+        "counts": {
+          "died": 1,
+          "oil_collected": 1,
+          "respawned": 1
+        }
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "r-restart-is-not-death",
+      "observed": {
+        "deaths": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "new-run-resets",
+      "observed": {
+        "checkpoint": 0,
+        "oil": 100.0
+      },
+      "status": "PASS"
+    }
+  ],
+  "scope": "Oil, light, ember, lamp posts; scripted inputs, not human playtesting"
+}

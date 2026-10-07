@@ -4,7 +4,7 @@ extends RefCounted
 ## Each leg: walk in `dir`, press Jump when passing each mark (on the floor), then hand over to a climb.
 const LEGS := [
 	{"name": "bottom", "dir": 1.0, "marks": [250.0, 846.0, 1170.0, 1560.0, 1790.0, 2240.0, 2545.0], "ladder": 0},
-	{"name": "middle", "dir": -1.0, "marks": [2510.0, 2040.0, 1630.0, 1237.0, 1030.0], "ladder": 1},
+	{"name": "middle", "dir": -1.0, "marks": [2510.0, 2040.0, 1630.0, 1262.0, 1030.0], "ladder": 1},
 	{"name": "top", "dir": 1.0, "marks": [846.0, 1240.0, 1345.0, 1750.0, 2440.0], "ladder": -1},
 ]
 var leg: int = 0
