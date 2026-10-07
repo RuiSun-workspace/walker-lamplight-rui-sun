@@ -350,3 +350,27 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Checks added:** `down-from-upper-floor` (grab from the top, reach the floor: 61 ticks) and
   `down-faster-than-up`. test_game 26/0, test_wick 17/0, test_keyboard 9/9.
 - **Still to confirm by Rui:** whether getting down now feels right.
+
+## 2026-10-07 — slice step 4: oil, light, ember, lamp posts, HUD
+
+- **Built (Claude):** oil drains 4/s; a drop gives +35 (capped at 100), marks itself collected
+  *before* emitting `oil_collected`, and shows the pickup image for 0.3 s. Lamp posts save oil and
+  which drops are taken; death or R returns to the last post, and drops taken after it come back.
+  Darkness is a CanvasModulate. Wick's light follows the oil from 240 px down to a 56 px ring that
+  never goes out (Rui's rule). Spikes, oil drops, lamp flames and the exit daylight are drawn
+  unshaded, so they stay faintly visible in the dark; the spikes that killed you flash red. The ember
+  image shows at zero oil, unless climbing. New HUD: oil gauge (red, blinking outline when empty), run
+  timer, retries, controls. Signals for step 5: `oil_collected`, `died`, `respawned`, `completed`,
+  `paused_changed`, `run_started`.
+- **Caught by tests, fixed:** a real bug. On the tick of a death or exit, the new event-look update
+  overwrote hurt / celebrate with the movement image (test_wick went 15→2 failures); the update now
+  only runs while still playing. Two of my own test bugs: a check of "starts full" 2 ticks in, after
+  drain had begun, now asserts oil = 100 − 4 × elapsed exactly; a `str(100.0)` dictionary key hung the
+  run before `quit()`. The respawn-oil check now samples at the respawn signal instead of 6 ticks later.
+  Both are stricter than before.
+- **Caught by screenshots, fixed:** at ambient 0.09 even full oil hid the ledges ahead (unfair).
+  Ambient raised to 0.16. The control hint at the bottom sat on top of the spike pit and moved to the
+  top-left. Screens: `evidence/screens/step4-*.png`; files named "staged" had the oil set by the
+  capture script, not by play.
+- **Results:** test_game 26/0, test_wick 17/0, test_oil 20/0, test_keyboard 9/9.
+- **Not yet judged by a human:** whether 4/s drain and 240 → 56 px feel tense but fair.
