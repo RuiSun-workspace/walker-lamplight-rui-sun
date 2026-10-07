@@ -66,3 +66,23 @@ Exact prompts (the negative prompts are in gen-log.jsonl):
 
 Exact prompt **P6:** "flat 2D cartoon illustration of a single cute brass lantern creature, game character design, bold clean dark outline, flat cel shading with one highlight and one shadow tone, round ring handle on top, flat brass cap, tapered dark glass body narrower at the bottom with two thin cage bars, a big yellow teardrop flame inside the glass, the flame has a cute friendly face with two round black eyes side by side and a small smile, short thin brass stick legs, thin brass stick arms, full body, standing, three-quarter view facing right, simple shapes, centered, plain white background" (negative in gen-log.jsonl; it now *includes* "pixel art, pixelated").
 | **CHAR-REF** | SDXL base 1.0 | 1012-b1 (P6, img2img from the sheet idle pose, denoise 0.75, seed 1012, batch index 1) | **Accepted, edited** (Rui, 2026-10-07: chose b1 over b2, then chose face variant 3 "oval" of three). Judged against the sheet: construction (ring handle, flat cap, dark tapered glass, flame inside, brass stick limbs) matches; the generated face did not survive pixelisation, so it was repainted. | `pixelize.py` 64×80, height 66, 6-colour quantise → `face_edit.py --face oval`: removed an extra ring above the handle, cleaned brass specks out of the flame, **replaced the face** with 2×4 oval eyes + 5-px smile (the face is therefore Rui/Claude's edit, not the model's) → `normalize_sprite.py` shift (−6, +5). Every step in `edit-log.jsonl`. | `design/generation/accepted/CHAR-REF.png`; same image is `godot/assets/char/wick_idle.png` (CHAR-IDLE, storyboard P1/P2) |
+
+### Character state poses (round 1, 2026-10-07) — all accepted by Rui
+
+Derived from the CHAR-REF set-up: prompt P6 with the pose sentence swapped
+(`tools/gen/poses_round1.sh` has every exact prompt), **seed 1012, denoise 0.75**, img2img from the
+character-sheet pose drawn at 1024 px (`design/generation/init/char-<pose>-init.png`). Processed by
+`tools/gen/poses_round1_process.sh`: `pixelize.py` (fixed scale 0.07104 = CHAR-REF's, Lab quantise) →
+`face_edit.py --auto` (flame clean-up, face pattern) → `normalize_sprite.py` (anchor, trim above handle,
+despeckle). All 36 raw outputs: `design/rejected/CHAR-poses-round1-contact.png`.
+
+| Asset ID | Pick | Outcome (judged against CHARACTER-SHEET.md) | Edits | Where used |
+|---|---|---|---|---|
+| CHAR-WALK | s1012-b3 | **Accepted.** Clear stride, no extra parts; b0–b2 rejected (b0 candle stub in the flame, b1/b2 ring or wisp on the handle). Minor: a few flame pixels outside the flame. | face `oval` | `godot/assets/char/wick_walk.png` (P5) |
+| CHAR-JUMP | s1012-b1 | **Accepted.** Arms up, legs tucked. Ring on the handle trimmed. | face `wide` | `godot/assets/char/wick_jump.png` (P3) |
+| CHAR-FALL | s1012-b3 | **Accepted with a known flaw:** the flame is narrow and the eyes sit on its right edge. b0 a light bulb, b1 a hanging shape, b2 a crescent above the handle. | face `wide` | `godot/assets/char/wick_fall.png` (P3) |
+| CHAR-PICKUP | s1012-b2 | **Accepted.** Big flame through the cap, arm reaching. b3 rejected after pixelising: its strong brass highlights quantised to black. b1 has light rays (rule 5). | face `grin` | `godot/assets/char/wick_pickup.png` (P4) |
+| CHAR-EMBER | s1012-b2 | **Accepted.** Small red ember, two cage bars. The face is barely visible at 1×, so the state reads by colour (as predicted on the sheet). | face `lid` | `godot/assets/char/wick_ember.png` (P5) |
+| CHAR-HURT | s1014-b1 (round 2) | Round 1 (seed 1012) **rejected ×4**: orange flames quantised to brass. Round 2 prompt asked for "a small deep red flame" (seed 1014); **b1 accepted**, tilted body, red flame. | face `x` | `godot/assets/char/wick_hurt.png` (P6) |
+| CHAR-CELEBRATE | s1012-b2 | **Accepted.** Arms high, tall flame. b3 rejected for a grey shadow under the feet. | face `joy` | `godot/assets/char/wick_celebrate.png` (P8) |
+| CHAR-CLIMB | s1012-b0 | **Accepted as a stand-in for the back view.** The model drew no back view in 4 tries despite "back view, no face". b0 is front-on with a faceless flame, which is how the back of a glass lantern would look. Not flipped at runtime. | face `none` (flame clean-up only) | `godot/assets/char/wick_climb.png` (P1) |

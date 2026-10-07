@@ -214,3 +214,36 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   appended to CHARACTER-SHEET.md and CHANGE-BRIEF.md). The proportions contract is now the measured
   reference: cap 30, feet-to-cap 47, feet-to-handle 56 px.
 - **Next:** derive the other poses from this reference with the same pipeline.
+
+## 2026-10-07 — state poses round 1 (8 states derived from CHAR-REF)
+
+- **Wanted:** the eight required state images (walk, jump, fall, pickup, ember, hurt, celebrate,
+  climb), consistent with CHAR-REF.
+- **Asked:** `tools/gen/poses_round1.sh`. Same prompt P6, **same seed 1012** and denoise 0.75 as
+  CHAR-REF; only the pose sentence and the init image (the sheet pose) change. 32 images.
+- **Got:** all 32 share CHAR-REF's look (brass frame, dark glass, flat cel shading). This is the first
+  time the model was consistent without a fight. The model did **not** draw a back view for climb, even
+  with "back view, no face" (all four are front views). Claude picked one per state for Rui to review:
+  walk b3, jump b1, fall b3, pickup b2 (b3's strong brass highlights quantised to black), ember b2,
+  celebrate b2, climb b0. climb b0 is a front view with a faceless flame. Through a glass lantern the
+  back view would look the same, so it stands in for the back view.
+- **Hurt needed a round 2:** the model painted the hurt flame orange (~230,135,55). In Lab that is nearer
+  the brass than the sheet's ember red, so the whole flame quantised to brass. Re-prompted for "a small
+  deep red flame" (seed 1014); all four then quantised to ember red; picked b1.
+- **Bugs in Claude's own pipeline, found by looking at the outputs and fixed one at a time:**
+  1. RGB nearest-colour quantising turned shaded brass to glass and orange to brass → switched to Lab.
+  2. The cap detector broke when the tall flame cut through the cap (pickup / celebrate): pickup was
+     shifted 20 px sideways, then the handle was trimmed off as an "extra above the handle". The cap is
+     now a run that is at least 30 % brass.
+  3. Generated face lines and shading inside the flame survived as dark specks → hole-fill inside the
+     flame, plus a despeckle step (floating bits < 6 px removed, dark specks ≤ 3 px inside flame filled).
+  4. One stray pixel at the image edge had stretched CHAR-REF's crop box → opening filter before
+     cropping; all poses use CHAR-REF's scale (0.07104) so bodies stay the same size.
+- **Known defects Claude can still see:** fall's flame is narrow and the wide eyes sit on its right
+  edge; walk has a few flame pixels outside the flame; pickup and celebrate cannot be measured by the
+  F1 cap check, because the flame really does cover the cap in those poses.
+- **Human / Claude / model:** SDXL drew the bodies; Claude picked candidates, wrote and fixed the tools,
+  and painted the faces from patterns; **Rui has not reviewed this set yet.**
+- **Decided (Rui, 2026-10-07):** all nine state images accepted as they are, including fall's
+  off-centre eyes and climb's faceless front view standing in for the back view. Fall can be revisited
+  if it reads badly in the engine.

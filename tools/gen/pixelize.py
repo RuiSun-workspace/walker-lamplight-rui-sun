@@ -24,7 +24,7 @@ from collections import deque
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 REPO = Path(__file__).resolve().parents[2]
 LOG = REPO / "design" / "generation" / "edit-log.jsonl"
@@ -56,23 +56,44 @@ def remove_background(rgb, tol):
     return bg
 
 
-def quantise(rgba, palette):
+def to_lab(rgb):
+    """sRGB (0-255, ..., 3) -> CIE Lab (D65)."""
+    c = rgb / 255.0
+    c = np.where(c > 0.04045, ((c + 0.055) / 1.055) ** 2.4, c / 12.92)
+    xyz = c @ np.array([[0.4124, 0.2126, 0.0193], [0.3576, 0.7152, 0.1192], [0.1805, 0.0722, 0.9505]])
+    xyz /= np.array([0.95047, 1.0, 1.08883])
+    f = np.where(xyz > 0.008856, np.cbrt(xyz), 7.787 * xyz + 16 / 116)
+    return np.stack([116 * f[..., 1] - 16, 500 * (f[..., 0] - f[..., 1]), 200 * (f[..., 1] - f[..., 2])], axis=-1)
+
+
+def quantise(rgba, palette, space="lab"):
+    """Nearest palette colour. 'lab' (default since 2026-10-07) matches what the eye sees: with plain RGB
+    distance the hurt pose's orange flame became brass and shaded brass became glass."""
     cols = np.array([hex_rgb(c) for c in palette.values()], float)
     px = rgba[..., :3].reshape(-1, 3).astype(float)
-    idx = ((px[:, None, :] - cols[None, :, :]) ** 2).sum(axis=2).argmin(axis=1)
+    if space == "lab":
+        px, ref = to_lab(px), to_lab(cols)
+    else:
+        ref = cols
+    idx = ((px[:, None, :] - ref[None, :, :]) ** 2).sum(axis=2).argmin(axis=1)
     out = rgba.copy()
     out[..., :3] = cols[idx].reshape(rgba.shape[0], rgba.shape[1], 3).astype(np.uint8)
     return out
 
 
-def pixelize(src, frame_w, frame_h, height, tol=18, palette=PALETTE):
+def pixelize(src, frame_w, frame_h, height, tol=18, palette=PALETTE, scale=None, space="lab"):
     rgb = np.asarray(Image.open(src).convert("RGB"))
     alpha = np.where((rgb.astype(int) >= 255 - tol).all(axis=2), 0, 255).astype(np.uint8)
+    # opening (min then max filter) drops specks smaller than ~5 px, so a stray pixel at the image edge
+    # no longer stretches the bounding box (CHAR-REF's crop started at x = 0 because of one, 2026-10-07)
+    alpha = np.asarray(Image.fromarray(alpha).filter(ImageFilter.MinFilter(5)).filter(ImageFilter.MaxFilter(5)))
     rgba = np.dstack([rgb, alpha])
     ys, xs = np.nonzero(alpha)
     crop = Image.fromarray(rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1], "RGBA")
-    scale = height / crop.height
-    w = max(1, round(crop.width * scale))
+    scale = scale or height / crop.height  # --scale keeps every pose at the reference's scale
+    w, height = max(1, round(crop.width * scale)), max(1, round(crop.height * scale))
+    if height > frame_h:
+        raise SystemExit(f"{src}: {height} px tall at this scale, frame is {frame_h}")
     if w > frame_w:  # never exceed the frame; shrink to fit the width instead
         scale = frame_w / crop.width
         w, height = frame_w, max(1, round(crop.height * scale))
@@ -81,29 +102,31 @@ def pixelize(src, frame_w, frame_h, height, tol=18, palette=PALETTE):
     canvas.paste(small, ((frame_w - w) // 2, frame_h - height), small)
     arr = np.asarray(canvas).copy()
     arr[..., 3] = np.where(arr[..., 3] >= 128, 255, 0)
-    arr = quantise(arr, palette) if palette else arr
+    arr = quantise(arr, palette, space) if palette else arr
     arr[arr[..., 3] == 0] = 0
     return Image.fromarray(arr, "RGBA"), {"crop_box": [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1],
-                                         "scaled_to": [w, height]}
+                                         "scaled_to": [w, height], "scale": scale}
 
 
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("src")
     p.add_argument("--frame", nargs=2, type=int, required=True, metavar=("W", "H"))
-    p.add_argument("--height", type=int, required=True, help="character height in sprite pixels")
+    p.add_argument("--height", type=int, default=0, help="character height in sprite pixels")
+    p.add_argument("--scale", type=float, default=None, help="fixed scale instead of --height")
     p.add_argument("--tol", type=int, default=18, help="near-white tolerance for background removal")
     p.add_argument("--no-quantise", action="store_true")
+    p.add_argument("--space", choices=["lab", "rgb"], default="lab", help="colour distance for quantising (CHAR-REF used rgb)")
     p.add_argument("--out", required=True)
     a = p.parse_args()
-    img, info = pixelize(a.src, *a.frame, a.height, a.tol, None if a.no_quantise else PALETTE)
+    img, info = pixelize(a.src, *a.frame, a.height, a.tol, None if a.no_quantise else PALETTE, a.scale, a.space)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     img.save(out)
     rec = {"time": dt.datetime.now().astimezone().isoformat(timespec="seconds"), "tool": "tools/gen/pixelize.py",
            "src": str(a.src), "src_sha256": hashlib.sha256(Path(a.src).read_bytes()).hexdigest(),
-           "out": out.as_posix(), "frame": a.frame, "height": a.height, "tol": a.tol,
-           "palette": None if a.no_quantise else PALETTE, **info}
+           "out": out.as_posix(), "frame": a.frame, "height": a.height, "scale_arg": a.scale, "tol": a.tol,
+           "palette": None if a.no_quantise else PALETTE, "space": a.space, **info}
     LOG.parent.mkdir(parents=True, exist_ok=True)
     with LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(rec) + "\n")
