@@ -144,17 +144,18 @@ beats.append(narrated("B06", "TRACE",
     "Asset trace part 2: edits and the in-engine result."))
 beats.append(code_beat("B07", "Nine images, one state each.", "features/player/player.gd", 137, 150,
     [{"at": 2, "line": 138, "label": "an event look (pickup, ember, hurt, celebrate) wins"},
-     {"at": 7, "line": 140, "label": "on a ladder: the back-view image"},
+     {"at": 7, "line": 140, "label": "on a ladder: the climb image"},
      {"at": 11, "line": 143, "label": "rising or falling, read from velocity"},
-     {"at": 16, "line": 150, "label": "left is a runtime flip, except the back view"}],
+     {"at": 16, "line": 150, "label": "left is a runtime flip, except climbing"}],
     [{"label": "Images", "value": "9 generated PNGs, 64×80\nfeet on the bottom row"},
      {"label": "Animation", "value": "none: one static image\nper state (allowed)"}],
     "That sprite is swapped, not animated. Update look picks one of nine generated images from the player's "
     "state: climbing, rising, falling, walking. An event look like pickup or hurt wins first. Then it flips the "
-    "image when Wick faces left, except on the ladder, because that image is the back view.",
+    "image when Wick faces left, except on the ladder. The model never drew a back view, so a front view with a "
+    "faceless flame stands in for it, and it is never mirrored.",
     "Code → result 1: the state-image swap."))
 beats.append(capture_beat("B08", "RESULT", "run-01", "pillar jumps and the first ladder",
-    "Watch the image change: walking, arms up on the rise, arms out on the fall, then the back view on the ladder.",
+    "Watch the image change: walking, the faceless climb image on the ladder, then arms up on the rise and arms out on the fall.",
     "Game audio retained quietly under narration", "Visible result of B07.", evidence_media=True))
 beats.append(code_beat("B09", "Marked first, then announced.", "game/session.gd", 275, 285,
     [{"at": 2, "line": 281, "label": "Wick's 36×56 box touches a 24×24 drop"},

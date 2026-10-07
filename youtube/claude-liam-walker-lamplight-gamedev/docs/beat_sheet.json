@@ -28,7 +28,7 @@
     "episode_id": "walker-lamplight-gamedev",
     "note": "godot-gamedev in walker mode over walker-lamplight-rui-sun (CSYE 7270 Assignment 2). Source commit a70758da954068bafc3de1058f9eaebff318b16a, build_id 718aeab3e08bc7e2bf1882f21ae7f2f84cebf1fe938c7d31cfd736d85a67c71e, Godot 4.7.2.stable.official.ed1daf0bf. Gameplay beats are native 3840x2160 Godot Movie Maker output from scripted-input takes (capture/run-01..03.mp4) driven through Input actions; not human play. B13 carries the game's own audio with no narration; other gameplay beats keep the game audio quietly under narration.",
     "build": {
-      "at": "2026-10-07T19:06:46",
+      "at": "2026-10-07T19:38:19",
       "cut": "master",
       "filled": 22,
       "of": 22,
@@ -80,7 +80,7 @@
         "status": "VIDEO",
         "src": "media\\B00.mp4",
         "filled_by": "remotion:ClaudeComposerAsk",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -126,7 +126,7 @@
         "status": "VIDEO",
         "src": "media\\B01.mp4",
         "filled_by": "remotion:BrutalistHesitantWriter",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -195,7 +195,7 @@
         "status": "VIDEO",
         "src": "media\\B02.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -271,7 +271,7 @@
         "status": "VIDEO",
         "src": "media\\B03.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -318,7 +318,7 @@
         "status": "VIDEO",
         "src": "media\\B04.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -365,7 +365,7 @@
         "status": "VIDEO",
         "src": "media\\B05.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -412,14 +412,14 @@
         "status": "VIDEO",
         "src": "media\\B06.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
       "beat_id": "B07",
       "act": "MECHANISM",
       "role_note": "Code → result 1: the state-image swap.",
-      "narration_text": "That sprite is swapped, not animated. Update look picks one of nine generated images from the player's state: climbing, rising, falling, walking. An event look like pickup or hurt wins first. Then it flips the image when Wick faces left, except on the ladder, because that image is the back view.",
+      "narration_text": "That sprite is swapped, not animated. Update look picks one of nine generated images from the player's state: climbing, rising, falling, walking. An event look like pickup or hurt wins first. Then it flips the image when Wick faces left, except on the ladder. The model never drew a back view, so a front view with a faceless flame stands in for it, and it is never mirrored.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 20,
@@ -439,24 +439,24 @@
             "startLine": 137,
             "cues": [
               {
-                "at": 1.28,
+                "at": 1.52,
                 "line": 138,
                 "label": "an event look (pickup, ember, hurt, celebrate) wins"
               },
               {
-                "at": 5.53,
+                "at": 6.58,
                 "line": 140,
-                "label": "on a ladder: the back-view image"
+                "label": "on a ladder: the climb image"
               },
               {
-                "at": 9.78,
+                "at": 11.65,
                 "line": 143,
                 "label": "rising or falling, read from velocity"
               },
               {
-                "at": 14.03,
+                "at": 16.71,
                 "line": 150,
-                "label": "left is a runtime flip, except the back view"
+                "label": "left is a runtime flip, except climbing"
               }
             ],
             "inspectorLabel": "Source notes — not Inspector values",
@@ -470,30 +470,30 @@
                 "value": "none: one static image\nper state (allowed)"
               }
             ],
-            "durationSeconds": 15.94,
+            "durationSeconds": 18.99,
             "codeFontSize": 26
           },
           "rendered": {
             "out": "media/B07.mp4",
-            "at": "2026-10-07T20:27:21.421997+00:00"
+            "at": "2026-10-07T23:33:33.476461+00:00"
           }
         }
       },
-      "actual_duration_s": 15.94,
+      "actual_duration_s": 18.99,
       "audio_file": "mp3/beat-B07.mp3",
-      "render_duration_s": 15.966666666666667,
+      "render_duration_s": 19.0,
       "build": {
         "status": "VIDEO",
         "src": "media\\B07.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
       "beat_id": "B08",
       "act": "RESULT",
       "role_note": "Visible result of B07.",
-      "narration_text": "Watch the image change: walking, arms up on the rise, arms out on the fall, then the back view on the ladder.",
+      "narration_text": "Watch the image change: walking, the faceless climb image on the ladder, then arms up on the rise and arms out on the fall.",
       "voice": "am_onyx",
       "engine": "kokoro",
       "estimated_duration_s": 9,
@@ -507,17 +507,17 @@
         "capture_window": {
           "take": "run-01",
           "start_s": 18.0,
-          "end_s": 24.6333,
+          "end_s": 25.7,
           "frames": [
             540,
-            739
+            771
           ],
-          "media_sha256": "4de1c05822b01d704882562fd6cadd22c3a28097dc02b9475068833c4b6e6ddd"
+          "media_sha256": "a336458db33f002a1908c98c4a40e601a3538c32ce4482f0873d71a7871b190c"
         }
       },
-      "actual_duration_s": 6.6333,
+      "actual_duration_s": 7.7,
       "audio_file": "mix/B08.wav",
-      "render_duration_s": 6.633333333333334,
+      "render_duration_s": 7.7,
       "qc": {
         "full_bleed": true,
         "full_bleed_reason": "Gameplay capture: the 1280x720 viewport (x3, native 3840x2160) fills the frame; the HUD sits at the top edge by design.",
@@ -556,7 +556,7 @@
         "status": "VIDEO",
         "src": "media\\B08.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -626,7 +626,7 @@
         "status": "VIDEO",
         "src": "media\\B09.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -696,7 +696,7 @@
         "status": "VIDEO",
         "src": "media\\B10.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -770,7 +770,7 @@
         "status": "VIDEO",
         "src": "media\\B11.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -840,7 +840,7 @@
         "status": "VIDEO",
         "src": "media\\B12.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -856,18 +856,18 @@
         "label": "SLICE AUDIO — the game's own sound, no narration · scripted-input capture · native 3840x2160 · run-01",
         "capture_window": {
           "take": "run-01",
-          "start_s": 24.7,
+          "start_s": 25.7667,
           "end_s": 34.2333,
           "frames": [
-            741,
+            773,
             1027
           ],
-          "media_sha256": "18d91da673ef47a6c282305422b61986f6d81d258088c7d26d75f814c106cf21"
+          "media_sha256": "b0bf347a06d397263961535d2be2a438dd59314ad1491950de92314ee3d1bc95"
         }
       },
       "audio_file": "mix/B13-game.wav",
-      "actual_duration_s": 9.5333,
-      "render_duration_s": 9.533333333333333,
+      "actual_duration_s": 8.4667,
+      "render_duration_s": 8.5,
       "qc": {
         "full_bleed": true,
         "full_bleed_reason": "Gameplay capture: the 1280x720 viewport (x3, native 3840x2160) fills the frame; the HUD sits at the top edge by design.",
@@ -888,7 +888,7 @@
         "status": "VIDEO",
         "src": "media\\B13.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -962,7 +962,7 @@
         "status": "VIDEO",
         "src": "media\\B14.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1032,7 +1032,7 @@
         "status": "VIDEO",
         "src": "media\\B15.mp4",
         "filled_by": "media",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1108,7 +1108,7 @@
         "status": "VIDEO",
         "src": "media\\B16.mp4",
         "filled_by": "remotion:GodotDesignBoard",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1178,7 +1178,7 @@
         "status": "VIDEO",
         "src": "media\\B17.mp4",
         "filled_by": "remotion:GodotDevWorkbench",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1204,7 +1204,7 @@
         "status": "STILL",
         "src": "media\\B18.png",
         "filled_by": "still",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1247,7 +1247,7 @@
         "status": "VIDEO",
         "src": "media\\B19.mp4",
         "filled_by": "remotion:ClaudeVerdictArtifact",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1293,7 +1293,7 @@
         "status": "VIDEO",
         "src": "media\\B20.mp4",
         "filled_by": "remotion:ClaudeComposerAsk",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       }
     },
     {
@@ -1325,7 +1325,7 @@
         "status": "VIDEO",
         "src": "media\\B21.mp4",
         "filled_by": "remotion:ClaudeTitleOutro",
-        "at": "2026-10-07T19:06:46"
+        "at": "2026-10-07T19:38:19"
       },
       "audio_file": "mix/B21-jingle.wav",
       "jingle": {

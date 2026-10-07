@@ -685,10 +685,10 @@
   {
    "code_beat": "B07",
    "result_beat": "B08",
-   "observation": "The image changes with the state in real play: walk, arms up rising, arms out falling, back view on the ladder.",
+   "observation": "The image changes with the state in real play: walk, then the faceless climb image on the ladder (a front view standing in for the back view), then arms up rising and arms out falling.",
    "media": {
     "path": "media/B08.mp4",
-    "sha256": "05b517a699789e748f3c8e127433ba1fc28a8cd1f12d1329c8f9c5cffdb08eb3"
+    "sha256": "aa558a00a7a4fa3290c1690ea46e9bad137b06854ab0fc64da07b3cb32ef830c"
    }
   },
   {

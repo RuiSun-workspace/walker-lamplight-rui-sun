@@ -68,7 +68,7 @@ EXCERPTS = [("B07", "features/player/player.gd", 137, 150), ("B09", "game/sessio
             ("B11", "audio/audio_director.gd", 43, 55), ("B14", "game/session.gd", 249, 258),
             ("B17", "tests/test_audio.gd", 161, 176)]
 PAIRS = [
-    ("B07", "B08", "media/B08.mp4", "The image changes with the state in real play: walk, arms up rising, arms out falling, back view on the ladder."),
+    ("B07", "B08", "media/B08.mp4", "The image changes with the state in real play: walk, then the faceless climb image on the ladder (a front view standing in for the back view), then arms up rising and arms out falling."),
     ("B09", "B10", "media/B10.mp4", "Landing on the middle-tunnel platform takes the drop: pickup image, flame over the cap, gauge up, light opens."),
     ("B11", "B12", "media/B12.mp4", "An early jump lands on the pit spikes: hurt sound (game audio under the narration), red spike flash, respawn at the lamp post."),
     ("B14", "B15", "media/B15.mp4", "With no input the ember ring shrinks, the gauge blinks faster, and after 4 s the flame goes out: 'Your flame went out'."),

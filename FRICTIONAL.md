@@ -529,3 +529,20 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   the pick is `sha256(slug) mod 6 + 1` = `bear-brown-6.mp3` (9.36 s), at −8 dB so it sits just above
   the narration instead of 11 dB over it. The outro card now runs for the jingle's length (9.37 s), and
   the film is 326.9 s. B13 is unchanged.
+
+## 2026-10-07 — the film said "back view"; it is a stand-in
+
+- **Found by Claude** while writing SUBMISSION.md: B07 and B08 said the ladder image "is the back view".
+  TEST-REPORT §3 says otherwise: the model drew no back view in four tries, so a front view with a
+  faceless flame stands in for it. The README's limitations say the same. The film contradicted the
+  report.
+- **Rui chose** to re-narrate and re-render rather than only note it.
+- **A second fault, found while fixing the first:** B08's line named the states in the order walk,
+  rise, fall, ladder, but on screen the ladder comes second. Spoken "ladder" came after Wick had left
+  it. The line now follows the screen. The lead-in was shortened because the clip could not start
+  earlier without reusing B10's footage. "The faceless climb image" is now spoken at 2.07–3.90 s while
+  the climb is on screen at 2.07–4.12 s.
+- **Left as is:** the comment on `player.gd` line 150 still says "climb is the back view". It is the
+  source the film shows verbatim, and `godot/` has not changed since `a70758d`. The game treats that
+  image as the back view (it is never mirrored); the comment describes the role, not the drawing.
+- Film: 329.9 s, SHA-256 `f0ae6284…41d7`. Gate V 0 / 0, loudness −23.4 LUFS.
