@@ -159,6 +159,11 @@ playtest revisions above.
 - **The oil-to-music muffling is subtle** (Rui: "a little difference"; F7). It is the main audio signal of
   "Every second burns"; a stronger curve is the first audio change for the full game.
 - MusicGen is a music model; the effects are short cuts of musical textures rather than designed one-shots.
+- **Found while capturing the film (2026-10-07):** driven through real `Input` (one tick later than the
+  test hooks), chaining the jump between the middle tunnel's two spike strips at full speed needs
+  near-frame-perfect timing; landing there leaves ~9–15 px before the next strip. Rui completed it in play
+  (probably by stopping in the gap). The route mark moved 1237 → 1262 for the film; the gap itself is
+  unchanged and is the first level change for the full game.
 - Climb uses a front view standing in for the back view; the fall image's eyes are off-centre.
 - The mirrored repeat of the generated back wall is visible as symmetric crates/pillars where the light reaches.
 - Lamp posts, the exit daylight, the HUD and the light are code-drawn; the outdoor exit scene (P8 sun and cloud) was not made.

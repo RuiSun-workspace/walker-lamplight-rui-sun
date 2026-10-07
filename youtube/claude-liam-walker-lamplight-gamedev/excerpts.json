@@ -1,0 +1,27 @@
+{
+ "B03": {
+  "section": "CONCEPT.md · Design pillars · what each means for the player",
+  "excerpt": "How much you can see is how much oil you have.\nThere is always a quiet pressure to keep moving.\nWhen you fail, it is because you misjudged, not because something was invisible.\nYou always know which way is forward.",
+  "document": "CONCEPT.md"
+ },
+ "B04": {
+  "section": "STORYBOARD.md v2 · line 3",
+  "excerpt": "Eight panels, in play order, drawn by hand by Rui on one sheet of paper, all in one 16:9-ish frame.",
+  "document": "STORYBOARD.md"
+ },
+ "B05": {
+  "section": "Prompt P6 (SOURCES.md) · \"flat 2D cartoon illustration\", not \"pixel art\" · img2img from the sheet pose, denoise 0.75, seed 1012",
+  "excerpt": "a big yellow teardrop flame inside the glass, the flame has a cute friendly face with two round black eyes side by side and a small smile",
+  "document": "SOURCES.md"
+ },
+ "B06": {
+  "section": "SOURCES.md asset log · CHAR-REF · edits",
+  "excerpt": "removed an extra ring above the handle, cleaned brass specks out of the flame, replaced the face with 2×4 oval eyes + 5-px smile (the face is therefore Rui/Claude's edit, not the model's)",
+  "document": "SOURCES.md"
+ },
+ "B16": {
+  "section": "TEST-REPORT.md §9 · Rui's words, translated",
+  "excerpt": "flip is fine; coming down the ladder feels a bit stuck\nyou can keep playing; spikes are visible in the dark; the risk is not enough\njump too loud; map more complex and longer; ember 4 s\njump still loud; the rest fine; oil a bit scarce\nfine when muted; the music has a little difference; no broken beat",
+  "document": "TEST-REPORT.md"
+ }
+}

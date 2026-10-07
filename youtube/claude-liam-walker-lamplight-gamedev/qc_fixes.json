@@ -1,0 +1,17 @@
+{
+ "source": {
+  "B03": "Source: CONCEPT.md pillars · values in session.gd and lighting.gd @ a70758d",
+  "B04": "Source: Rui's storyboard photo (cropped only) · tag design-v1, 2026-10-06",
+  "B05": "Source: gen-log.jsonl · SDXL base 1.0 · the copyrighted look-alike is not shown",
+  "B06": "Source: edit-log.jsonl · engine capture evidence/captures/state-idle-right.png",
+  "B16": "Source: TEST-REPORT §9 · commits b72a749, 0295499, d195a92, 77d0573"
+ },
+ "B19_artifactLines": [
+  "shown — 9 generated states swapped by state; generated world; 4 event sounds + 8-bar loop; N/B mute; readable muted",
+  "tested — 99 automated checks, 0 failures; 31 asset checks; 6 playtests by Rui, one fully muted",
+  "uncertain — music muffling is subtle; effects are MusicGen cuts; the double-spike gap needs near-perfect timing",
+  "next — widen that gap; strengthen the muffling curve",
+  "who — SDXL: every image · MusicGen: every sound · Rui: design, storyboard, every pick and change · Claude: prompts, tools, code, tests, film",
+  "source — commit a70758d · build 718aeab3e08b · Godot 4.7.2 · captures are scripted input, not human play"
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "B02": {
+  "media": "media/B02.mp4",
+  "audio_file": "mix/B02.wav",
+  "duration": 11.666666666666666,
+  "take": "run-01",
+  "start_s": 0.0,
+  "end_s": 11.6667,
+  "frames": [
+   0,
+   350
+  ]
+ },
+ "B10": {
+  "media": "media/B10.mp4",
+  "audio_file": "mix/B10.wav",
+  "duration": 5.033333333333333,
+  "take": "run-01",
+  "start_s": 12.6333,
+  "end_s": 17.6667,
+  "frames": [
+   379,
+   530
+  ]
+ },
+ "B08": {
+  "media": "media/B08.mp4",
+  "audio_file": "mix/B08.wav",
+  "duration": 6.633333333333334,
+  "take": "run-01",
+  "start_s": 18.0,
+  "end_s": 24.6333,
+  "frames": [
+   540,
+   739
+  ]
+ },
+ "B13": {
+  "media": "media/B13.mp4",
+  "audio_file": "mix/B13-game.wav",
+  "duration": 9.533333333333333,
+  "take": "run-01",
+  "start_s": 24.7,
+  "end_s": 34.2333,
+  "frames": [
+   741,
+   1027
+  ]
+ },
+ "B12": {
+  "media": "media/B12.mp4",
+  "audio_file": "mix/B12.wav",
+  "duration": 4.5,
+  "take": "run-02",
+  "start_s": 1.3,
+  "end_s": 5.8,
+  "frames": [
+   39,
+   174
+  ]
+ },
+ "B15": {
+  "media": "media/B15.mp4",
+  "audio_file": "mix/B15.wav",
+  "duration": 6.8,
+  "take": "run-03",
+  "start_s": 16.3333,
+  "end_s": 23.1333,
+  "frames": [
+   490,
+   694
+  ]
+ }
+}

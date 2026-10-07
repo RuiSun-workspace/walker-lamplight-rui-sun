@@ -1,0 +1,731 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "source_revision": "a70758da954068bafc3de1058f9eaebff318b16a",
+ "build_id": "718aeab3e08bc7e2bf1882f21ae7f2f84cebf1fe938c7d31cfd736d85a67c71e",
+ "files": [
+  {
+   "path": ".gitignore",
+   "sha256": "7a86efd9a3426b8ce1e6d5fb19dbf79acd3d59eb5b2e8f020e4912be6b1e9580",
+   "role": "config",
+   "component_ids": [
+    "project-config"
+   ]
+  },
+  {
+   "path": "assets/audio/mus_loop.ogg",
+   "sha256": "a0d34f2c764ea17cd9b80f86a43fdb0a96261122b60d5c6f92ddf86cc88327ab",
+   "role": "generated audio",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/mus_loop.ogg.import",
+   "sha256": "83097ec146a5305fb3ccf25d7c063681cffa45b6a5f5490bb5416b482279caa1",
+   "role": "import settings",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_exit.ogg",
+   "sha256": "1c2479026530f0493834965c3909ac9a39c5c8db75007496c744cba0498d4ec3",
+   "role": "generated audio",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_exit.ogg.import",
+   "sha256": "ffe38ab129392efa903f4dceda28cb851320009b29666be13abaa79ab304a9b7",
+   "role": "import settings",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_hurt.ogg",
+   "sha256": "e77edfe5696b4f21a8fd2cde7df5ab4f78789ba07bf9e19a9e29e499f95742e6",
+   "role": "generated audio",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_hurt.ogg.import",
+   "sha256": "171e6f53e13a344f2614265f1483e5eb4a5d78a8681766cd4cd3442a8e437895",
+   "role": "import settings",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_jump.ogg",
+   "sha256": "66b29060d399b8f778b4a11aa6dfff132b8feb4257cf84e0ec4fb33b48727127",
+   "role": "generated audio",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_jump.ogg.import",
+   "sha256": "fa2b76eb098045c459d91443eabe17e67bcf0fc9957a711df4e7f67ff68980b7",
+   "role": "import settings",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_pickup.ogg",
+   "sha256": "57fa761b0144f97296041f8b6e3f1d1ae146bf4f5a63fa9869c94df77bc5d8b9",
+   "role": "generated audio",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/audio/sfx_pickup.ogg.import",
+   "sha256": "b74d36ad766598961de655e41c109056e2a258677e2f3b8956f951b333ae0972",
+   "role": "import settings",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "assets/char/wick_celebrate.png",
+   "sha256": "95b0905f82fa90554e901f82af5eab89da2d5c5fc7e8801ee2978ace8305d1cf",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_celebrate.png.import",
+   "sha256": "595946eae1be9c3fb06b882721ec2f670a00954450d9ca0aed5706923fdeb196",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_climb.png",
+   "sha256": "1c7ba9328dedf5e1a4bcc13bb51117fc58fd2b816639b132c6fe2fef4246d458",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_climb.png.import",
+   "sha256": "64df80f995611019d0ca0a322cfb65869e375308411e5e4195295cc4305447fc",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_ember.png",
+   "sha256": "0fe59b1552550668295dc22f8fc1daf485b54b782a4caa1f591368e8f4f2d0cc",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_ember.png.import",
+   "sha256": "d9d477c8b609b6298bd6e2b5bb6b8d62fe5815e280631c947b5c65d7b3878bfc",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_fall.png",
+   "sha256": "1cebee47593de33ec4dc14952ffbd35146f653c0e503abe84e4d1c925daccb8f",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_fall.png.import",
+   "sha256": "a06649a22d4f542b607701a9b5c4154288868d8e25d260dc7a5486fe93929a33",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_hurt.png",
+   "sha256": "4fd30310557bf64bdaea04633ea12b7d530e0b382349feaba69b99b4af5ef4ae",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_hurt.png.import",
+   "sha256": "b4a01ff81c8b63b4066251911c0aff075d4008c122907857469637b76af60ac2",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_idle.png",
+   "sha256": "c7cb1a7f76a8877d3639e736e5669d936484579430587f1c28c8ebb2760af969",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_idle.png.import",
+   "sha256": "c99075e83998953da5e5eec5c689470d18c05741bec1f02b2a016476c205a806",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_jump.png",
+   "sha256": "fc990a7a8565ce3a4332010f597bbca53243b427f50274c00bb3eae8bb3b2350",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_jump.png.import",
+   "sha256": "7983cb7424634c6ada69a86fecca6833ab085b1ca13a16fd900c7eb4ce962d8c",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_pickup.png",
+   "sha256": "5d2618d9a3fa593df82f1c4eece2a28c35b31222bb39bffdd832480d4e547e26",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_pickup.png.import",
+   "sha256": "144da693dba26fb780b1cb8051cc69fc27ef2ccc941d34334af4d6d544aa2da2",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_walk.png",
+   "sha256": "5fc2bbd4c01265adaae5ce0ae6d3f2f76cfbe53050ef92208b82f2b8161461e8",
+   "role": "generated image",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/char/wick_walk.png.import",
+   "sha256": "99ca4a95573723909124a3408b19ad667ecfb5f24d698506e0a42f7fb2ac3372",
+   "role": "import settings",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "assets/env/bg_rock.png",
+   "sha256": "ad7adf914ddd49a9bd0f7f8614891f598f60dde8784ece3c5d405c6c7f3fe3e7",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/bg_rock.png.import",
+   "sha256": "2731589e79517ede3b082cf437c812b750f1c1e44dda317215dd0d9e5547a8cd",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/ladder.png",
+   "sha256": "3827dd80984191dae05d5832a1c2ae85bc3a85e49bf14b6d20d61cf5631cdfd4",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/ladder.png.import",
+   "sha256": "da2004f74d2787dccddf375c7ee585bc3a12d09827e7d7c172cbabeb24d42f7e",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/oil_drop.png",
+   "sha256": "003d1bd06e2c685b50398298fe7df5715b34037174b443b15d305aa536c6a482",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/oil_drop.png.import",
+   "sha256": "b199491e3151e78e9d0ac4b8ccee32d59451d55d7b2b518c54d0fea5c17a8f2f",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/spikes.png",
+   "sha256": "3bad961c3c568bdbe9e0d82937754e81cc72997071d7f1507f02721945443cda",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/spikes.png.import",
+   "sha256": "8c8b5e8e32721c000d428e96e953855f51aae5cf0ebcceb9ea04ad4399cf0cad",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/tiles_rock.png",
+   "sha256": "cf5b12d750e5737394d62b02599b37e831029454826958c8df6c33902a43646b",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/tiles_rock.png.import",
+   "sha256": "9466a3931cdcc068fdb9d1becfd46241b50058976cad47727b1c2a56ca6c218c",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/tiles_rock_top.png",
+   "sha256": "cce9a7d185fdc47f785204b0c0047d2e8be2d6115a8906be986b8176939dbc75",
+   "role": "generated image",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "assets/env/tiles_rock_top.png.import",
+   "sha256": "390d158dab7d60c1b88e42610108f10a7e9b18cc4de5a0b0f0d73142141cb565",
+   "role": "import settings",
+   "component_ids": [
+    "environment-art"
+   ]
+  },
+  {
+   "path": "audio/audio_director.gd",
+   "sha256": "1242b8a458b4a89583ac2c953ca703e708f609b7b8502d59d20fef6734371955",
+   "role": "script",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "audio/default_bus_layout.tres",
+   "sha256": "c8675d3127ce8e5f44dc7d15b698858506795a849659fc045c32219383a6d1ca",
+   "role": "resource",
+   "component_ids": [
+    "sound"
+   ]
+  },
+  {
+   "path": "features/player/player.gd",
+   "sha256": "5533abccb3ab5b73cd91a74d1fa8fae1daf8bd989ada52a3b8d3b103fdc49b06",
+   "role": "script",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "features/player/tuning.gd",
+   "sha256": "bc1721a7c0832fa9297f1fef78ed1ef1669a98e04072824197940121e9949782",
+   "role": "script",
+   "component_ids": [
+    "wick-state-images"
+   ]
+  },
+  {
+   "path": "game/lighting.gd",
+   "sha256": "f59e305d462584540136a8b5c277e67df40a19b4a505b5fe4939a41650a4c49b",
+   "role": "script",
+   "component_ids": [
+    "light-and-overlay"
+   ]
+  },
+  {
+   "path": "game/main.tscn",
+   "sha256": "964cbd83886f1f53c037fdf0ded10826cad7b6ac030dff977fe528e9455b85bf",
+   "role": "scene",
+   "component_ids": [
+    "oil-and-rules"
+   ]
+  },
+  {
+   "path": "game/overlay.gd",
+   "sha256": "b99f43cd8e970e9cd9fb72c30e5d2fd9d25c11901f3f508bca7f64518508300c",
+   "role": "script",
+   "component_ids": [
+    "light-and-overlay"
+   ]
+  },
+  {
+   "path": "game/session.gd",
+   "sha256": "ade7a91a7fd5f300b06e26ab680c5202c8f9a3641f266253fea6b22bae2983e6",
+   "role": "script",
+   "component_ids": [
+    "oil-and-rules"
+   ]
+  },
+  {
+   "path": "levels/lamplight_tunnel.json",
+   "sha256": "dac386e0f4d42d213d4ecdace552c64d9743ec90e532a84372eb3615acb29fc7",
+   "role": "level data",
+   "component_ids": [
+    "oil-and-rules"
+   ]
+  },
+  {
+   "path": "project.godot",
+   "sha256": "4908d6c7b0a4d44f25498b1671f4d2ae02e22f1f7abd67bb99425fd07103b508",
+   "role": "project settings",
+   "component_ids": [
+    "project-config"
+   ]
+  },
+  {
+   "path": "tests/capture_evidence.gd",
+   "sha256": "dfdbf5ba902c943ca34eb5f6080d0e0e0119e969902e3590be1cdd3fc9000dd2",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/capture_film.gd",
+   "sha256": "780557118f1356669de8fd9c3033129c33742852cc6126f8d67264af4a3414cb",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/route_driver.gd",
+   "sha256": "5135bc6f5f899605d44fa85cdfc154d6190e50477f1e595ade6e3148e0dc942c",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_audio.gd",
+   "sha256": "881bc7f3031aed235c4a3c83d131fd74713e193ed6ddca58628167f305128253",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_game.gd",
+   "sha256": "fa95e2618f03425ddfb36508a2e0715e94317a0d2092761082beda3cd33e2e18",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_keyboard.gd",
+   "sha256": "955dcbd6780aa320692478e011a0012c7035fe47906bf794633961affd946b4b",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_oil.gd",
+   "sha256": "4069b58860cf24c69327808858723228f4eb28dcd87a47d2b7221f383ff65129",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "tests/test_wick.gd",
+   "sha256": "761db9f76173804feff2b6b647b86a25071e73eb619bc41e42c9e65d94814b98",
+   "role": "script",
+   "component_ids": [
+    "tests"
+   ]
+  },
+  {
+   "path": "ui/hud.gd",
+   "sha256": "c7f5245cdb4806cee571976510cf08d4ee3281e0a1e35d7aa8bdf77f11f295c7",
+   "role": "script",
+   "component_ids": [
+    "hud"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "wick-state-images",
+   "explanation": "Nine generated 64x80 state images; player.gd swaps one per state (movement or event look) and flips for facing, never animating. tuning.gd holds the x2-scaled walker-jumpman movement values.",
+   "beat_ids": [
+    "B06",
+    "B07",
+    "B08"
+   ],
+   "files": [
+    "features/player/player.gd",
+    "features/player/tuning.gd",
+    "assets/char/wick_idle.png",
+    "assets/char/wick_idle.png.import",
+    "assets/char/wick_walk.png",
+    "assets/char/wick_walk.png.import",
+    "assets/char/wick_jump.png",
+    "assets/char/wick_jump.png.import",
+    "assets/char/wick_fall.png",
+    "assets/char/wick_fall.png.import",
+    "assets/char/wick_climb.png",
+    "assets/char/wick_climb.png.import",
+    "assets/char/wick_pickup.png",
+    "assets/char/wick_pickup.png.import",
+    "assets/char/wick_ember.png",
+    "assets/char/wick_ember.png.import",
+    "assets/char/wick_hurt.png",
+    "assets/char/wick_hurt.png.import",
+    "assets/char/wick_celebrate.png",
+    "assets/char/wick_celebrate.png.import"
+   ]
+  },
+  {
+   "id": "oil-and-rules",
+   "explanation": "session.gd owns the state machine, oil drain (6/s), pickups (+35, marked before the signal), lamp-post checkpoints, the 4 s ember burn-out and the signals sound listens to; the v2 level data is the three tunnels.",
+   "beat_ids": [
+    "B02",
+    "B09",
+    "B10",
+    "B14",
+    "B15"
+   ],
+   "files": [
+    "game/session.gd",
+    "levels/lamplight_tunnel.json",
+    "game/main.tscn"
+   ]
+  },
+  {
+   "id": "light-and-overlay",
+   "explanation": "lighting.gd darkens the scene and sizes Wick's light from the oil (240 px -> 56 px ring -> 28 px as the ember burns out); overlay.gd draws spikes, drops, lamp flames and the exit unshaded, and the red death flash.",
+   "beat_ids": [
+    "B03",
+    "B15"
+   ],
+   "files": [
+    "game/lighting.gd",
+    "game/overlay.gd"
+   ]
+  },
+  {
+   "id": "sound",
+   "explanation": "audio_director.gd only listens to game signals, plays one sound per event and counts it; the music loop follows oil through a low-pass, ducks on death, pauses and stops; N/B mute separate buses.",
+   "beat_ids": [
+    "B11",
+    "B12"
+   ],
+   "files": [
+    "audio/audio_director.gd",
+    "audio/default_bus_layout.tres",
+    "assets/audio/sfx_jump.ogg",
+    "assets/audio/sfx_jump.ogg.import",
+    "assets/audio/sfx_pickup.ogg",
+    "assets/audio/sfx_pickup.ogg.import",
+    "assets/audio/sfx_hurt.ogg",
+    "assets/audio/sfx_hurt.ogg.import",
+    "assets/audio/sfx_exit.ogg",
+    "assets/audio/sfx_exit.ogg.import",
+    "assets/audio/mus_loop.ogg",
+    "assets/audio/mus_loop.ogg.import"
+   ]
+  },
+  {
+   "id": "environment-art",
+   "explanation": "Generated back wall, rock tiles, ledge-top edit, spikes, oil drop and ladder, drawn by session.gd and overlay.gd.",
+   "beat_ids": [
+    "B02",
+    "B05"
+   ],
+   "files": [
+    "assets/env/bg_rock.png",
+    "assets/env/bg_rock.png.import",
+    "assets/env/tiles_rock.png",
+    "assets/env/tiles_rock.png.import",
+    "assets/env/tiles_rock_top.png",
+    "assets/env/tiles_rock_top.png.import",
+    "assets/env/spikes.png",
+    "assets/env/spikes.png.import",
+    "assets/env/oil_drop.png",
+    "assets/env/oil_drop.png.import",
+    "assets/env/ladder.png",
+    "assets/env/ladder.png.import"
+   ]
+  },
+  {
+   "id": "hud",
+   "explanation": "hud.gd draws the oil gauge (red and blinking faster as the ember burns out), timer, retries, controls, mute indicators and the title / pause / end cards.",
+   "beat_ids": [
+    "B02",
+    "B15"
+   ],
+   "files": [
+    "ui/hud.gd"
+   ]
+  },
+  {
+   "id": "project-config",
+   "explanation": "project.godot: 1280x720 viewport (doubled when the sprite became 64x80), Nearest texture filter, audio bus layout; .gitignore keeps the engine cache out.",
+   "beat_ids": [
+    "B06"
+   ],
+   "files": [
+    "project.godot",
+    ".gitignore"
+   ]
+  },
+  {
+   "id": "tests",
+   "explanation": "Headless suites run by tools/run_tests.sh at --fixed-fps 60, plus the evidence and film capture drivers that press real Input actions along the route.",
+   "beat_ids": [
+    "B17",
+    "B18"
+   ],
+   "files": [
+    "tests/test_game.gd",
+    "tests/test_keyboard.gd",
+    "tests/test_wick.gd",
+    "tests/test_oil.gd",
+    "tests/test_audio.gd",
+    "tests/route_driver.gd",
+    "tests/capture_evidence.gd",
+    "tests/capture_film.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B07",
+   "path": "features/player/player.gd",
+   "start_line": 137,
+   "end_line": 150,
+   "text": "func _update_look() -> void:\n\tif look_override != \"\":\n\t\tlook = look_override\n\telif climbing:\n\t\tlook = \"climb\"\n\telif not is_on_floor():\n\t\tlook = \"jump\" if velocity.y < 0.0 else \"fall\"\n\telif absf(velocity.x) > 8.0:\n\t\tlook = \"walk\"\n\telse:\n\t\tlook = \"idle\"\n\tif sprite:\n\t\tsprite.texture = LOOKS[look]\n\t\tsprite.flip_h = facing < 0.0 and look != \"climb\"  # climb is the back view: never mirrored"
+  },
+  {
+   "beat_id": "B09",
+   "path": "game/session.gd",
+   "start_line": 275,
+   "end_line": 285,
+   "text": "func _collect_oil() -> void:\n\tvar body := player_rect()\n\tfor i in range(level.oil.size()):\n\t\tif collected[i]:\n\t\t\tcontinue\n\t\tvar drop := Rect2(level.oil[i][0] - 12, level.oil[i][1] - 12, 24, 24)\n\t\tif body.intersects(drop):\n\t\t\tcollected[i] = true  # marked before the signal, so one drop can only ever fire once\n\t\t\toil = minf(OIL_MAX, oil + OIL_DROP)\n\t\t\tpickup_until = elapsed + PICKUP_LOOK_TIME\n\t\t\toil_collected.emit(i)"
+  },
+  {
+   "beat_id": "B11",
+   "path": "audio/audio_director.gd",
+   "start_line": 43,
+   "end_line": 55,
+   "text": "\tgame.player.jumped.connect(_play.bind(\"jump\"))\n\tgame.oil_collected.connect(func(_i): _play(\"pickup\"))\n\tgame.died.connect(_on_died)\n\tgame.respawned.connect(func(): duck_target = 0.0)\n\tgame.completed.connect(_on_completed)\n\tgame.paused_changed.connect(func(paused): music.stream_paused = paused)\n\tgame.run_started.connect(_on_run_started)\n\tgame.returned_to_menu.connect(_on_run_started)\n\tmusic.play()  # title screen: full brightness\n\nfunc _play(id: String) -> void:\n\tplay_counts[id] += 1\n\tsfx[id].play()"
+  },
+  {
+   "beat_id": "B14",
+   "path": "game/session.gd",
+   "start_line": 249,
+   "end_line": 258,
+   "text": "\t\telapsed += delta\n\t\toil = maxf(0.0, oil - OIL_DRAIN * delta)\n\t\t_collect_oil()\n\t\tember_time = ember_time + delta if oil <= 0.0 else 0.0\n\t\t_touch_lamp_posts()\n\t\tvar fatal := player.position.y > float(level.fall_y)\n\t\tdeath_reason = \"Missed the landing\" if fatal else \"Watch the spikes\"\n\t\tif ember_time >= EMBER_LIMIT:\n\t\t\tfatal = true\n\t\t\tdeath_reason = \"Your flame went out\""
+  },
+  {
+   "beat_id": "B17",
+   "path": "tests/test_audio.gd",
+   "start_line": 161,
+   "end_line": 176,
+   "text": "\tvar traces := []\n\tfor muted in [false, false, true]:\n\t\tset_mute(muted)\n\t\tawait fresh()\n\t\tvar route = Route.new()\n\t\tvar trace := []\n\t\tvar t := 0\n\t\twhile game.state == Game.State.PLAYING and t < 4000:\n\t\t\troute.step(game.player)\n\t\t\tawait steps(1)\n\t\t\tt += 1\n\t\t\tif t % 10 == 0:\n\t\t\t\ttrace.append([t, snappedf(game.player.position.x, 0.001), snappedf(game.player.position.y, 0.001), game.state, game.deaths, snappedf(game.oil, 0.001)])\n\t\ttrace.append([\"end\", t, game.state, game.deaths, pc(\"jump\"), pc(\"pickup\")])\n\t\ttraces.append(trace)\n\ttraces.pop_front()  # discard the warm-up run"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": "levels/first_steps.json",
+   "reason": "walker-jumpman's starter level, scaled x2 in step 1; the slice no longer loads it"
+  },
+  {
+   "path": "levels/lamplight_tunnel_v1_two_tunnels.json",
+   "reason": "level v1 kept as the record of the two-tunnel slice; not loaded"
+  },
+  {
+   "path": "tests/capture_game.gd",
+   "reason": "walker-jumpman's original screenshot script; superseded by capture_evidence.gd, not run"
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B07",
+   "result_beat": "B08",
+   "observation": "The image changes with the state in real play: walk, arms up rising, arms out falling, back view on the ladder.",
+   "media": {
+    "path": "media/B08.mp4",
+    "sha256": "05b517a699789e748f3c8e127433ba1fc28a8cd1f12d1329c8f9c5cffdb08eb3"
+   }
+  },
+  {
+   "code_beat": "B09",
+   "result_beat": "B10",
+   "observation": "Landing on the middle-tunnel platform takes the drop: pickup image, flame over the cap, gauge up, light opens.",
+   "media": {
+    "path": "media/B10.mp4",
+    "sha256": "f0061b30a7d68023cffc2a005d29f613aa960a9341bdcf101dd26be10dfc8dfe"
+   }
+  },
+  {
+   "code_beat": "B11",
+   "result_beat": "B12",
+   "observation": "An early jump lands on the pit spikes: hurt sound (game audio under the narration), red spike flash, respawn at the lamp post.",
+   "media": {
+    "path": "media/B12.mp4",
+    "sha256": "ec06e31c14727b588da75a892aca4e764d52633aed55bf2842c073c93affc0d4"
+   }
+  },
+  {
+   "code_beat": "B14",
+   "result_beat": "B15",
+   "observation": "With no input the ember ring shrinks, the gauge blinks faster, and after 4 s the flame goes out: 'Your flame went out'.",
+   "media": {
+    "path": "media/B15.mp4",
+    "sha256": "9d69e79e1d4e010e60fa4d0474aa75d243f3ba7336cb67056dc0a40bdffd14bb"
+   }
+  },
+  {
+   "code_beat": "B17",
+   "result_beat": "B18",
+   "observation": "Recorded output of tools/run_tests.sh: five suites, 99 checks, 0 failures; check_assets.py 31 rows, 0 FAIL.",
+   "media": {
+    "path": "media/B18.png",
+    "sha256": "9226cc17d20782b74629cec81861be70134e8a928e0509adf2ca5667c5137029"
+   }
+  }
+ ]
+}

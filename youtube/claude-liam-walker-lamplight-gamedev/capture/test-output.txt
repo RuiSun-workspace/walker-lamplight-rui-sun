@@ -1,0 +1,10 @@
+$ bash tools/run_tests.sh
+test_game      pass=26  fail=0   script_errors=0   exit=0   OK
+test_keyboard  pass=9   fail=0   script_errors=0   exit=0   OK
+test_wick      pass=17  fail=0   script_errors=0   exit=0   OK
+test_oil       pass=24  fail=0   script_errors=0   exit=0   OK
+test_audio     pass=23  fail=0   script_errors=0   exit=0   OK
+exit=0
+
+$ python tools/check_assets.py | tail -1
+ASSET CHECKS: 31 rows / 0 FAIL / 2 NOTE

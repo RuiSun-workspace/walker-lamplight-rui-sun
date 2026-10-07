@@ -492,3 +492,29 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **What it says about the level:** chaining that section at full speed is close to frame-perfect. Rui
   got through it (probably by stopping in the gap). Worth a wider gap in the full game; recorded as a
   limitation.
+
+## 2026-10-07 — building the explainer film: what the toolkit's gates caught
+
+- **A wrong count on screen.** B05's first narration miscounted the character rejections; the script
+  now says fifty-two candidates, fifty-one rejected. Caught by re-reading the asset log against the
+  script, not by a gate; B05 was re-narrated (21.50 s) and re-rendered.
+- **A look-alike in the rejected strip.** The seed-1002 b2 thumbnail (the copyrighted look-alike already
+  logged in SOURCES.md) was in the first B05 strip. It is no longer shown; the narration still says one
+  rejection was for that reason.
+- **Labels were not burned by the compiler.** The final compile does not draw shot labels on gameplay
+  beats, so `label_clips.py` burns them into the cut clips once, after `cut_clips.py` (it is not
+  idempotent; re-cut first if it must run again).
+- **Gate F wanted a SHOTLIST.md**, which had not been written; written from the beat sheet.
+- **Gate V refused the first compile.** Two kinds of defect:
+  - *Edge-bleed* on every GodotDesignBoard beat (B03–B06, B16). Not our text: the component draws its
+    own `@NikBearBrown` handle at 4 % from the bottom, below the title-safe line its own QC enforces.
+    Toolkit defect; the local copy now places it at 6.2 % (one-line change in
+    `GodotDesignBoard.tsx`, not upstreamed). The board sources were also cut to one line. B19's verdict
+    card was too tall (six long lines) and B18's terminal image started inside the left margin; both
+    redone (B18 now starts at x 380 of 3840, larger type).
+  - *Low contrast* on the gameplay beats (0.23–0.29 < 0.30). The mine is dark on purpose, so the game
+    footage was not brightened. Following the Assignment 1 film, each gameplay beat declares
+    `contrast_regions` (the HUD and the burned label) with a written reason; on B13 the end card's scrim
+    dims the HUD, so only the label is measured there and the card is checked by eye.
+- **A race to remember:** `remotion_scenes.py` rewrites `beat_sheet.json` when it stamps provenance, so
+  edits made to the sheet while a render runs are lost. The contrast fields had to be applied again.

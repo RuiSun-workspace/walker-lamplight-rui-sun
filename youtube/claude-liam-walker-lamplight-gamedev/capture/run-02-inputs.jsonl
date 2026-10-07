@@ -1,0 +1,8 @@
+{"key":"Enter","tick":60}
+{"press":"move_right","tick":61,"x":128.0,"y":1320.0}
+{"press":"jump","tick":88,"x":254.577713012695,"y":1319.92529296875}
+{"release":"jump","tick":90}
+{"press":"jump","tick":175,"x":718.577941894531,"y":1319.92529296875}
+{"release":"jump","tick":177}
+{"release":"move_right","tick":222}
+{"deaths":1,"elapsed":4.18333333333332,"oil":91.0000000000005,"result_ok":true,"state":1,"tick":346}
