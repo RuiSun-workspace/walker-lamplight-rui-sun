@@ -58,7 +58,7 @@ func run() -> void:
 	check("pause-main-menu",game.state == Game.State.MENU,"state="+str(game.state))
 	await tap(KEY_ENTER)
 	check("menu-start-again",game.state == Game.State.PLAYING,"state="+str(game.state))
-	var out := ProjectSettings.globalize_path("res://../evidence")
+	var out := ProjectSettings.globalize_path("res://../evidence/runs")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out+"/keyboard-"+str(Time.get_unix_time_from_system())+".json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"Synthetic keyboard events through Godot Input, not human playtesting", "engine":Engine.get_version_info().string,"results":results,"failures":failures},"  "))

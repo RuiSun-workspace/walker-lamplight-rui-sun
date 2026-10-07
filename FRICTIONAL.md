@@ -447,3 +447,20 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   Claude chose the spots. The real-input route now picks up 6 of 6 drops.
 - **Results:** all suites 99 checks, 0 failures, 0 script errors.
 - **Not yet confirmed by Rui:** whether −16 dB is right.
+
+## 2026-10-07 — step 6: verification and documents
+
+- **Done (Claude):** a fresh `git clone` (no cache) imports and passes every suite. New
+  `capture_evidence.gd` records the storyboard moments and each state in real play. Two moments are
+  staged and labelled (ember via oil = 0; hurt via placing Wick on spikes). New `check_assets.py`
+  covers F1, F2 in-engine, F6 and F4. The comparison sheets are `evidence/states-vs-sheet.png` and
+  `evidence/storyboard-vs-slice.png`. TEST-REPORT.md and README written; human/AI table in SOURCES.
+- **Surprise worth recording:** the predicted failure F2 (Wick lost against lit rock, 2.1:1 on the
+  sheet) did not happen: 4.8–9.6:1 measured on engine captures, because the warm light lifts the brass
+  and the generated rock is dark and cold. The prediction was made on flat swatches and did not
+  account for lighting.
+- **A capture glitch:** the first capture run missed the pickup frame (a GDScript lambda captured a
+  counter by value; fixed with a dictionary); a later identical run once still showed 17 files and I
+  could not reproduce it; the next full run produced all 18.
+- **Still owed by Rui (not invented):** one muted playtest, and the F7 question (is the muffling
+  audible on laptop speakers?). The in-engine loop seam has only been judged as part of general play.

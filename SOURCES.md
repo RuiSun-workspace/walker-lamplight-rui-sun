@@ -28,7 +28,15 @@ F: (`F:Ǘ02-genenv`); the original environment was not modified.
 
 ## Human / AI contributions
 
-_Kept up to date as work lands; FRICTIONAL.md has the dated detail._
+FRICTIONAL.md has the dated detail. In summary:
+
+| Who | Contributed |
+|---|---|
+| **Rui (human)** | Chose the game, tone, hero, ending and rules in the vision intake; **drew the storyboard by hand**; picked the concept and the art style; accepted or rejected every generated image and chose the reference face; **chose every sound and the music loop by listening**; playtested five times and asked for every gameplay revision (ladder descent, ember burn-out 8 s → 4 s, drain 6/s, longer three-tunnel map, jump volume, more oil); decided to keep the SVG character sheet. |
+| **Claude (Claude Code, Opus 5.5)** | Wrote the outline, the CONCEPT / CHARACTER-SHEET / CHANGE-BRIEF drafts and the SVG sketches (storyboard v1, character sheet); every prompt and the generation scripts; the post-processing tools (pixelize, face edit, normalise, environment processing, audio cuts and loop); all Godot code, the level layouts and all tests; the asset checks, captures and this documentation. Painted the reference face from Rui's chosen pattern (an edit, not model output). Claude cannot hear, so audio judgements are Rui's. |
+| **Stable Diffusion XL base 1.0** | Every generated image: Wick's body and flame in all states, back wall, tiles, spikes, oil drop, ladder (see the asset log for what was kept and edited). |
+| **MusicGen medium** | The four sound effects and the music loop (cut and levelled by Claude's tools, chosen by Rui). |
+| **Code-drawn (not generated)** | Lamp posts, the exit daylight, the light and darkness, the HUD, the spike flash, the ledge-top rim edit, and the reference face pattern. |
 
 ## Asset log
 

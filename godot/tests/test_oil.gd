@@ -145,7 +145,7 @@ func run() -> void:
 	await steps(3)
 	game.start_session()
 	check("new-run-resets", game.checkpoint == 0 and is_equal_approx(game.oil, 100.0) and not game.collected.has(true) and game.player.position.distance_to(Vector2(128, 1320)) < 1.0, {"checkpoint": game.checkpoint, "oil": game.oil})
-	var out := ProjectSettings.globalize_path("res://../evidence")
+	var out := ProjectSettings.globalize_path("res://../evidence/runs")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/oil-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope": "Oil, light, ember, lamp posts; scripted inputs, not human playtesting", "engine": Engine.get_version_info().string, "results": results, "failures": failures}, "  "))

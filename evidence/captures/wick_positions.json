@@ -1,0 +1,110 @@
+{
+  "sb1-title": {
+    "flip": false,
+    "look": "fall",
+    "x": 128.0,
+    "y": 600.0
+  },
+  "sb2-first-frame": {
+    "flip": false,
+    "look": "idle",
+    "x": 128.0,
+    "y": 600.0
+  },
+  "sb3-jump": {
+    "flip": false,
+    "look": "jump",
+    "x": 487.992553710938,
+    "y": 536.457763671875
+  },
+  "sb4-pickup": {
+    "flip": false,
+    "look": "pickup",
+    "x": 483.913208007813,
+    "y": 499.124389648438
+  },
+  "sb5-staged-ember": {
+    "flip": false,
+    "look": "ember",
+    "x": 301.998748779297,
+    "y": 599.998291015625
+  },
+  "sb6-staged-died-flash": {
+    "flip": false,
+    "look": "hurt",
+    "x": 787.732971191406,
+    "y": 663.199951171875
+  },
+  "sb7-restart-at-lamp-post": {
+    "flip": false,
+    "look": "idle",
+    "x": 128.0,
+    "y": 600.0
+  },
+  "sb8-exit-complete": {
+    "flip": false,
+    "look": "celebrate",
+    "x": 1133.8271484375,
+    "y": 480.000946044922
+  },
+  "state-celebrate": {
+    "flip": false,
+    "look": "celebrate",
+    "x": 1133.8271484375,
+    "y": 480.000854492188
+  },
+  "state-climb": {
+    "flip": false,
+    "look": "climb",
+    "x": 932.0009765625,
+    "y": 457.491577148438
+  },
+  "state-fall": {
+    "flip": false,
+    "look": "fall",
+    "x": 487.998229980469,
+    "y": 488.457763671875
+  },
+  "state-idle-right": {
+    "flip": false,
+    "look": "idle",
+    "x": 128.0,
+    "y": 600.0
+  },
+  "state-jump": {
+    "flip": false,
+    "look": "jump",
+    "x": 487.993225097656,
+    "y": 529.5244140625
+  },
+  "state-pickup": {
+    "flip": false,
+    "look": "pickup",
+    "x": 484.321899414063,
+    "y": 502.857666015625
+  },
+  "state-staged-ember": {
+    "flip": false,
+    "look": "ember",
+    "x": 301.998748779297,
+    "y": 599.998291015625
+  },
+  "state-staged-hurt": {
+    "flip": false,
+    "look": "hurt",
+    "x": 752.959655761719,
+    "y": 663.199951171875
+  },
+  "state-walk-left": {
+    "flip": true,
+    "look": "walk",
+    "x": 793.8828125,
+    "y": 479.876586914063
+  },
+  "state-walk-right": {
+    "flip": false,
+    "look": "walk",
+    "x": 474.759948730469,
+    "y": 599.92529296875
+  }
+}

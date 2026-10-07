@@ -1,0 +1,431 @@
+{
+  "results": [
+    {
+      "id": "F1",
+      "name": "wick_celebrate",
+      "status": "NOTE",
+      "observed": {
+        "measure": {
+          "cap_width": 14,
+          "feet_to_cap_top": 54,
+          "feet_to_top": 57
+        },
+        "diff_vs_ref": {
+          "cap_width": -16,
+          "feet_to_cap_top": 7,
+          "feet_to_top": 1
+        }
+      },
+      "note": "flame rises through the cap by design (sheet: 'over the cap only in pickup and celebrate'); cap not measurable"
+    },
+    {
+      "id": "F1",
+      "name": "wick_climb",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 31,
+          "feet_to_cap_top": 47,
+          "feet_to_top": 57
+        },
+        "diff_vs_ref": {
+          "cap_width": 1,
+          "feet_to_cap_top": 0,
+          "feet_to_top": 1
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_ember",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 31,
+          "feet_to_cap_top": 47,
+          "feet_to_top": 56
+        },
+        "diff_vs_ref": {
+          "cap_width": 1,
+          "feet_to_cap_top": 0,
+          "feet_to_top": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_fall",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 31,
+          "feet_to_cap_top": 48,
+          "feet_to_top": 58
+        },
+        "diff_vs_ref": {
+          "cap_width": 1,
+          "feet_to_cap_top": 1,
+          "feet_to_top": 2
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_hurt",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 31,
+          "feet_to_cap_top": 45,
+          "feet_to_top": 55
+        },
+        "diff_vs_ref": {
+          "cap_width": 1,
+          "feet_to_cap_top": -2,
+          "feet_to_top": -1
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_idle",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 30,
+          "feet_to_cap_top": 47,
+          "feet_to_top": 56
+        },
+        "diff_vs_ref": {
+          "cap_width": 0,
+          "feet_to_cap_top": 0,
+          "feet_to_top": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_jump",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 30,
+          "feet_to_cap_top": 45,
+          "feet_to_top": 55
+        },
+        "diff_vs_ref": {
+          "cap_width": 0,
+          "feet_to_cap_top": -2,
+          "feet_to_top": -1
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F1",
+      "name": "wick_pickup",
+      "status": "NOTE",
+      "observed": {
+        "measure": {
+          "cap_width": 13,
+          "feet_to_cap_top": 55,
+          "feet_to_top": 57
+        },
+        "diff_vs_ref": {
+          "cap_width": -17,
+          "feet_to_cap_top": 8,
+          "feet_to_top": 1
+        }
+      },
+      "note": "flame rises through the cap by design (sheet: 'over the cap only in pickup and celebrate'); cap not measurable"
+    },
+    {
+      "id": "F1",
+      "name": "wick_walk",
+      "status": "PASS",
+      "observed": {
+        "measure": {
+          "cap_width": 31,
+          "feet_to_cap_top": 47,
+          "feet_to_top": 57
+        },
+        "diff_vs_ref": {
+          "cap_width": 1,
+          "feet_to_cap_top": 0,
+          "feet_to_top": 1
+        }
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_celebrate",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_climb",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_ember",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_fall",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_hurt",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_idle",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_jump",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_pickup",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "wick_walk",
+      "status": "PASS",
+      "observed": {
+        "colours": 5,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "bg_rock",
+      "status": "PASS",
+      "observed": {
+        "colours": 8,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "ladder",
+      "status": "PASS",
+      "observed": {
+        "colours": 9,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "oil_drop",
+      "status": "PASS",
+      "observed": {
+        "colours": 13,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "spikes",
+      "status": "PASS",
+      "observed": {
+        "colours": 10,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "tiles_rock",
+      "status": "PASS",
+      "observed": {
+        "colours": 8,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "tiles_rock_top",
+      "status": "PASS",
+      "observed": {
+        "colours": 8,
+        "semi_transparent_px": 0
+      },
+      "note": ""
+    },
+    {
+      "id": "F6",
+      "name": "project default texture filter = Nearest",
+      "status": "PASS",
+      "observed": {},
+      "note": ""
+    },
+    {
+      "id": "F2",
+      "name": "state-idle-right",
+      "status": "PASS",
+      "observed": {
+        "brass_on_screen": [
+          255,
+          198,
+          64
+        ],
+        "background_on_screen": [
+          72,
+          64,
+          56
+        ],
+        "contrast": 6.49
+      },
+      "note": "pass condition from CHANGE-BRIEF F2: >= 3:1"
+    },
+    {
+      "id": "F2",
+      "name": "state-walk-right",
+      "status": "PASS",
+      "observed": {
+        "brass_on_screen": [
+          255,
+          160,
+          54
+        ],
+        "background_on_screen": [
+          72,
+          66,
+          67
+        ],
+        "contrast": 4.84
+      },
+      "note": "pass condition from CHANGE-BRIEF F2: >= 3:1"
+    },
+    {
+      "id": "F2",
+      "name": "sb3-jump",
+      "status": "PASS",
+      "observed": {
+        "brass_on_screen": [
+          255,
+          160,
+          54
+        ],
+        "background_on_screen": [
+          14,
+          12,
+          13
+        ],
+        "contrast": 9.59
+      },
+      "note": "pass condition from CHANGE-BRIEF F2: >= 3:1"
+    },
+    {
+      "id": "F2",
+      "name": "state-climb",
+      "status": "PASS",
+      "observed": {
+        "brass_on_screen": [
+          255,
+          161,
+          54
+        ],
+        "background_on_screen": [
+          52,
+          47,
+          49
+        ],
+        "contrast": 6.51
+      },
+      "note": "pass condition from CHANGE-BRIEF F2: >= 3:1"
+    },
+    {
+      "id": "F2",
+      "name": "state-staged-ember",
+      "status": "PASS",
+      "observed": {
+        "brass_on_screen": [
+          193,
+          119,
+          42
+        ],
+        "background_on_screen": [
+          6,
+          7,
+          13
+        ],
+        "contrast": 5.69
+      },
+      "note": "pass condition from CHANGE-BRIEF F2: >= 3:1"
+    },
+    {
+      "id": "F4",
+      "name": "mus_loop seam (numbers only; Rui listened: 'no problem at the seam')",
+      "status": "PASS",
+      "observed": {
+        "bpm": 90.0,
+        "bars": 8,
+        "length_s": 21.3438,
+        "seam_jump": 0.00198,
+        "median_step": 0.00064
+      },
+      "note": ""
+    }
+  ]
+}

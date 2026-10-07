@@ -130,7 +130,7 @@ func run() -> void:
 	await fresh(Vector2(3100, 600))
 	await steps(3)
 	check("look-celebrate-on-exit", game.state == Game.State.COMPLETE and game.player.look == "celebrate", {"look": game.player.look})
-	var out := ProjectSettings.globalize_path("res://../evidence")
+	var out := ProjectSettings.globalize_path("res://../evidence/runs")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/wick-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope": "Wick state images, facing and ladder (F8); scripted inputs, not human playtesting", "engine": Engine.get_version_info().string, "results": results, "failures": failures}, "  "))

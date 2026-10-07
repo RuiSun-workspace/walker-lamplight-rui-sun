@@ -180,7 +180,7 @@ func run() -> void:
 			print("FIRST DIFF at sample %d: sound=%s muted=%s" % [i, str(traces[0][i]), str(traces[1][i])])
 			break
 	check("muted-run-identical-to-sound-run", traces[0] == traces[1] and traces[0].back()[2] == Game.State.COMPLETE, {"samples": traces[0].size(), "end_sound": traces[0].back(), "end_muted": traces[1].back()})
-	var out := ProjectSettings.globalize_path("res://../evidence")
+	var out := ProjectSettings.globalize_path("res://../evidence/runs")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/audio-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope": "F3 sound-per-event counts, music behaviour, mute keys, F5 muted-trace equality; scripted inputs, not listening", "engine": Engine.get_version_info().string, "results": results, "failures": failures}, "  "))

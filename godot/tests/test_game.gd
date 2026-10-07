@@ -142,7 +142,7 @@ func run() -> void:
 	game.start_session()
 	check("replay-idempotent", game.state == Game.State.PLAYING and game.deaths == 0 and game.player.jumps == 0, {"state":game.state,"deaths":game.deaths,"jumps":game.player.jumps})
 	var report := {"scope":"Lamplight asset slice (lamplight_tunnel.json); not human playtesting", "engine":Engine.get_version_info().string,"created_at":Time.get_datetime_string_from_system(true),"results":results,"failures":failures}
-	var out := ProjectSettings.globalize_path("res://../evidence")
+	var out := ProjectSettings.globalize_path("res://../evidence/runs")
 	DirAccess.make_dir_recursive_absolute(out)
 	var file := FileAccess.open(out + "/mechanics-" + str(Time.get_unix_time_from_system()) + ".json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"  "))
