@@ -24,9 +24,10 @@ const TIMBER_DARK := Color("3b2a1c")
 const BRASS := Color("b8863b")
 # CHANGE-BRIEF section 4 (first guesses, to be tuned by playtest)
 const OIL_MAX := 100.0
-const OIL_DRAIN := 4.0         # per second
+const OIL_DRAIN := 6.0         # per second (Rui playtest 2026-10-07: was 4; empty must actually happen)
 const OIL_DROP := 35.0
 const PICKUP_LOOK_TIME := 0.3  # seconds the pickup image shows
+const EMBER_LIMIT := 8.0       # Rui playtest 2026-10-07: at zero oil the ember burns out after 8 s (a failure)
 
 enum State { MENU, PLAYING, PAUSED, DYING, COMPLETE }
 var state: State = State.MENU
@@ -49,6 +50,7 @@ var contact_settle_ticks: int = 0
 var oil: float = OIL_MAX
 var collected: Array[bool] = []
 var pickup_until: float = -1.0
+var ember_time: float = 0.0           # seconds spent at zero oil since the last drop / respawn
 var checkpoint: int = 0                 # index into level.lamp_posts
 var checkpoint_oil: float = OIL_MAX
 var checkpoint_collected: Array[bool] = []
@@ -167,6 +169,7 @@ func restart_attempt() -> void:
 	oil = checkpoint_oil
 	collected = checkpoint_collected.duplicate()
 	pickup_until = -1.0
+	ember_time = 0.0
 	# Area2D overlaps are physics-step snapshots. Discard pre-teleport contacts
 	# until the broadphase has observed the reset, preventing a phantom second death.
 	contact_settle_ticks = 2
@@ -228,9 +231,13 @@ func _physics_process(delta: float) -> void:
 		elapsed += delta
 		oil = maxf(0.0, oil - OIL_DRAIN * delta)
 		_collect_oil()
+		ember_time = ember_time + delta if oil <= 0.0 else 0.0
 		_touch_lamp_posts()
 		var fatal := player.position.y > float(level.fall_y)
 		death_reason = "Missed the landing" if fatal else "Watch the spikes"
+		if ember_time >= EMBER_LIMIT:
+			fatal = true
+			death_reason = "Your flame went out"
 		for i in range(hazard_areas.size()):
 			if hazard_areas[i].overlaps_body(player):
 				fatal = true

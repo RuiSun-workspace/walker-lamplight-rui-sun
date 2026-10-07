@@ -374,3 +374,20 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   capture script, not by play.
 - **Results:** test_game 26/0, test_wick 17/0, test_oil 20/0, test_keyboard 9/9.
 - **Not yet judged by a human:** whether 4/s drain and 240 → 56 px feel tense but fair.
+
+## 2026-10-07 — second playtest (Rui): "the dark is not risky enough"
+
+- **Rui's observation after playing step 4:** at zero oil the game "can still be played on", and
+  "the spikes can be seen in the dark". Rui asked whether this departs from the design's meaning:
+  **"the risk is not enough."**
+- **Claude's analysis:** a real conflict between two pillars that my implementation settled too far
+  toward fairness. "Fair in the dark" made the spike glint visible at any distance, so "Light is life"
+  had no cost: oil only changed the mood. Four options were offered (glint fades with distance from
+  the light, no glint, flickering glint, ember burns out), plus three drain rates.
+- **Decided (Rui):** **the ember burns out after ~8 s at zero oil** (a failure). This changes Rui's own
+  2026-10-06 rule "you can keep moving in the dark" into "for a while". Also **drain 6/s**. Claude added
+  silent warnings so the rule reads without sound: the ring shrinks 56 → 28 px and the gauge blinks
+  faster.
+- **Results:** test_oil 23/0 (3 new checks), test_game 26/0, test_wick 17/0, test_keyboard 9/9.
+- **Revision records:** appended to CONCEPT.md and CHANGE-BRIEF.md (v1 text untouched).
+- **Still unresolved:** whether 8 s is the right length; needs Rui's next playtest.

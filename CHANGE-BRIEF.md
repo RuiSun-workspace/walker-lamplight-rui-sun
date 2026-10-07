@@ -164,3 +164,10 @@ _Append dated entries here after this file is first committed._
   - **F6 pipeline changed:** SDXL draws a flat illustration (not "pixel art") → `pixelize.py` (remove
     white, scale, hard alpha, 6-colour quantise) → `face_edit.py` (clean flame, paint face pattern) →
     `normalize_sprite.py` (feet / cap anchor). Every step is logged in `design/generation/edit-log.jsonl`.
+
+- **2026-10-07 — ember burn-out and faster drain (Rui's playtest decision).** Section 4 changes: drain
+  **6/s** (was 4); at zero oil an **8 s ember limit** — the light ring shrinks 56 → 28 px and the empty
+  gauge blinks faster (1.5 → 6 per second) as it runs out, then the failure "Your flame went out" (same
+  `died` signal and SFX-HURT as spikes / falls; no spike flash). Any drop resets the timer. Options Rui
+  did not choose: glint fading with distance, no glint at all, flickering glint. New checks:
+  `ember-ring-shrinks`, `ember-burns-out-after-8s`, `drop-in-time-saves-the-ember`.

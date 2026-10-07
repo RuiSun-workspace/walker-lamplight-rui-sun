@@ -45,10 +45,10 @@ func fresh(at := Vector2.ZERO) -> void:
 func run() -> void:
 	await fresh()
 	# drains from the first tick, so "full" means exactly 100 - 4 x elapsed (the first version checked == 100 two ticks in)
-	check("oil-starts-full", absf(game.oil - (100.0 - 4.0 * game.elapsed)) < 0.001, {"oil": game.oil, "elapsed": game.elapsed})
+	check("oil-starts-full", absf(game.oil - (100.0 - game.OIL_DRAIN * game.elapsed)) < 0.001, {"oil": game.oil, "elapsed": game.elapsed})
 	var before: float = game.oil
 	await steps(60)
-	check("drain-4-per-second", absf((before - game.oil) - 4.0) < 0.3, {"drained_in_60_ticks": before - game.oil})
+	check("drain-6-per-second", absf((before - game.oil) - 6.0) < 0.3, {"drained_in_60_ticks": before - game.oil})
 	game.set_paused(true)
 	var paused_oil: float = game.oil
 	await steps(60)
@@ -92,6 +92,25 @@ func run() -> void:
 	game.player.test_climb_axis = -1
 	await steps(6)
 	check("climb-look-beats-ember", game.player.look == "climb", {"look": game.player.look})
+	# Ember burns out (Rui playtest 2026-10-07): 8 s at zero oil is a failure; a drop in time resets it
+	await fresh()
+	game.oil = 0.0
+	await steps(60 * 5)
+	var r_mid: float = game.lighting.wick_radius
+	check("ember-ring-shrinks", r_mid < 56.0 and r_mid > 28.0 and game.state == Game.State.PLAYING, {"radius_after_5s": r_mid})
+	await steps(60 * 3 + 5)
+	check("ember-burns-out-after-8s", game.state == Game.State.DYING and counts["died"] == 1 and game.death_reason == "Your flame went out" and game.killer_hazard == -1, {"state": game.state, "reason": game.death_reason})
+	await fresh(Vector2(1260, 560))
+	game.oil = 0.0
+	await steps(60 * 5)
+	game.player.test_axis = 1
+	t = 0
+	while counts["oil_collected"] == 0 and t < 60:
+		await steps(1)
+		t += 1
+	game.player.test_axis = 0
+	await steps(60 * 4)
+	check("drop-in-time-saves-the-ember", game.state == Game.State.PLAYING and counts["died"] == 0 and game.ember_time == 0.0, {"state": game.state, "oil": game.oil})
 	# Lamp post checkpoint (P7): touch post 2, collect drop 1, die on the upper spikes, come back
 	await fresh(Vector2(1980, 360))
 	game.player.test_axis = 1

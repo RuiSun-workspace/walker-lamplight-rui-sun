@@ -30,7 +30,9 @@ func gauge() -> void:
 	var low := level <= 0.15
 	var col := EMBER if low else FLAME
 	draw_colored_polygon(PackedVector2Array([Vector2(36, 18), Vector2(48, 38), Vector2(36, 50), Vector2(24, 38)]), col)
-	var outline := EMBER if empty and int(game.elapsed * 3.0) % 2 == 0 else BRASS
+	# blink speeds up from 1.5 to 6 per second as the ember burns out (readable with sound off)
+	var rate := lerpf(3.0, 12.0, clampf(game.ember_time / game.EMBER_LIMIT, 0.0, 1.0))
+	var outline := EMBER if empty and int(game.elapsed * rate) % 2 == 0 else BRASS
 	draw_rect(Rect2(60, 24, 248, 20), outline, false, 3.0)
 	draw_rect(Rect2(64, 28, 240 * level, 12), col)
 
@@ -64,7 +66,7 @@ func _draw() -> void:
 		button = "ENTER  /  PLAY AGAIN"
 	centered(title, 280, 48, title_col)
 	centered(detail, 340, 20)
-	centered("Oil drains every second. Oil drops refill it.", 380, 16, DIM)
+	centered("Oil drains every second. At zero your ember lasts 8 seconds.", 380, 16, DIM)
 	var b := button_rect()
 	draw_rect(b, BRASS)
 	centered(button, b.position.y + 36, 22, Color("14151c"))

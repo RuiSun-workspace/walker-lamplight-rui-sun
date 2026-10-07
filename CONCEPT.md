@@ -63,3 +63,8 @@ and separate music / effects mute keys. The full game (more tunnels, more hazard
   joined by a **ladder** (from the hand-drawn storyboard P1); climbing becomes a verb. When the oil runs out
   the light shrinks to **a very small ring around Wick's body**, never fully dark. The ending is
   **outdoors** in daylight (storyboard P8). The text above is the v1 record and is left unchanged.
+- **2026-10-07 (Rui, after playtesting step 4):** the ember was too safe. Rui still saw every spike
+  in the dark and could keep playing indefinitely at zero oil, so darkness carried no risk. **At zero
+  oil the ember now burns out after 8 seconds (a failure, back to the last lamp post)**, and oil drains
+  at 6/s instead of 4/s. The spikes' faint glint stays, so "Fair in the dark" is kept; the risk now
+  comes from time ("Every second burns") instead of from hiding the hazards.

@@ -4,6 +4,7 @@ extends Node2D
 ## runs out). Lamp posts, uncollected oil drops and the exit carry their own small lights.
 const RADIUS_FULL := 240.0
 const RADIUS_EMBER := 56.0
+const RADIUS_OUT := 28.0  # the ember ring keeps shrinking toward this as it burns out (silent warning)
 const EASE := 8.0  # how fast the radius follows a change (pickup opens it up over ~0.3 s)
 
 var game: Node2D
@@ -36,6 +37,8 @@ func _light(pos: Vector2, radius: float, colour: Color, energy: float) -> PointL
 	return l
 
 func target_radius() -> float:
+	if game.oil <= 0.0:
+		return lerpf(RADIUS_EMBER, RADIUS_OUT, clampf(game.ember_time / game.EMBER_LIMIT, 0.0, 1.0))
 	return lerpf(RADIUS_EMBER, RADIUS_FULL, clampf(game.oil / game.OIL_MAX, 0.0, 1.0))
 
 func _ready() -> void:
