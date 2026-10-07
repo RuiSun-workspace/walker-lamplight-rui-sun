@@ -9,11 +9,13 @@ signal respawned
 signal completed
 signal paused_changed(paused: bool)
 signal run_started
+signal returned_to_menu
 
 const Player = preload("res://features/player/player.gd")
 const Hud = preload("res://ui/hud.gd")
 const Lighting = preload("res://game/lighting.gd")
 const Overlay = preload("res://game/overlay.gd")
+const AudioDirector = preload("res://audio/audio_director.gd")
 # Generated environment art (SOURCES.md, environment round 1). Lamp posts and the exit light are code-drawn.
 const BG := preload("res://assets/env/bg_rock.png")
 const TILE := preload("res://assets/env/tiles_rock.png")
@@ -36,6 +38,7 @@ var camera: Camera2D
 var hud: Control
 var lighting: Node2D
 var overlay: Node2D
+var audio: Node
 var level: Dictionary
 var hazard_areas: Array[Area2D] = []
 var goal: Area2D
@@ -88,11 +91,14 @@ func _ready() -> void:
 	hud = Hud.new()
 	hud.game = self
 	layer.add_child(hud)
+	audio = AudioDirector.new()
+	audio.game = self
+	add_child(audio)
 	get_window().focus_exited.connect(_on_focus_lost)
 	queue_redraw()
 
 func _setup_input() -> void:
-	var actions := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "jump": [KEY_SPACE], "pause": [KEY_ESCAPE, KEY_P], "restart": [KEY_R], "confirm": [KEY_ENTER], "menu": [KEY_M], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN]}
+	var actions := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "jump": [KEY_SPACE], "pause": [KEY_ESCAPE, KEY_P], "restart": [KEY_R], "confirm": [KEY_ENTER], "menu": [KEY_M], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN], "mute_music": [KEY_N], "mute_sfx": [KEY_B]}
 	for action in actions:
 		if InputMap.has_action(action):
 			continue
@@ -302,6 +308,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("menu") and state in [State.PAUSED, State.COMPLETE]:
 		state = State.MENU
 		player.enabled = false
+		returned_to_menu.emit()
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if hud.button_rect().has_point(hud.get_local_mouse_position()):
 			if state in [State.MENU, State.COMPLETE]:

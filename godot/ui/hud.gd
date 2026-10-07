@@ -41,7 +41,14 @@ func _draw() -> void:
 		return
 	gauge()
 	text_at("RETRIES %02d     %05.1fs" % [game.deaths, game.elapsed], Vector2(1030, 44), 20, DIM)
-	text_at("A/D move   Space jump   W/S climb   R last lamp post   Esc pause", Vector2(24, 74), 15, DIM)  # was at the bottom, over the spike pit
+	text_at("A/D move   Space jump   W/S climb   R last lamp post   Esc pause   N music   B effects", Vector2(24, 74), 15, DIM)  # was at the bottom, over the spike pit
+	var muted: Array[String] = []
+	if game.audio and game.audio.is_muted(&"Music"):
+		muted.append("MUSIC OFF")
+	if game.audio and game.audio.is_muted(&"SFX"):
+		muted.append("EFFECTS OFF")
+	if not muted.is_empty():
+		text_at("   ".join(muted), Vector2(1030, 74), 16, EMBER)
 	if game.state == game.State.PLAYING:
 		return
 	if game.state == game.State.DYING:

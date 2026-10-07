@@ -391,3 +391,28 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Results:** test_oil 23/0 (3 new checks), test_game 26/0, test_wick 17/0, test_keyboard 9/9.
 - **Revision records:** appended to CONCEPT.md and CHANGE-BRIEF.md (v1 text untouched).
 - **Still unresolved:** whether 8 s is the right length; needs Rui's next playtest.
+
+## 2026-10-07 — slice step 5: sounds and music in the engine
+
+- **Built (Claude):** `audio/audio_director.gd` listens to `jumped`, `oil_collected`, `died` and
+  `completed` and plays SFX-JUMP / PICKUP / HURT / EXIT on the SFX bus. MUS-LOOP is imported with
+  loop = true (8 bars, 90 bpm) on the Music bus. It plays on the title; a low-pass follows the oil
+  (20 kHz full → 800 Hz near empty, exponential); the ember drops it to 400 Hz and −4 dB; it ducks
+  −12 dB on death and returns over 0.3 s after respawn; it pauses in place and stops on the end card.
+  N mutes music, B mutes effects; the HUD shows MUSIC OFF / EFFECTS OFF.
+- **A testing hole found and closed:** a type-inference error in the new script stopped session.gd from
+  compiling, yet all three suites still printed "0 failures". `tools/run_tests.sh` now fails a suite on
+  any SCRIPT ERROR, a non-zero exit, or zero PASS lines. Earlier step results were checked for script
+  errors at the time, so they stand.
+- **A flaky check, investigated rather than retried:** F5 (muted run = sound run) failed once and
+  passed once. A determinism probe showed the *first* game in a fresh engine process gets 10 physics
+  ticks before the route starts, not 3. Runs 2–6 were identical, including two fully muted runs. So
+  mute was not the cause. The F5 check now discards a warm-up run; the equality itself is unchanged and
+  passed 3/3.
+- **Results:** test_audio 23/0 — one sound per jump (5/5 including held and mashed Space), per ladder
+  jump-off, per drop, per death (including spike + fall in one tick and a duplicate fatal contact), one
+  exit sound with none on replay; music behaviour; mute keys; muted trace = sound trace. All suites:
+  26 + 9 + 17 + 23 + 23 checks, 0 failures, 0 script errors.
+- **Only a human can check:** whether each sound fits its moment in play, whether the loop seam stays
+  clean in the engine, whether the muffling is audible on laptop speakers (F7), and whether the game
+  still reads with sound off.
