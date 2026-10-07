@@ -24,8 +24,8 @@ func _ready() -> void:
 	_setup_input()
 	for entry in level.solids:
 		_add_solid(Rect2(entry[0], entry[1], entry[2], entry[3]))
-	_add_solid(Rect2(-32, 0, 32, 430))
-	_add_solid(Rect2(level.width, 0, 32, 430))
+	_add_solid(Rect2(-64, 0, 64, 860))
+	_add_solid(Rect2(level.width, 0, 64, 860))
 	for entry in level.hazards:
 		hazard_areas.append(_add_area(Rect2(entry[0], entry[1], entry[2], entry[3]), 8, true))
 	var f: Array = level.finish
@@ -34,12 +34,13 @@ func _ready() -> void:
 	add_child(player)
 	player.reset_at(Vector2(level.spawn[0], level.spawn[1]))
 	camera = Camera2D.new()
-	camera.position = Vector2(320, 180)
+	camera.position = Vector2(640, 360)
 	add_child(camera)
 	var layer := CanvasLayer.new()
 	add_child(layer)
 	hud = Hud.new()
 	hud.game = self
+	hud.scale = Vector2(2, 2)  # placeholder HUD drawn in 640x360 units until the HUD step
 	layer.add_child(hud)
 	get_window().focus_exited.connect(_on_focus_lost)
 	queue_redraw()
@@ -77,7 +78,7 @@ func _add_area(rect: Rect2, layer: int, spikes: bool) -> Area2D:
 		for i in range(3):
 			var triangle := CollisionPolygon2D.new()
 			var x := float(i) * rect.size.x / 3.0
-			triangle.polygon = PackedVector2Array([Vector2(x, rect.size.y), Vector2(x + 4, 0), Vector2(x + 8, rect.size.y)])
+			triangle.polygon = PackedVector2Array([Vector2(x, rect.size.y), Vector2(x + 8, 0), Vector2(x + 16, rect.size.y)])
 			area.add_child(triangle)
 	else:
 		var collision := CollisionShape2D.new()
@@ -104,7 +105,7 @@ func restart_attempt() -> void:
 	contact_settle_ticks = 2
 	player.reset_at(Vector2(level.spawn[0], level.spawn[1]))
 	player.enabled = true
-	camera.position = Vector2(320, 180)
+	camera.position = Vector2(640, 360)
 
 func set_paused(value: bool) -> void:
 	if value and state == State.PLAYING:
@@ -150,7 +151,7 @@ func _physics_process(delta: float) -> void:
 			contact_settle_ticks -= 1
 		else:
 			resolve_contacts(fatal, goal.overlaps_body(player))
-		camera.position.x = clampf(player.position.x + 100, 320, float(level.width) - 320)
+		camera.position.x = clampf(player.position.x + 200, 640, float(level.width) - 640)
 	if is_instance_valid(hud):
 		hud.queue_redraw()
 
@@ -181,6 +182,8 @@ func _draw() -> void:
 		return
 	var font := ThemeDB.fallback_font
 	var ink := Color("25354a")
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2(2, 2))  # placeholder: old 640x360 drawing, replaced in the level step
+	var k := 0.5
 	# All visual assets are original Godot vector drawing, not recovered art.
 	draw_rect(Rect2(-400, -200, 1800, 900), Color("f6f3ec"))
 	for x in range(0, 961, 32):
@@ -190,16 +193,16 @@ func _draw() -> void:
 	for x in [100, 470, 770]:
 		draw_colored_polygon(PackedVector2Array([Vector2(x-90,320),Vector2(x+50,180),Vector2(x+190,320)]), Color("e4e8e3"))
 	for entry in level.solids:
-		var r := Rect2(entry[0], entry[1], entry[2], entry[3])
+		var r := Rect2(entry[0]*k, entry[1]*k, entry[2]*k, entry[3]*k)
 		draw_rect(r, ink)
 		draw_rect(Rect2(r.position, Vector2(r.size.x, 4)), Color("438e7d"))
 		for x in range(int(r.position.x)+12, int(r.end.x), 24):
 			draw_line(Vector2(x, r.position.y+12), Vector2(x+7, r.position.y+19), Color("405166"), 1)
 	for entry in level.hazards:
 		for i in range(3):
-			var x: float = entry[0] + i*8
+			var x: float = entry[0]*k + i*8
 			draw_colored_polygon(PackedVector2Array([Vector2(x,320),Vector2(x+4,304),Vector2(x+8,320)]), Color("d24e42"))
-	var finish_x: float = level.finish[0]
+	var finish_x: float = level.finish[0]*k
 	draw_line(Vector2(finish_x+3, 320), Vector2(finish_x+3, 250), ink, 3)
 	draw_colored_polygon(PackedVector2Array([Vector2(finish_x+5,250),Vector2(finish_x+32,260),Vector2(finish_x+5,274)]), Color("287c68"))
 	draw_string(font, Vector2(33, 251), "01 / GET MOVING", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, ink)

@@ -21,10 +21,10 @@ func _ready() -> void:
 	collision_mask = 1
 	floor_snap_length = 1.0
 	var shape := RectangleShape2D.new()
-	shape.size = Vector2(18, 28)
+	shape.size = Vector2(36, 56)  # CHARACTER-SHEET revision 2026-10-07: x2 of the inherited 18x28
 	var collider := CollisionShape2D.new()
 	collider.shape = shape
-	collider.position = Vector2(0, -14)
+	collider.position = Vector2(0, -28)
 	add_child(collider)
 
 func reset_at(spawn: Vector2) -> void:
@@ -64,10 +64,11 @@ func _physics_process(delta: float) -> void:
 		jump_request_tick = -1000
 		jumps += 1
 	move_and_slide()
-	position.x = maxf(position.x, 10.0)
+	position.x = maxf(position.x, 20.0)
 	queue_redraw()
 
 func _draw() -> void:
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2(2, 2))  # placeholder art until the sprite step
 	var ink := Color("25354a")
 	var blue := Color("287baf")
 	var stride := sin(float(tick) * 0.7) * 2.0 if is_on_floor() and absf(velocity.x) > 8 else 0.0
