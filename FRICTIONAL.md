@@ -334,3 +334,19 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   even when mashing Space"). Engine screenshots: `evidence/screens/step3-*.png`.
 - **Seen, not fixed yet:** the mirrored background repeat is obvious on the upper level (symmetric
   crates). The darkness in step 4 may hide most of it; to be judged then.
+
+## 2026-10-07 — first human playtest (Rui) → ladder fix
+
+- **Rui played step 3** (Claude launched the game for Rui). Rui's words: facing flip is fine;
+  **"coming down from the ladder feels a bit stuck"**.
+- **Claude's diagnosis from the code:** (1) the ladder stood 32 px left of the upper floor's edge, so
+  from the upper floor there was no way to grab it; you had to walk off the edge and press a direction
+  in mid-air, which stops Wick dead in the air; (2) going down was as slow as going up (180 px/s,
+  1.5 s for 280 px).
+- **Changed:** Down while standing at the ladder top grabs it; climbing down is 1.5× faster
+  (270 px/s); the ladder moved next to the edge. The first try (x 1806) put Wick's collider exactly on
+  the slab's edge and he got stuck under the slab at y 456. Tests caught it, and the ladder now sits
+  3 px clear (x 1803).
+- **Checks added:** `down-from-upper-floor` (grab from the top, reach the floor: 61 ticks) and
+  `down-faster-than-up`. test_game 26/0, test_wick 17/0, test_keyboard 9/9.
+- **Still to confirm by Rui:** whether getting down now feels right.

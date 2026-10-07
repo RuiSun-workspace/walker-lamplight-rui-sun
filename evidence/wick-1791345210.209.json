@@ -1,0 +1,122 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "failures": 2,
+  "results": [
+    {
+      "id": "sprites-64x80-anchored",
+      "observed": {
+        "sprite_position": "(-32.0, -80.0)"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-idle",
+      "observed": {
+        "look": "idle"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-walk-right",
+      "observed": {
+        "flip": false,
+        "look": "walk"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "facing-left-flips",
+      "observed": {
+        "flip": true
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-jump-rising",
+      "observed": {
+        "look": "jump",
+        "vy": -576.0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-fall",
+      "observed": {
+        "look": "fall",
+        "ticks_to_apex": 19,
+        "vy": 64.0
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "grab-ladder",
+      "observed": {
+        "climbing": true,
+        "flip": false,
+        "look": "climb"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "climb-to-top-holds",
+      "observed": {
+        "ticks": 200,
+        "y": 456.005126953125
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "step-onto-upper-floor",
+      "observed": {
+        "pos": "(1881.925, 568.0058)"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "jump-off-ladder-once",
+      "observed": {
+        "jumped_signals": 1,
+        "jumps": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "mash-jump-on-ladder-no-extra",
+      "observed": {
+        "jumped_signals": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "climb-down-to-floor",
+      "observed": {
+        "pos": "(1822.0, 639.9838)",
+        "ticks": 28
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-hurt-on-death",
+      "observed": {
+        "look": "hurt",
+        "state": 3
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-cleared-on-respawn",
+      "observed": {
+        "look": "idle"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "look-celebrate-on-exit",
+      "observed": {
+        "look": "celebrate"
+      },
+      "status": "PASS"
+    }
+  ],
+  "scope": "Wick state images, facing and ladder (F8); scripted inputs, not human playtesting"
+}

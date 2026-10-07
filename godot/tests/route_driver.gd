@@ -5,7 +5,7 @@ extends RefCounted
 var jump_marks: Array[float] = [250.0, 846.0, 1170.0, 2320.0]
 var next_jump: int = 0
 var phase: String = "lower"
-var ladder_x: float = 1808.0
+var ladder_x: float = 1819.0  # ladder centre; 3 px clear of the upper slab edge at x 1840
 var ladder_top: float = 360.0
 
 func step(player: CharacterBody2D) -> void:

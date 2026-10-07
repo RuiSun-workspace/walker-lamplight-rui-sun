@@ -18,6 +18,7 @@ const LOOKS := {
 	"celebrate": preload("res://assets/char/wick_celebrate.png"),
 }
 const CLIMB_SPEED := 180.0  # CHANGE-BRIEF 4b: ~90 px/s at 640x360, x2
+const CLIMB_DOWN_SPEED := 270.0  # Rui playtest 2026-10-07: coming down felt stuck; down is 1.5x faster
 
 var tuning = Tuning.new()
 var enabled: bool = false
@@ -89,8 +90,11 @@ func _physics_process(delta: float) -> void:
 	if not held:
 		require_jump_release = false
 	var ladder = ladder_at()
-	# Grab: Up anywhere on the ladder, or Down while airborne on it (standing at the foot + Down does nothing).
-	if not climbing and ladder != null and (climb_axis < 0.0 or (climb_axis > 0.0 and not is_on_floor())):
+	# Grab: Up anywhere on the ladder; Down while airborne on it or while standing at its top (Rui playtest
+	# 2026-10-07: getting down from the upper floor meant falling off the edge and grabbing in mid-air).
+	# Standing at the foot + Down does nothing.
+	var at_top: bool = ladder != null and is_on_floor() and absf(position.y - ladder.position.y) < 2.0
+	if not climbing and ladder != null and (climb_axis < 0.0 or (climb_axis > 0.0 and (not is_on_floor() or at_top))):
 		climbing = true
 		position.x = ladder.position.x + ladder.size.x / 2.0
 		velocity = Vector2.ZERO
@@ -103,7 +107,7 @@ func _physics_process(delta: float) -> void:
 		jump_request_tick = tick
 	if climbing:
 		velocity.x = 0.0
-		velocity.y = climb_axis * CLIMB_SPEED
+		velocity.y = climb_axis * (CLIMB_SPEED if climb_axis < 0.0 else CLIMB_DOWN_SPEED)
 		var top: float = ladder.position.y - 6.0
 		if position.y + velocity.y * delta <= top:  # stop a little above the floor the ladder leads to
 			position.y = top

@@ -66,7 +66,7 @@ func run() -> void:
 	await steps(1)
 	check("look-fall", p.look == "fall" and p.velocity.y > 0, {"look": p.look, "vy": p.velocity.y, "ticks_to_apex": w})
 	# Ladder (F8)
-	await fresh(Vector2(1808, 640))
+	await fresh(Vector2(1819, 640))
 	p = game.player
 	p.test_axis = -1
 	await steps(2)
@@ -83,8 +83,8 @@ func run() -> void:
 	p.test_climb_axis = 0
 	p.test_axis = 1
 	await steps(20)
-	check("step-onto-upper-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 360) < 1 and p.position.x > 1840, {"pos": str(p.position)})
-	await fresh(Vector2(1808, 640))
+	check("step-onto-upper-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 360) < 1 and p.position.x > 1822, {"pos": str(p.position)})
+	await fresh(Vector2(1819, 640))
 	p = game.player
 	p.test_climb_axis = -1
 	await steps(40)
@@ -97,7 +97,7 @@ func run() -> void:
 		p.test_jump_pressed = true
 		await steps(2)
 	check("mash-jump-on-ladder-no-extra", jumped_count == 1, {"jumped_signals": jumped_count})
-	await fresh(Vector2(1808, 640))
+	await fresh(Vector2(1819, 640))
 	p = game.player
 	p.test_climb_axis = -1
 	await steps(40)
@@ -107,6 +107,19 @@ func run() -> void:
 		await steps(1)
 		t += 1
 	check("climb-down-to-floor", not p.climbing and p.is_on_floor() and absf(p.position.y - 640) < 1, {"pos": str(p.position), "ticks": t})
+	# Rui playtest 2026-10-07: getting down felt stuck. Down at the ladder top grabs; down is faster than up.
+	await fresh(Vector2(1830, 360))
+	p = game.player
+	await steps(3)
+	p.test_climb_axis = 1
+	await steps(3)
+	var grabbed_from_top: bool = p.climbing
+	t = 0
+	while p.climbing and t < 200:
+		await steps(1)
+		t += 1
+	check("down-from-upper-floor", grabbed_from_top and not p.climbing and p.is_on_floor() and absf(p.position.y - 640) < 1, {"grabbed": grabbed_from_top, "ticks_down": t, "pos": str(p.position)})
+	check("down-faster-than-up", t > 0 and t < 70, {"ticks_down_280px": t, "up_speed": p.CLIMB_SPEED, "down_speed": p.CLIMB_DOWN_SPEED})
 	# Event looks
 	await fresh(Vector2(970, 700))
 	await steps(2)
