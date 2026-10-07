@@ -1,6 +1,24 @@
 extends CharacterBody2D
 
+## Emitted from the one line where a jump actually starts (ground, coyote, buffer or off a ladder).
+## Sound listens to this; nothing reads it back (CHANGE-BRIEF section 2).
+signal jumped
+
 const Tuning = preload("res://features/player/tuning.gd")
+# Generated state images (SOURCES.md): 64x80, feet on the bottom row, cap centred (CHARACTER-SHEET rev. 2026-10-07).
+const LOOKS := {
+	"idle": preload("res://assets/char/wick_idle.png"),
+	"walk": preload("res://assets/char/wick_walk.png"),
+	"jump": preload("res://assets/char/wick_jump.png"),
+	"fall": preload("res://assets/char/wick_fall.png"),
+	"climb": preload("res://assets/char/wick_climb.png"),
+	"pickup": preload("res://assets/char/wick_pickup.png"),
+	"ember": preload("res://assets/char/wick_ember.png"),
+	"hurt": preload("res://assets/char/wick_hurt.png"),
+	"celebrate": preload("res://assets/char/wick_celebrate.png"),
+}
+const CLIMB_SPEED := 180.0  # CHANGE-BRIEF 4b: ~90 px/s at 640x360, x2
+
 var tuning = Tuning.new()
 var enabled: bool = false
 var tick: int = 0
@@ -10,8 +28,15 @@ var opportunity_consumed: bool = false
 var require_jump_release: bool = true
 var facing: float = 1.0
 var jumps: int = 0
+var climbing: bool = false
+var ladders: Array[Rect2] = []
+var look: String = "idle"
+## Set by the session for event looks (hurt, celebrate, pickup, ember); "" = follow movement.
+var look_override: String = ""
+var sprite: Sprite2D
 var test_control: bool = false
 var test_axis: float = 0.0
+var test_climb_axis: float = 0.0
 var test_jump_pressed: bool = false
 var test_jump_held: bool = false
 
@@ -26,6 +51,11 @@ func _ready() -> void:
 	collider.shape = shape
 	collider.position = Vector2(0, -28)
 	add_child(collider)
+	sprite = Sprite2D.new()
+	sprite.centered = false
+	sprite.position = Vector2(-32, -80)  # bottom row on the feet, frame centre on the collider centre
+	add_child(sprite)
+	_update_look()
 
 func reset_at(spawn: Vector2) -> void:
 	position = spawn
@@ -36,46 +66,81 @@ func reset_at(spawn: Vector2) -> void:
 	require_jump_release = true
 	test_jump_pressed = false
 	jumps = 0
-	queue_redraw()
+	climbing = false
+	facing = 1.0
+	_update_look()
+
+func ladder_at() -> Variant:
+	for r in ladders:
+		var centre := r.position.x + r.size.x / 2.0
+		if absf(position.x - centre) <= 20.0 and position.y > r.position.y - 10.0 and position.y - 56.0 < r.end.y:
+			return r
+	return null
 
 func _physics_process(delta: float) -> void:
 	if not enabled:
 		return
 	tick += 1
 	var axis := test_axis if test_control else Input.get_axis("move_left", "move_right")
+	var climb_axis := test_climb_axis if test_control else Input.get_axis("climb_up", "climb_down")
 	var held := test_jump_held if test_control else Input.is_action_pressed("jump")
 	var pressed := test_jump_pressed if test_control else Input.is_action_just_pressed("jump")
 	test_jump_pressed = false
 	if not held:
 		require_jump_release = false
-	if is_on_floor() and velocity.y >= 0.0:
-		last_floor_tick = tick
+	var ladder = ladder_at()
+	# Grab: Up anywhere on the ladder, or Down while airborne on it (standing at the foot + Down does nothing).
+	if not climbing and ladder != null and (climb_axis < 0.0 or (climb_axis > 0.0 and not is_on_floor())):
+		climbing = true
+		position.x = ladder.position.x + ladder.size.x / 2.0
+		velocity = Vector2.ZERO
+	if climbing and ladder == null:
+		climbing = false
+	if (is_on_floor() and velocity.y >= 0.0) or climbing:
+		last_floor_tick = tick  # a ladder counts as footing, so a jump off it uses the same jump line below
 		opportunity_consumed = false
 	if pressed and not require_jump_release:
 		jump_request_tick = tick
-	var rate: float = tuning.acceleration if not is_zero_approx(axis) else tuning.deceleration
-	velocity.x = move_toward(velocity.x, axis * tuning.speed, rate * delta)
+	if climbing:
+		velocity.x = 0.0
+		velocity.y = climb_axis * CLIMB_SPEED
+		var top: float = ladder.position.y - 6.0
+		if position.y + velocity.y * delta <= top:  # stop a little above the floor the ladder leads to
+			position.y = top
+			velocity.y = 0.0
+		if not is_zero_approx(axis):  # step off sideways at full speed (onto the upper floor at the top)
+			climbing = false
+			velocity.x = axis * tuning.speed
+		elif is_on_floor() and climb_axis > 0.0:  # reached the foot
+			climbing = false
+	if not climbing:
+		var rate: float = tuning.acceleration if not is_zero_approx(axis) else tuning.deceleration
+		velocity.x = move_toward(velocity.x, axis * tuning.speed, rate * delta)
+		velocity.y = minf(velocity.y + tuning.gravity * delta, tuning.terminal_velocity)
 	if not is_zero_approx(axis):
 		facing = signf(axis)
-	velocity.y = minf(velocity.y + tuning.gravity * delta, tuning.terminal_velocity)
 	if not opportunity_consumed and tick - last_floor_tick <= tuning.coyote_ticks and tick - jump_request_tick <= tuning.buffer_ticks:
+		climbing = false
 		velocity.y = tuning.jump_velocity
 		opportunity_consumed = true
 		jump_request_tick = -1000
 		jumps += 1
+		jumped.emit()
 	move_and_slide()
 	position.x = maxf(position.x, 20.0)
-	queue_redraw()
+	_update_look()
 
-func _draw() -> void:
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2(2, 2))  # placeholder art until the sprite step
-	var ink := Color("25354a")
-	var blue := Color("287baf")
-	var stride := sin(float(tick) * 0.7) * 2.0 if is_on_floor() and absf(velocity.x) > 8 else 0.0
-	draw_rect(Rect2(-9, -27, 18, 24), ink)
-	draw_rect(Rect2(-7, -25, 14, 20), blue)
-	draw_rect(Rect2(-10, -18, 20, 4), Color("ef875f"))
-	draw_rect(Rect2(-6, -4, 5, 4 + stride), ink)
-	draw_rect(Rect2(2, -4, 5, 4 - stride), ink)
-	draw_rect(Rect2(1 if facing > 0 else -6, -24, 5, 5), Color("fff9e9"))
-	draw_rect(Rect2(4 if facing > 0 else -6, -23, 2, 3), ink)
+func _update_look() -> void:
+	if look_override != "":
+		look = look_override
+	elif climbing:
+		look = "climb"
+	elif not is_on_floor():
+		look = "jump" if velocity.y < 0.0 else "fall"
+	elif absf(velocity.x) > 8.0:
+		look = "walk"
+	else:
+		look = "idle"
+	if sprite:
+		sprite.texture = LOOKS[look]
+		sprite.flip_h = facing < 0.0 and look != "climb"  # climb is the back view: never mirrored

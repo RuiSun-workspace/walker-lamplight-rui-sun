@@ -126,16 +126,14 @@ func run() -> void:
 	await steps(1)
 	check("fall-boundary", game.state == Game.State.DYING, {"state":game.state})
 	await fresh()
-	# Step 2 (2026-10-07): the full route needs the ladder (step 3). Until then the real-input route covers
-	# the lower tunnel and must reach the ladder foot without dying; completion is checked at the exit.
+	# Full real-input route (restored in step 3 once climbing exists): lower tunnel, ladder, upper tunnel, exit.
 	var route = Route.new()
 	var route_ticks := 0
-	while game.state == Game.State.PLAYING and route_ticks < 600:
+	while game.state == Game.State.PLAYING and route_ticks < 1500:
 		route.step(game.player)
 		await steps(1)
 		route_ticks += 1
-	var ladder: Array = game.level.ladders[0]
-	check("lower-route-to-ladder", game.state == Game.State.PLAYING and game.deaths == 0 and game.player.is_on_floor() and game.player.position.x >= ladder[0] and game.player.position.x <= ladder[0] + ladder[2], {"state":game.state,"deaths":game.deaths,"ticks":route_ticks,"position":str(game.player.position),"jump_marks_used":route.next_jump})
+	check("complete-real-route", game.state == Game.State.COMPLETE and game.deaths == 0, {"state":game.state,"deaths":game.deaths,"ticks":route_ticks,"position":str(game.player.position),"jump_marks_used":route.next_jump,"phase":route.phase})
 	await fresh()
 	game.player.position = Vector2(3120, 360)
 	await steps(4)

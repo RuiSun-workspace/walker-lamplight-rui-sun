@@ -314,3 +314,23 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
   completes". The full route returns in step 3. test_game 26/0, test_keyboard 9/9.
 - **Human / Claude / model:** level layout and code are Claude's proposals inside Rui's storyboard;
   Rui has not played it yet.
+
+## 2026-10-07 — slice step 3: Wick's state images and the ladder
+
+- **Built (Claude):** `player.gd` swaps the generated 64×80 image by state (idle / walk / jump / fall
+  / climb from movement; hurt / celebrate set by the session on death / exit), flips with facing
+  (climb never flips, it is the back view), and climbs ladders: Up grabs, no gravity while climbing,
+  stops 6 px above the upper floor, a sideways press steps off at full speed. Jump off a ladder goes
+  through the same jump line, so `jumped` still has one emit site.
+- **Bugs met on the way (all Claude's):** (1) the ladder-top stop was 1 px above the floor; a slow
+  step-off sank into the slab's side, so it is now 6 px with an instant full-speed step. (2) "on the
+  ladder" only tolerated 2 px above its top, so at the top Wick let go, fell, re-grabbed and looped;
+  the trace showed it and the tolerance is now 10 px. (3) my own test checked the fall image at tick
+  17, but the rise lasts ~20 ticks; the test now waits for downward velocity. The assertion itself
+  is unchanged.
+- **Results:** the full real-input route (lower tunnel → ladder → upper spikes → exit) completes with
+  zero deaths again. test_game 26/0, test_keyboard 9/9, new test_wick 15/0 (images 64×80 and anchored,
+  looks per state, facing, F8 ladder checks including "one jump sound's worth of jumped per jump-off
+  even when mashing Space"). Engine screenshots: `evidence/screens/step3-*.png`.
+- **Seen, not fixed yet:** the mirrored background repeat is obvious on the upper level (symmetric
+  crates). The darkness in step 4 may hide most of it; to be judged then.

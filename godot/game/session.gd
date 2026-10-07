@@ -44,6 +44,8 @@ func _ready() -> void:
 	var f: Array = level.finish
 	goal = _add_area(Rect2(f[0], f[1], f[2], f[3]), 16, false)
 	player = Player.new()
+	for entry in level.ladders:
+		player.ladders.append(Rect2(entry[0], entry[1], entry[2], entry[3]))
 	add_child(player)
 	player.reset_at(Vector2(level.spawn[0], level.spawn[1]))
 	camera = Camera2D.new()
@@ -59,7 +61,7 @@ func _ready() -> void:
 	queue_redraw()
 
 func _setup_input() -> void:
-	var actions := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "jump": [KEY_SPACE], "pause": [KEY_ESCAPE, KEY_P], "restart": [KEY_R], "confirm": [KEY_ENTER], "menu": [KEY_M]}
+	var actions := {"move_left": [KEY_A, KEY_LEFT], "move_right": [KEY_D, KEY_RIGHT], "jump": [KEY_SPACE], "pause": [KEY_ESCAPE, KEY_P], "restart": [KEY_R], "confirm": [KEY_ENTER], "menu": [KEY_M], "climb_up": [KEY_W, KEY_UP], "climb_down": [KEY_S, KEY_DOWN]}
 	for action in actions:
 		if InputMap.has_action(action):
 			continue
@@ -116,6 +118,7 @@ func restart_attempt() -> void:
 	# Area2D overlaps are physics-step snapshots. Discard pre-teleport contacts
 	# until the broadphase has observed the reset, preventing a phantom second death.
 	contact_settle_ticks = 2
+	player.look_override = ""
 	player.reset_at(Vector2(level.spawn[0], level.spawn[1]))
 	player.enabled = true
 	camera.position = Vector2(640, 360)
@@ -143,11 +146,15 @@ func resolve_contacts(fatal: bool, finished: bool) -> void:
 		retry_remaining = 0.55
 		player.enabled = false
 		player.velocity = Vector2.ZERO
+		player.look_override = "hurt"  # storyboard P6
+		player._update_look()
 	elif finished:
 		state = State.COMPLETE
 		last_finish_time = elapsed
 		player.enabled = false
 		player.velocity = Vector2.ZERO
+		player.look_override = "celebrate"  # storyboard P8
+		player._update_look()
 
 func _physics_process(delta: float) -> void:
 	if state == State.DYING:
