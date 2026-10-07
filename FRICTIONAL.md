@@ -247,3 +247,25 @@ Each entry separates what Rui decided, what Claude proposed or wrote, and what a
 - **Decided (Rui, 2026-10-07):** all nine state images accepted as they are, including fall's
   off-centre eyes and climb's faceless front view standing in for the back view. Fall can be revisited
   if it reads badly in the engine.
+
+## 2026-10-07 — environment round 1
+
+- **Wanted:** the tunnel world (back wall, platform tiles, spikes, oil drop, ladder, a lamp post),
+  dark and cold so Wick's warm brass stays the brightest mid-tone (CHANGE-BRIEF F2).
+- **Asked:** `tools/gen/env_round1.sh`, txt2img in the same flat cartoon style, 7 assets × 4.
+- **Got:** usable back walls and stone textures. **Every "rock ledge top" came back as a whole
+  landscape** (waterfalls, cliffs). Spikes came back as spears. No single oil drop (a lamp, a bottle, a
+  wallpaper of drops). One "lamp post" was simply another lantern, which would be confused with Wick.
+- **Claude's picks and edits** (`tools/gen/env_process.py`, logged per step): BG b1 (the only flat wall;
+  the others are deep perspective tunnels that fight a side view); TILE b2 (regular blue stones); the top
+  edge is a **code edit** of the tile (light rim rows), since no top generation was usable; spike heads
+  cropped from b3; the oil drop cropped off the holder in b3; a straight run of rungs cropped from b2 with
+  the dark box interior made transparent.
+- **First mock (no in-game darkness yet) showed:** the wall was far brighter and busier than the
+  platforms and had its own floor; the oil drop kept a white box (corner key failed); spikes at 24 px
+  were almost invisible; the lamp post read as a white smudge. Fixes: wall darkened to 45 % before
+  quantising, oil keyed by near-white, spikes 36 px tall. Lamp post left out pending Rui.
+- **Human / Claude / model:** SDXL drew; Claude picked, cropped, keyed, darkened and composed the mock;
+  **Rui has not reviewed yet.**
+- **Decided (Rui):** environment round 1 accepted. The lamp post and the outdoor exit scene are still
+  open (asked, not answered yet); the slice can run without them.

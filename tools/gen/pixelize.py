@@ -33,6 +33,16 @@ PALETTE = {  # CHARACTER-SHEET.md
     "core": "#fff1b8", "ember": "#e2552f", "ink": "#2a1a10",
 }
 
+# Environment palette (Claude's proposal, 2026-10-07): cold, dark rock so Wick's brass stays the warmest
+# mid-tone on screen; timber, steel and oil get two tones each.
+ENV_PALETTE = {
+    "cave dark": "#0b0b10", "deep rock": "#161822", "rock": "#2a2e3d", "rock mid": "#3a3f52",
+    "rock edge": "#4a5068", "rock light": "#5d6480", "timber dark": "#3b2a1c", "timber": "#5a412a",
+    "steel": "#8f96a8", "steel light": "#c9cdd6", "oil": "#f2a93b", "oil light": "#ffe08a",
+    "highlight": "#f4f1e8",
+}
+PALETTES = {"char": PALETTE, "env": ENV_PALETTE}
+
 
 def hex_rgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
@@ -108,6 +118,13 @@ def pixelize(src, frame_w, frame_h, height, tol=18, palette=PALETTE, scale=None,
                                          "scaled_to": [w, height], "scale": scale}
 
 
+def exact(src, w, h, palette, space="lab"):
+    """Background / tile mode: no background removal, no anchoring; area-resize to w x h and quantise."""
+    img = Image.open(src).convert("RGB").resize((w, h), Image.BOX)
+    arr = np.dstack([np.asarray(img), np.full((h, w), 255, np.uint8)])
+    return Image.fromarray(quantise(arr, palette, space), "RGBA"), {"mode": "exact"}
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("src")
@@ -116,17 +133,23 @@ def main():
     p.add_argument("--scale", type=float, default=None, help="fixed scale instead of --height")
     p.add_argument("--tol", type=int, default=18, help="near-white tolerance for background removal")
     p.add_argument("--no-quantise", action="store_true")
+    p.add_argument("--palette", choices=list(PALETTES), default="char")
+    p.add_argument("--exact", action="store_true", help="resize the whole image to --frame (backgrounds, tiles)")
     p.add_argument("--space", choices=["lab", "rgb"], default="lab", help="colour distance for quantising (CHAR-REF used rgb)")
     p.add_argument("--out", required=True)
     a = p.parse_args()
-    img, info = pixelize(a.src, *a.frame, a.height, a.tol, None if a.no_quantise else PALETTE, a.scale, a.space)
+    pal = PALETTES[a.palette]
+    if a.exact:
+        img, info = exact(a.src, *a.frame, pal, a.space)
+    else:
+        img, info = pixelize(a.src, *a.frame, a.height, a.tol, None if a.no_quantise else pal, a.scale, a.space)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     img.save(out)
     rec = {"time": dt.datetime.now().astimezone().isoformat(timespec="seconds"), "tool": "tools/gen/pixelize.py",
            "src": str(a.src), "src_sha256": hashlib.sha256(Path(a.src).read_bytes()).hexdigest(),
            "out": out.as_posix(), "frame": a.frame, "height": a.height, "scale_arg": a.scale, "tol": a.tol,
-           "palette": None if a.no_quantise else PALETTE, "space": a.space, **info}
+           "palette": None if a.no_quantise else PALETTES[a.palette], "palette_name": a.palette, "space": a.space, **info}
     LOG.parent.mkdir(parents=True, exist_ok=True)
     with LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(rec) + "\n")

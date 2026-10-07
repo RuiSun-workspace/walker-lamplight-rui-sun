@@ -86,3 +86,20 @@ despeckle). All 36 raw outputs: `design/rejected/CHAR-poses-round1-contact.png`.
 | CHAR-HURT | s1014-b1 (round 2) | Round 1 (seed 1012) **rejected ×4**: orange flames quantised to brass. Round 2 prompt asked for "a small deep red flame" (seed 1014); **b1 accepted**, tilted body, red flame. | face `x` | `godot/assets/char/wick_hurt.png` (P6) |
 | CHAR-CELEBRATE | s1012-b2 | **Accepted.** Arms high, tall flame. b3 rejected for a grey shadow under the feet. | face `joy` | `godot/assets/char/wick_celebrate.png` (P8) |
 | CHAR-CLIMB | s1012-b0 | **Accepted as a stand-in for the back view.** The model drew no back view in 4 tries despite "back view, no face". b0 is front-on with a faceless flame, which is how the back of a glass lantern would look. Not flipped at runtime. | face `none` (flame clean-up only) | `godot/assets/char/wick_climb.png` (P1) |
+
+### Environment round 1 (2026-10-07) — accepted by Rui
+
+txt2img with SDXL base 1.0, 1024×1024 (BG 1344×768), 30 steps, CFG 7, dpmpp_2m/karras, batch 4; exact
+prompts in `tools/gen/env_round1.sh` and gen-log.jsonl. Processed by `tools/gen/env_process.py`
+(crop, key, area-resize, Lab-quantise to the environment palette in `tools/gen/pixelize.py`). All 28 raw
+outputs: `design/rejected/ENV-round1-contact.png`. Composite check: `design/generation/candidates/env-round1-mock.png`.
+
+| Asset ID | Pick | Outcome | Edits | Where used |
+|---|---|---|---|---|
+| ENV-BG | s2001-b1 | **Accepted, edited.** The only flat back wall; b0/b2/b3 are deep perspective tunnels that fight the side view. | darkened ×0.45 (first mock: brighter and busier than the platforms), 1280×720, quantised | `godot/assets/env/bg_rock.png` |
+| ENV-TILE | s2002-b2 | **Accepted, edited.** Regular cold-blue stones. b0 a rock pile on white, b3 warm tan stones (would hurt brass contrast). | central crop, 64×64, quantised | `godot/assets/env/tiles_rock.png` |
+| ENV-TILE-TOP | s2003 b0–b3 | **All rejected.** Every output was a whole landscape (waterfall, cliffs, stairs), not a platform edge. | the top edge is a **code edit of ENV-TILE** (rim rows), not model output | `godot/assets/env/tiles_rock_top.png` |
+| ENV-SPIKE | s2004-b3 | **Accepted, edited.** Six even spear heads; b0 uneven heights on a white plate, b1/b2 weapons or a falling pattern. | heads cropped, grey keyed, 96×36 (24 px was invisible in the mock) | `godot/assets/env/spikes.png` |
+| ENV-OIL | s2005-b3 | **Accepted, edited.** No output was a single drop; the drop hanging on the right of b3 was cropped off its holder. | crop, near-white removed (corner key left a white box), 22×24 | `godot/assets/env/oil_drop.png` |
+| ENV-LADDER | s2006-b2 | **Accepted, edited.** A straight front-on run of rungs in the middle of a wooden frame. | crop, 32×32 vertical tile, dark interior → transparent | `godot/assets/env/ladder.png` |
+| ENV-LAMPPOST | s2007 b0–b3 | **Not used (pending Rui).** b0 is another lantern (confusable with Wick); b1 reduces to a white smudge; b2/b3 are scenes. | b1 processed to 40×64 for review only | — |
