@@ -32,3 +32,7 @@ credentials/
 
 # film capture input logs are copied into the reel folder; local runs are scratch
 capture-logs/
+
+# Blender keeps older saves next to the .blend (Save Versions) and writes .blend@ while saving; not source.
+*.blend[0-9]*
+*.blend@

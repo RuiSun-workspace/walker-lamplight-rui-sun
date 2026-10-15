@@ -157,3 +157,10 @@ human checks, recorded in TEST-REPORT.
 ## 9. Revision log (append-only)
 
 *(empty at first commit)*
+
+- **2026-10-15 — lamp_post flame colour `#ffcf5a` → `#fdffa6` (Rui's hand edit in Blender).** Rui's
+  reason: "我认为灯芯之前的颜色有点暗，所以换了一个更明亮的颜色" ("I thought the flame's previous colour
+  was a little dark, so I changed it to a brighter one"). This changes §3.1's flame row and the colour the
+  Godot check expects for `lp_flame`. Sizes, origin and budget are unchanged. The window colour was also
+  changed by accident during the same edit (`#241f2c` → `#241c54`). Rui said it was not intended, so it
+  was reverted to `#241f2c`; §3.1 stands for the window.
