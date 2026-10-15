@@ -164,3 +164,14 @@ human checks, recorded in TEST-REPORT.
   Godot check expects for `lp_flame`. Sizes, origin and budget are unchanged. The window colour was also
   changed by accident during the same edit (`#241f2c` → `#241c54`). Rui said it was not intended, so it
   was reverted to `#241f2c`; §3.1 stands for the window.
+- **2026-10-15 — oil_drop shape (approved by Rui before building).** §3.2's round sphere of radius
+  0.06875 m would reach 0.1375 m and leave only 12.5 mm for the tip, so the drop would read as a ball. The
+  A2 sprite (`assets/env/oil_drop.png`) is a teardrop widest about 40 % up. Instead, the body is the same
+  8 × 6 UV sphere **squashed to 0.10 m tall** (widest at z = 0.05). The tip is an 8-vertex cone from
+  z = 0.075 (radius 0.05954, tangent to the body) to 0.15. Overall size, origin, colour and budget are
+  unchanged.
+- **2026-10-15 — oil_drop after looking (Rui).** **Smooth shading** on (Rui's choice). The **highlight ball
+  was tried and removed** ("感觉高光球有点丑，不要了吧", "the highlight ball looks a bit ugly, drop it"), so
+  the drop is one colour, amber `#f2a93b`. The cone and body were **welded** at their shared ring to remove
+  the seam line (Rui: "焊接，消除交界线", "weld, remove the seam line"). That deleted 30 hidden triangles, so
+  oil_drop has **64 triangles** (budget 120 unchanged).

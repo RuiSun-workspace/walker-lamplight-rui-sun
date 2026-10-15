@@ -126,3 +126,38 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
 - **Open:**
   - Does the 6 cm post read at game size beside Wick (F9)? That needs the Godot scene.
   - Should the flame's viewport colour also be updated? It does not affect the export.
+
+## 2026-10-15 — oil_drop, built through the MCP
+
+- **Looked at the A2 sprite first (Claude):** printed `oil_drop.png` as text. It is a teardrop, pointed at
+  the top and widest about 40 % up. Taken literally, the brief's round 0.1375 m sphere plus a cone to
+  0.15 m would read as a ball with a bump. **Claude proposed** a sphere squashed to 0.10 m plus a cone tangent
+  to it. **Rui approved** before anything was built ("批准压扁球加圆锥的方案"). Brief §9.
+- **Protecting the first asset (Claude):** step 0 first did *Save As* `oil_drop.blend`, then emptied
+  the scene. Emptying the open `lamp_post.blend` first would let a later Ctrl+S overwrite it with an empty
+  scene. git confirmed `lamp_post.blend` unchanged.
+- **A predicted hidden size error that did not happen:** an 8-segment sphere is only 0.127 m wide if its
+  vertices start at 22.5°. Claude printed the vertex angles: 0°, 45° … so the width is the full 0.1375 m.
+  The cone's base ring landed exactly on the sphere's z 0.075 ring (radius 0.05954, same angles), so no
+  rotation was needed.
+- **Looking and deciding (Rui):**
+  - After steps 1–2, Rui chose **smooth shading** and to **try the highlight ball**.
+  - Read-back before changing anything: the cone was **already smooth-shaded** and the body was not.
+    Claude's code had not done that. Its source is **unconfirmed**: Claude asked whether Rui clicked Shade
+    Smooth with the cone selected, and the answer did not come through. *Rui to add.*
+  - Claude added the highlight ball (24 triangles, `#ffe08a`, total 118 of 120). Claude's description of
+    the look: it read as a stuck-on bead, not a highlight. **Rui rejected it:** "感觉高光球有点丑，不要了吧"
+    ("the highlight ball looks a bit ugly, drop it").
+- **A side effect of smooth shading, caught by looking (Claude):** a hard line where the cone met the body.
+  Separate meshes do not share normals. Claude proposed welding. **Rui:** "焊接，消除交界线，然后做第 3 步"
+  ("weld, remove the seam line, then do step 3").
+- **Step 3 result:** one object `oil_drop`, transforms applied, 0.1375 × 0.1375 × 0.15 m, z min 0,
+  **64 triangles** (94 − 30 hidden), 0 inward-facing faces, positive volume, 0 boundary or non-manifold
+  edges. The seam line is gone in the look images. Saved, reopened headless and confirmed. Unlike lamp_post,
+  the whole script replays to the same final mesh (there was no hand edit on this asset).
+- **Human / AI:** Rui approved the shape change, chose smooth shading, and rejected the highlight. Claude
+  read the sprite, proposed the shape and the weld, wrote and ran all the code, and wrote this entry.
+- **Open:**
+  - The amber looks paler under Blender's Material Preview light than on the dark game background. Judge
+    it in Godot.
+  - The cone's smooth shading source: *Rui to add.*
