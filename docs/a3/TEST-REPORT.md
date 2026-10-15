@@ -84,7 +84,7 @@ so height is the middle number). Rows show the **revised** sizes; the originals 
 |---|---|---|
 | lamp_post (Blender viewport) | 2026-10-15, after steps 1–5 | Rui looked and changed the flame's colour: "我认为灯芯之前的颜色有点暗，所以换了一个更明亮的颜色" ("I thought the flame's previous colour was a little dark, so I changed it to a brighter one"). |
 | asset room (Godot, Rui orbiting the camera) | 2026-10-15, first look | "我检查完了，出现在游戏中的油滴不可能这么小，我感觉木架有点偏大" ("I've checked it: the oil drop in the game can't be this small, and I feel the frame is a bit too big") → revision cycle 4. |
-| asset room after the revision | | |
+| asset room after the revision (Godot, Rui orbiting the camera) | 2026-10-15, second look | "看完了，没问题了" ("I've looked, no problems now"). Rui accepted the revised sizes. Rui made no separate comment on the brighter on-screen colours or on the 6 cm post (F9). |
 | oil_drop (Blender, Material Preview) | 2026-10-15, after steps 1–2 | Rui chose smooth shading and to try a highlight ball. |
 | oil_drop (Blender, with highlight) | 2026-10-15 | "感觉高光球有点丑，不要了吧" ("the highlight ball looks a bit ugly, drop it") — removed. |
 | pit_prop (Blender, Material Preview) | 2026-10-15, after steps 1–3 | Rui: "加两根斜撑试试" ("try adding two braces"), then "斜撑可以" ("the braces are fine"). |
@@ -115,7 +115,7 @@ so height is the middle number). Rows show the **revised** sizes; the originals 
    right and the look was not. Revision (Rui's choice, Claude via MCP): oil_drop ×2 (0.275 × 0.275 × 0.3 m);
    pit_prop 0.8 m wide with 0.12 m timbers, still 2.0 m high. Check: re-exported; the stale files had failed the
    new expectations; after re-export check_glb 18/0, check_a3_assets 30/0, suite green. Rui's look at the revised
-   room: pending.
+   room: "看完了，没问题了" ("I've looked, no problems now").
 
 ## 10. What Claude got wrong
 
@@ -137,4 +137,4 @@ so height is the middle number). Rows show the **revised** sizes; the originals 
 | F6 | colour lost at export | did not happen: every albedo matches in the .glb and in Godot. But the colours render brighter than their hex on screen, a look issue the check cannot see |
 | F7 | missing faces / flipped normals | lamp_post: 0 inward-facing faces, closed bottom; oil_drop: 0 inward, positive volume, 0 boundary edges after the weld; pit_prop: 0 inward, 0 boundary edges. Godot look pending |
 | F8 | MCP drops mid-build | did not happen: every call returned, including a file load through the MCP |
-| F9 | 6 cm post too thin at game size | Rui did not raise it in the first Godot look; recorded as not observed, pending the second look |
+| F9 | 6 cm post too thin at game size | not observed: Rui raised no problem with the lamp post in either Godot look |

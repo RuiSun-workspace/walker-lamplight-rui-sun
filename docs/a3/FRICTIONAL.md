@@ -226,6 +226,7 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
   - The 160 px = 1 m conversion is now deliberately broken for the oil drop (brief §9).
 - **Human / AI:** Rui did the human check and chose both revisions. Claude proposed the options, made the
   changes, ran every check and wrote this entry.
-- **Open:**
-  - Rui's look at the revised room.
-  - Whether the brighter on-screen colours are acceptable (Rui has not commented on colour yet).
+- **Second look (Rui), revised room:** "看完了，没问题了" ("I've looked, no problems now"). Revision cycle closed.
+- **Open:** Rui did not comment on the colours rendering brighter than their hex values. That is recorded
+  as a known limitation, not as a confirmed pass. The room's neutral light is not the game's dark, warm
+  lighting either.
