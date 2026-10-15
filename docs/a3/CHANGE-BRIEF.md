@@ -175,3 +175,10 @@ human checks, recorded in TEST-REPORT.
   the drop is one colour, amber `#f2a93b`. The cone and body were **welded** at their shared ring to remove
   the seam line (Rui: "焊接，消除交界线", "weld, remove the seam line"). That deleted 30 hidden triangles, so
   oil_drop has **64 triangles** (budget 120 unchanged).
+- **2026-10-15 — pit_prop braces (Rui, after looking).** §3.3 left two corner braces as an option "if the
+  frame looks too plain". Without them, Claude's description of the look was that the frame could read as
+  a door frame or a goal. **Rui chose to add them** ("加两根斜撑试试", "try adding two braces") and accepted
+  them ("斜撑可以", "the braces are fine"). Each brace is timber `#5a412a`, 0.08 × 0.12 m in section, at 45°,
+  with 0.3 m legs from each post's inner face to the beam's underside. pit_prop is now **5 shapes,
+  60 triangles** (exactly the 60 budget). Its size stays 1.2 × 0.16 × 2.0 m. The braces only fill
+  the top corners (from about 1.5 m up), so below them the 0.88 m-wide opening is unchanged.

@@ -161,3 +161,24 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
   - The amber looks paler under Blender's Material Preview light than on the dark game background. Judge
     it in Godot.
   - The cone's smooth shading source: *Rui to add.*
+
+## 2026-10-15 — pit_prop, built through the MCP
+
+- **Plan (Claude) → approved (Rui):** brief §3.3 as written. Step 0 again did *Save As* `pit_prop.blend`
+  before emptying the scene; git confirmed both earlier `.blend` files unchanged. Steps 1–3 built two
+  posts (0.16 × 0.16 × 1.84) and the dark cap beam (1.2 × 0.16 × 0.16): 36 triangles, every number as
+  planned on the first try.
+- **Looking (Claude's description, then Rui's decision):** plain, the frame could read as a door frame or
+  a goal. Nothing in three straight timbers says "mine". Rui: "加两根斜撑试试" ("try adding two braces").
+  Read-back first: no hand change.
+- **The braces (Claude):** 45°, 0.3 m legs, 0.08 × 0.12 m section. Each end runs 0.04 m into the post and
+  the beam, so the square end of a tilted box leaves no triangular gap at the joint. Total 60 triangles,
+  exactly the budget. **Rui:** "斜撑可以，继续第 4 步" ("the braces are fine, go on to step 4").
+- **F4 seen for real:** before step 4, `get_scene_info` showed the braces at rotation (0, ±45, 0) and scale
+  (0.5, 0.12, 0.08). Exported like that, Godot would get rotated, scaled nodes. Step 4 applied all
+  transforms: one object `pit_prop` with rotation 0 and scale 1, 1.2 × 0.16 × 2.0 m, X −0.6 … 0.6, z min 0,
+  60 triangles, 0 inward-facing faces, 0 boundary edges. Saved, reopened headless and confirmed. The whole
+  script replays to the same mesh.
+- **Human / AI:** Rui approved the plan, chose to add the braces and accepted them. Claude wrote and ran
+  all the code, described the looks, and wrote this entry.
+- **Open:** do flat-colour timbers read as old mine timber at game size? That is a human check in Godot.

@@ -4,8 +4,8 @@ Versions: **Blender 5.1.2** (build 2026-05-19, portable, Windows 11), **Godot 4.
 (`4.7.2.stable.official.ed1daf0bf`), **mcp-for-blender 2.1.9** (add-on 1.8, protocol 13).
 Spec: [CHANGE-BRIEF.md](CHANGE-BRIEF.md) (`9579486`, tag `a3-brief`) plus its §9 revisions.
 
-Status: **in progress.** lamp_post and oil_drop are built and checked in Blender. pit_prop is not built
-yet. Nothing has been exported or checked in Godot. Empty cells mean not measured yet, not passed.
+Status: **in progress.** all three assets are built and checked in Blender. Nothing has been exported or
+checked in Godot yet. Empty cells mean not measured yet, not passed.
 
 ## 1. Interface notes
 
@@ -22,7 +22,7 @@ sidebar round. Godot numbers come from the headless check (not written yet).
 |---|---|---|---|---|
 | lamp_post | 0.19375 × 0.0955 × 0.725 | **0.19375 × 0.0955 × 0.725** | | Blender matches; Godot pending |
 | oil_drop | 0.1375 × 0.1375 × 0.15 | **0.1375 × 0.1375 × 0.15** | | Blender matches; Godot pending |
-| pit_prop | 1.2 × 0.16 × 2.0 | | | not built |
+| pit_prop | 1.2 × 0.16 × 2.0 | **1.2 × 0.16 × 2.0** | | Blender matches; Godot pending |
 
 ## 3. Upright and scale
 
@@ -30,6 +30,7 @@ sidebar round. Godot numbers come from the headless check (not written yet).
 |---|---|---|---|
 | lamp_post | (0, 0, 0) / (1, 1, 1) | | |
 | oil_drop | (0, 0, 0) / (1, 1, 1) | | |
+| pit_prop | (0, 0, 0) / (1, 1, 1) — the braces' ±45° rotation was baked in by Apply | | |
 
 ## 4. Origin
 
@@ -37,6 +38,7 @@ sidebar round. Godot numbers come from the headless check (not written yet).
 |---|---|---|---|
 | lamp_post | foot of the post; X range −0.03125 … 0.1625 | origin (0, 0, 0); z min 0.000000; X −0.03125 … 0.1625; `get_scene_info` "on ground" | |
 | oil_drop | centre of the underside | origin (0, 0, 0); z min 0.000000; X/Y −0.06875 … 0.06875; "on ground" | |
+| pit_prop | centre of the underside, midway between the posts | origin (0, 0, 0); z min 0.000000; X −0.6 … 0.6; "on ground" | |
 
 ## 5. Triangle count
 
@@ -44,6 +46,7 @@ sidebar round. Godot numbers come from the headless check (not written yet).
 |---|---|---|---|
 | lamp_post | ≤ 72 | **60** (30 quads, counted from the mesh by code) | |
 | oil_drop | ≤ 120 | **64** (24 quads + 16 tris; was 94 before the weld, 118 with the rejected highlight) | |
+| pit_prop | ≤ 60 | **60** (30 quads: 3 timbers + 2 braces) | |
 
 *Rui to confirm in Blender's status bar (right-click → Scene Statistics).*
 
@@ -60,6 +63,8 @@ Not yet.
 | oil_drop (Blender, Material Preview) | 2026-10-15, after steps 1–2 | Rui chose smooth shading and to try a highlight ball. |
 | oil_drop (Blender, with highlight) | 2026-10-15 | "感觉高光球有点丑，不要了吧" ("the highlight ball looks a bit ugly, drop it") — removed. |
 | oil_drop (Godot, from all sides, beside the Wick stand-in) | | |
+| pit_prop (Blender, Material Preview) | 2026-10-15, after steps 1–3 | Rui: "加两根斜撑试试" ("try adding two braces"), then "斜撑可以" ("the braces are fine"). |
+| pit_prop (Godot, from all sides, beside the Wick stand-in) | | |
 
 ## 8. Hand edit in Blender
 
@@ -79,6 +84,9 @@ Not yet.
    the highlight looked ugly, so it was removed. Observation (Claude, look images): a seam line where the
    cone met the body. Revision (Rui approved): welded, 64 triangles. Inspection: the look images show no
    seam; 0 boundary edges, normals outward.
+3. **pit_prop braces (2026-10-15).** Observation (Claude's look): the plain frame could read as a door frame.
+   Revision (Rui's choice): two 45° corner braces, 60 triangles. Inspection: look images show the braces
+   meeting post and beam with no gap; Rui accepted them.
 
 ## 10. What Claude got wrong
 
@@ -95,9 +103,9 @@ Not yet.
 | F1 | lying on its side | not testable until Godot |
 | F2 | ×10 / ×100 size | lamp_post and oil_drop: did not happen in Blender (exact match); the 22.5° vertex-start width error checked on oil_drop, did not happen |
 | F3 | origin in the middle | did not happen (z min 0); the default cube showed the failure before we started |
-| F4 | scale/rotation not applied | parts were built with unapplied scale on purpose; step 6 applied all transforms (scale 1, rotation 0) |
-| F5 | more detail than asked | did not happen: lamp_post 60 / 72, oil_drop 64 / 120 |
+| F4 | scale/rotation not applied | all three were built with unapplied scale (pit_prop's braces also with ±45° rotation) and then applied: every asset has rotation 0 and scale 1 in Blender; Godot node scale pending |
+| F5 | more detail than asked | did not happen: lamp_post 60 / 72, oil_drop 64 / 120, pit_prop 60 / 60 |
 | F6 | colour lost at export | not testable until Godot; the colours are on Base Color, which glTF exports |
-| F7 | missing faces / flipped normals | lamp_post: 0 inward-facing faces, closed bottom; oil_drop: 0 inward, positive volume, 0 boundary edges after the weld. Godot look pending |
+| F7 | missing faces / flipped normals | lamp_post: 0 inward-facing faces, closed bottom; oil_drop: 0 inward, positive volume, 0 boundary edges after the weld; pit_prop: 0 inward, 0 boundary edges. Godot look pending |
 | F8 | MCP drops mid-build | did not happen: every call returned |
 | F9 | 6 cm post too thin at game size | Godot look pending |
