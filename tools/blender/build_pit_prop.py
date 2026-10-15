@@ -282,3 +282,129 @@ bpy.ops.wm.save_as_mainfile(filepath=path)
 print("saved", bpy.data.filepath, os.path.getsize(path), "bytes; objects", [o.name for o in bpy.data.objects])
 # Observed: 98,664 bytes; objects ['pit_prop']. Reopened headless: pit_prop at (0,0,0), rot 0, scale 1,
 # 1.2 x 0.16 x 2.0 m, x -0.6 .. 0.6, z min 0, 60 triangles, pp_timber #5a412a, pp_timber_dark #3b2a1c, METRIC 1.0.
+
+
+# =============================================================================== REVISION R1 (2026-10-15)
+# Rui's human check of the asset room in Godot: "我感觉木架有点偏大" ("the frame feels a bit too big"). Claude
+# offered three options; Rui chose "keep 2.0 m high, narrower and thinner" (width 1.2 -> 0.8 m, timber 0.16 ->
+# 0.12 m, braces scaled with it), done by Claude through the MCP. Rui had entered Edit Mode on pit_prop; a read-back
+# fingerprint of the edit-mode vertices matched the saved file (6a1a6c09fb6fd367), so nothing of Rui's was lost.
+# Steps 1-5 above build the ORIGINAL 1.2 m frame; R1a-R1c below replace it. A replay of the whole file gives the
+# revised frame.
+
+# --------------------------------------------------------------------------------------------- STEP R1a
+# Revision R1a - pit_prop narrower and thinner, same 2.0 m height (Rui's human check in Godot: "我感觉木架有点偏大"
+# - "the frame feels a bit too big"; Rui chose: keep 2.0 m high, width 1.2 -> 0.8 m, timber 0.16 -> 0.12 m).
+# Leave Edit Mode (Rui had entered it; read-back showed the mesh identical to the saved file), remove the old
+# joined pit_prop, then build the three timbers again with the new numbers:
+#   posts 0.12 x 0.12 x 1.88 at x = +/-0.34 (outer faces at +/-0.4); cap 0.8 x 0.12 x 0.12 from z 1.88 to 2.0.
+import bpy
+
+if bpy.context.object and bpy.context.object.mode != 'OBJECT':
+    bpy.ops.object.mode_set(mode='OBJECT')
+old = bpy.data.objects["pit_prop"]
+old_mesh = old.data
+bpy.data.objects.remove(old, do_unlink=True)
+if old_mesh.users == 0:
+    bpy.data.meshes.remove(old_mesh)
+
+def box_part(name, centre, dims, mat):
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=centre)
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.data.name = name
+    obj.scale = dims
+    obj.data.materials.append(mat)
+    return obj
+
+timber, dark = bpy.data.materials["pp_timber"], bpy.data.materials["pp_timber_dark"]
+T, W, H = 0.12, 0.8, 2.0
+post_x = W / 2 - T / 2
+box_part("pp_post_left", (-post_x, 0.0, (H - T) / 2), (T, T, H - T), timber)
+box_part("pp_post_right", (post_x, 0.0, (H - T) / 2), (T, T, H - T), timber)
+box_part("pp_cap", (0.0, 0.0, H - T / 2), (W, T, T), dark)
+bpy.context.view_layer.update()
+for o in bpy.data.objects:
+    print(o.name, "loc", tuple(round(v, 5) for v in o.location), "dims", tuple(round(d, 5) for d in o.dimensions),
+          "mat", o.data.materials[0].name)
+print("materials", {m.name: m.users for m in bpy.data.materials})
+# Observed: posts (+/-0.34, 0, 0.94) 0.12 x 0.12 x 1.88, cap (0, 0, 1.94) 0.8 x 0.12 x 0.12. pp_timber reported 5
+# users: orphaned meshes from the first build were still in the session (0 users) and forced ".001" names - a
+# read-only listing showed it; R1b purges them.
+
+
+# --------------------------------------------------------------------------------------------- STEP R1b
+# Revision R1b - purge the orphaned meshes left over from the first build (0 users; they would not be saved, but
+# they forced ".001" names), give the new meshes clean names, then add the two braces scaled with the frame:
+# section 0.06 x 0.09 (was 0.08 x 0.12), 45 degrees, 0.2 m legs (was 0.3) from each post's inner face (x = +/-0.28)
+# to the cap's underside (z = 1.88); each end runs 0.03 m (half the 0.06 thickness) into the post / cap.
+import bpy, math
+
+for m in list(bpy.data.meshes):
+    if m.users == 0:
+        bpy.data.meshes.remove(m)
+for o in bpy.data.objects:
+    o.data.name = o.name
+
+def box_part(name, centre, dims, mat):
+    bpy.ops.mesh.primitive_cube_add(size=1.0, location=centre)
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.data.name = name
+    obj.scale = dims
+    obj.data.materials.append(mat)
+    return obj
+
+timber = bpy.data.materials["pp_timber"]
+inner, under, leg, thick, depth = 0.28, 1.88, 0.2, 0.06, 0.09
+length = leg * math.sqrt(2) + 2 * (thick / 2)
+left = box_part("pp_brace_left", (-inner + leg / 2, 0.0, under - leg / 2), (length, depth, thick), timber)
+left.rotation_euler.y = math.radians(-45.0)
+right = box_part("pp_brace_right", (inner - leg / 2, 0.0, under - leg / 2), (length, depth, thick), timber)
+right.rotation_euler.y = math.radians(45.0)
+bpy.context.view_layer.update()
+
+pts = [o.matrix_world @ v.co for o in bpy.data.objects for v in o.data.vertices]
+print("meshes", [(m.name, m.users) for m in bpy.data.meshes])
+print("all parts x %.5f..%.5f y %.5f..%.5f z %.5f..%.5f" % (min(p.x for p in pts), max(p.x for p in pts),
+      min(p.y for p in pts), max(p.y for p in pts), min(p.z for p in pts), max(p.z for p in pts)))
+print("objects", len(bpy.data.objects), "triangles", sum(len(p.vertices) - 2 for o in bpy.data.objects for p in o.data.polygons),
+      "materials", {m.name: m.users for m in bpy.data.materials})
+# Observed: meshes clean (5, one user each); all parts x -0.4 .. 0.4, y -0.06 .. 0.06, z 0 .. 2.0; 60 triangles.
+
+
+# --------------------------------------------------------------------------------------------- STEP R1c
+# Revision R1c - apply all transforms, join into one "pit_prop" with its origin at the centre of the underside,
+# verify, and save over blender/pit_prop.blend (the open file).
+import bpy, os
+
+names = ("pp_post_left", "pp_post_right", "pp_cap", "pp_brace_left", "pp_brace_right")
+parts = [bpy.data.objects[n] for n in names]
+active = parts[0]
+for obj in bpy.data.objects:
+    obj.select_set(obj in parts)
+bpy.context.view_layer.objects.active = active
+with bpy.context.temp_override(selected_editable_objects=parts, selected_objects=parts, active_object=active, object=active):
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    bpy.ops.object.join()
+frame = bpy.context.view_layer.objects.active
+frame.name = "pit_prop"
+frame.data.name = "pit_prop"
+for m in list(bpy.data.meshes):
+    if m.users == 0:
+        bpy.data.meshes.remove(m)
+bpy.context.view_layer.update()
+
+xs = [v.co.x for v in frame.data.vertices]; ys = [v.co.y for v in frame.data.vertices]; zs = [v.co.z for v in frame.data.vertices]
+print("objects", [o.name for o in bpy.data.objects], "meshes", [m.name for m in bpy.data.meshes])
+print(frame.name, "loc", tuple(frame.location), "rot", tuple(frame.rotation_euler), "scale", tuple(frame.scale))
+print("dims", tuple(round(d, 6) for d in frame.dimensions))
+print("x %.6f .. %.6f | y %.6f .. %.6f | z %.6f .. %.6f" % (min(xs), max(xs), min(ys), max(ys), min(zs), max(zs)))
+print("faces", len(frame.data.polygons), "triangles", sum(len(p.vertices) - 2 for p in frame.data.polygons),
+      "materials", [m.name for m in frame.data.materials])
+
+path = r"C:\Users\18500\Desktop\7270\Assignment2\walker-lamplight-rui-sun\blender\pit_prop.blend"
+bpy.ops.wm.save_as_mainfile(filepath=path)
+print("saved", bpy.data.filepath, os.path.getsize(path), "bytes")
+# Observed: one object/mesh "pit_prop"; loc/rot 0, scale 1; dims (0.8, 0.12, 2.0); x -0.4 .. 0.4, y -0.06 .. 0.06,
+# z 0 .. 2.0; 30 faces, 60 triangles; get_scene_info: on ground, 0 non-manifold, 0 boundary edges. Saved 102,103 bytes.

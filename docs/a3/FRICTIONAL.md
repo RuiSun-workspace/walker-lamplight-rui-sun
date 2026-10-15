@@ -182,3 +182,50 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
 - **Human / AI:** Rui approved the plan, chose to add the braces and accepted them. Claude wrote and ran
   all the code, described the looks, and wrote this entry.
 - **Open:** do flat-colour timbers read as old mine timber at game size? That is a human check in Godot.
+
+## 2026-10-15 — export, Godot import, checks, asset room
+
+- **Plan (Claude) → approved (Rui):**
+  - Export with a saved headless script (`tools/blender/export_glb.py`, glTF binary, +Y Up), not through the
+    MCP. Switching files in Rui's live session could have dropped the add-on's server.
+  - Check each `.glb` file directly before Godot (`tools/check_glb.py`), then check it in Godot
+    (`godot/tests/check_a3_assets.gd`).
+  - Build the asset room with one neutral DirectionalLight3D plus ambient (a WorldEnvironment, not a light
+    node), an orbit camera, and a Wick stand-in box.
+- **What happened (Claude):**
+  - Export exit 0 for all three. `check_glb.py` 18/0. Godot `--import` printed no error or warning.
+    `check_a3_assets.gd` 30/0. The whole suite (`tools/run_tests.sh`, A2's 99 checks + A3's 30) passed.
+  - The Godot import also created `.uid` files for three A2 test scripts (Godot metadata; no behaviour change).
+- **Proving the checks can fail (Claude):** a passing check proves nothing if it cannot fail. Three tests:
+  - A pit_prop exported with +Y Up **off** → `check_glb.py` failed 3 checks (height on Z).
+  - A copy of the room with oil_drop lifted 5 cm → `rests_on_floor` failed, "gap_m": 0.05. That check
+    compares each asset with the **Floor node's** top, not with the asset itself, which was the trap in the
+    Module 3 example.
+  - After the size revision below, the **stale** `.glb` files failed the new expectations (4 checks) until
+    they were re-exported.
+- **Claude's own look at scripted screenshots** (`docs/a3/evidence/`, labelled as Claude's captures): the
+  colours render lighter and more saturated than their hex values under this light (the oil drop looks
+  lemon-yellow). The checks only prove that the stored albedo numbers match.
+- **Human check (Rui, orbiting the camera in the running scene):** "我检查完了，出现在游戏中的油滴不可能这么小，
+  我感觉木架有点偏大" ("I've checked it: the oil drop in the game can't be this small, and I feel the frame is a
+  bit too big").
+- **Revision (the inspect-and-revise cycle):**
+  - Claude showed that the drop's 0.15 m is the exact 160 px = 1 m conversion of its sprite, so the
+    numbers were right and the look was not. Then Claude offered options.
+  - **Rui chose:** oil drop ×2; pit prop keeps its 2.0 m height but is narrower and thinner (0.8 m, 0.12 m
+    timber); Claude makes the change through the MCP.
+  - Before rebuilding, Claude found pit_prop in **Edit Mode** in Rui's session. Claude compared a
+    fingerprint of the edit-mode vertices with the saved file (identical: `6a1a6c09fb6fd367`), so no
+    edit of Rui's was overwritten.
+  - **Opening `oil_drop.blend` through the MCP** (`wm.open_mainfile`) worked, and the connection survived
+    the file load. Claude saved pit_prop first in case it did not.
+  - The rebuild also exposed leftover orphan meshes in the session, which forced `.001` names. Claude
+    purged them.
+  - Result: oil_drop 0.275 × 0.275 × 0.30 m, pit_prop 0.8 × 0.12 × 2.0 m. Re-exported, `check_glb.py`
+    18/0, suite all green. Both build scripts replay to the revised meshes.
+  - The 160 px = 1 m conversion is now deliberately broken for the oil drop (brief §9).
+- **Human / AI:** Rui did the human check and chose both revisions. Claude proposed the options, made the
+  changes, ran every check and wrote this entry.
+- **Open:**
+  - Rui's look at the revised room.
+  - Whether the brighter on-screen colours are acceptable (Rui has not commented on colour yet).

@@ -7,7 +7,7 @@ set -u
 G="${GODOT:-/c/Users/18500/Desktop/7270/godot-4.7.2/Godot_v4.7.2-stable_win64_console.exe}"
 cd "$(dirname "$0")/../godot"
 status=0
-for t in test_game test_keyboard test_wick test_oil test_audio; do
+for t in test_game test_keyboard test_wick test_oil test_audio check_a3_assets; do
   [ -f "tests/$t.gd" ] || continue
   # --fixed-fps 60: exactly one physics tick per frame. Without it a fast headless run decides from real
   # time how many physics ticks fit in a frame, so "wait 2 frames" was sometimes 1 extra tick (found by

@@ -329,3 +329,51 @@ bpy.ops.wm.save_as_mainfile(filepath=path)
 print("saved", bpy.data.filepath, os.path.getsize(path), "bytes; objects", [o.name for o in bpy.data.objects])
 # Observed: 97,913 bytes; objects ['oil_drop']. Reopened headless: oil_drop at (0,0,0), scale 1,
 # 0.1375 x 0.1375 x 0.15 m, z min 0, 64 triangles, 40/40 smooth, od_oil #f2a93b, METRIC 1.0.
+
+
+# =============================================================================== REVISION R2 (2026-10-15)
+# Rui's human check of the asset room in Godot: "出现在游戏中的油滴不可能这么小" ("the oil drop in the game can't be
+# this small"). Claude showed that 0.15 m is the exact 160 px = 1 m conversion of the 24 px sprite (43 % of Wick's
+# height) and offered x2, x1.5 or no change; Rui chose x2, done by Claude through the MCP. This deliberately breaks
+# the 160 px = 1 m conversion for this one asset (brief section 9).
+# On a headless replay of this whole file, SKIP STEP R2a: it opens the saved, already-revised oil_drop.blend, and R2b
+# would then double it again. Replaying steps 0-4 and R2b gives the revised drop.
+
+# --------------------------------------------------------------------------------------------- STEP R2a
+# (pit_prop.blend was saved first; Rui's live session had it open.)
+# Revision R2a - open blender/oil_drop.blend in the live session (pit_prop.blend was saved just before).
+# Nothing runs after the load, because loading a file replaces all Blender data the script could hold.
+import bpy
+bpy.ops.wm.open_mainfile(filepath=r"C:\Users\18500\Desktop\7270\Assignment2\walker-lamplight-rui-sun\blender\oil_drop.blend")
+# Observed: returned normally and the MCP connection survived the file load (get_scene_info then showed oil_drop.blend).
+
+
+# --------------------------------------------------------------------------------------------- STEP R2b
+# Revision R2b - oil_drop x2 (Rui's human check in Godot: "出现在游戏中的油滴不可能这么小" - "the oil drop in the
+# game can't be this small"; Rui chose x2). Scale is about the object's origin (centre of the underside), so the
+# base stays on z = 0. Then Apply Scale (Ctrl+A) so the node scale is 1 again, verify, and save.
+import bpy, os
+
+drop = bpy.data.objects["oil_drop"]
+drop.scale = (2.0, 2.0, 2.0)
+bpy.context.view_layer.update()
+print("before apply: scale", tuple(drop.scale), "dims", tuple(round(d, 6) for d in drop.dimensions))
+for o in bpy.data.objects:
+    o.select_set(o is drop)
+bpy.context.view_layer.objects.active = drop
+with bpy.context.temp_override(selected_editable_objects=[drop], selected_objects=[drop], active_object=drop, object=drop):
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+bpy.context.view_layer.update()
+
+xs = [v.co.x for v in drop.data.vertices]; ys = [v.co.y for v in drop.data.vertices]; zs = [v.co.z for v in drop.data.vertices]
+print("after apply: loc", tuple(drop.location), "rot", tuple(drop.rotation_euler), "scale", tuple(drop.scale))
+print("dims", tuple(round(d, 6) for d in drop.dimensions))
+print("x %.6f .. %.6f | y %.6f .. %.6f | z %.6f .. %.6f" % (min(xs), max(xs), min(ys), max(ys), min(zs), max(zs)))
+print("faces", len(drop.data.polygons), "triangles", sum(len(p.vertices) - 2 for p in drop.data.polygons),
+      "smooth", sum(p.use_smooth for p in drop.data.polygons))
+
+path = r"C:\Users\18500\Desktop\7270\Assignment2\walker-lamplight-rui-sun\blender\oil_drop.blend"
+bpy.ops.wm.save_as_mainfile(filepath=path)
+print("saved", bpy.data.filepath, os.path.getsize(path), "bytes")
+# Observed: before apply scale (2,2,2) dims (0.275, 0.275, 0.3); after apply loc/rot 0, scale 1, dims (0.275, 0.275, 0.3),
+# x/y -0.1375 .. 0.1375, z 0 .. 0.3; 40 faces, 64 triangles, 40 smooth. Saved 97,430 bytes.

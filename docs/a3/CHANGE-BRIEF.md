@@ -182,3 +182,17 @@ human checks, recorded in TEST-REPORT.
   with 0.3 m legs from each post's inner face to the beam's underside. pit_prop is now **5 shapes,
   60 triangles** (exactly the 60 budget). Its size stays 1.2 × 0.16 × 2.0 m. The braces only fill
   the top corners (from about 1.5 m up), so below them the 0.88 m-wide opening is unchanged.
+- **2026-10-15 — sizes revised after Rui's human check in Godot.** Rui walked the camera around the asset
+  room: "出现在游戏中的油滴不可能这么小，我感觉木架有点偏大" ("the oil drop in the game can't be this small,
+  and I feel the frame is a bit too big"). Claude showed the facts first: 0.15 m is the exact 160 px = 1 m
+  conversion of the 24 px sprite (43 % of Wick's height), and the 2.0 m frame is the tunnel's full height.
+  Then Claude offered options, and Rui chose:
+  - **oil_drop × 2 → 0.275 × 0.275 × 0.30 m** (86 % of Wick's height). This **deliberately breaks** the
+    160 px = 1 m conversion for this asset, because the 3D drop has to read at a glance next to Wick. It is
+    no longer a pixel-exact copy of the sprite. Same shape, 64 triangles, origin still at the base.
+  - **pit_prop keeps 2.0 m (still holds the roof), narrower and thinner → 0.8 × 0.12 × 2.0 m.** The width
+    goes from 1.2 to 0.8 m (2 tiles) and the timber from 0.16 to 0.12 m. Braces are scaled with it
+    (0.06 × 0.09 m section, 0.2 m legs). Opening 0.56 × 1.88 m, still 60 triangles.
+  - **New numbers the checks expect** (Godot axes, X × Y × Z): oil_drop 0.275 × 0.3 × 0.275, X −0.1375 …
+    0.1375; pit_prop 0.8 × 2.0 × 0.12, X −0.4 … 0.4. lamp_post is unchanged. §6's table above is the
+    original prediction and is left as committed.
