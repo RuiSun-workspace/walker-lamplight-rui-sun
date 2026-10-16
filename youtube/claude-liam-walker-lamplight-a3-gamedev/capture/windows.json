@@ -1,0 +1,26 @@
+{
+ "B02": {
+  "media": "media/B02.mp4",
+  "audio_file": "mix/B02.wav",
+  "duration": 13.5,
+  "start_s": 0.5,
+  "end_s": 14.0,
+  "frames": [
+   15,
+   420
+  ],
+  "take": "A2 run-01"
+ },
+ "B11": {
+  "media": "media/B11.mp4",
+  "audio_file": "mix/B11.wav",
+  "duration": 9.6,
+  "start_s": 5.0,
+  "end_s": 14.6,
+  "frames": [
+   150,
+   438
+  ],
+  "take": "room-orbit"
+ }
+}

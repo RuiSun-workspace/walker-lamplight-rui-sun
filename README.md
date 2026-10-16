@@ -102,7 +102,25 @@ for a in lamp_post oil_drop pit_prop; do blender -b blender/$a.blend --factory-s
 
 ### Assignment 3 film
 
-*To be added.* The Brutalist explainer film is not made yet. Its link, filename and SHA-256 will go here.
+**[▶ Watch the A3 film](https://northeastern-my.sharepoint.com/:v:/g/personal/sun_r3_northeastern_edu/IQADTR_nhidsQYwsMixaW2lRAcvRoMJdoghbNIagW1P0Vv4?e=OLJ7D5)** — Northeastern OneDrive, viewable by anyone signed in with a Northeastern account.
+
+| Field | Value |
+| --- | --- |
+| Filename | `claude-liam-walker-lamplight-a3-gamedev.mp4` |
+| SHA-256 | `78d42317c8f59a1ff1cf25bad6637178802ae50fd5ba39585e9d6aedb7baadd3` |
+| Format | 3840×2160 H.264, 30 fps, AAC 48 kHz stereo |
+| Duration | 265.03 s (4 min 25 s) · 37.4 MB |
+| Source revision shown | `4b4b77fe9602b880e79b8ecd1da4c0d93f6e80bf` (build_id `b7d1c7d6…d9c9e`); the later film-documentation commit does not change `godot/` |
+| Workflow | Brutalist `godot-gamedev`, walker mode; narration Kokoro `am_onyx` ("Liam") |
+| What it shows | Rui's own screenshots (labelled), MCP look captures from Rui's Blender session, the 4K Godot asset room, headless output (labelled), the before/after of Rui's human check |
+
+Beat sheet, script, prompts, fact-check, evidence ledger (`verify_gamedev.py` PASS), capture records and QC are in
+[`youtube/claude-liam-walker-lamplight-a3-gamedev/`](youtube/claude-liam-walker-lamplight-a3-gamedev/). MP4/MP3 stay out of the repository.
+
+```bash
+sha256sum claude-liam-walker-lamplight-a3-gamedev.mp4
+# 78d42317c8f59a1ff1cf25bad6637178802ae50fd5ba39585e9d6aedb7baadd3
+```
 
 ## Assignment 2 — the asset slice (submitted at `4cef687`)
 

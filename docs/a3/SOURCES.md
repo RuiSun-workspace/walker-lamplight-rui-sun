@@ -29,7 +29,7 @@ reported Poly Haven, Sketchfab and Poly Pizza **off**, and Hyper3D, Hunyuan3D an
 `generate_3d`, `search_assets` and `import_asset` were never called. Telemetry: `DISABLE_TELEMETRY=true` on the
 server, add-on `telemetry_consent: false`. Nothing paid was used. No credentials exist in the repository.
 
-The film's tools (Brutalist and Kokoro narration) will be added here when the film is made.
+**Film** (`youtube/claude-liam-walker-lamplight-a3-gamedev/`): Brutalist toolkit `29ba0e8` (`godot-gamedev`, walker mode; Remotion scenes, compiler, Gate F/V), Kokoro TTS v1.0 ONNX voice `am_onyx` (Apache-2.0, run locally), ffmpeg 9.0.1, the stock @NikBearBrown jingle `logos/bear-brown/bear-brown-3.mp3` (picked by the slug, −8 dB). It reuses 13.5 s of A2's own gameplay capture. No paid service and no generated image, mesh or music.
 
 ## The three assets
 
@@ -51,6 +51,7 @@ Dated detail with commits: [FRICTIONAL.md](FRICTIONAL.md).
 | **Rui (human)** | Wrote [BLENDER-NOTES.md](BLENDER-NOTES.md) in Rui's own words and took the screenshot (retook it so it matched the notes). Enabled the MCP add-on in Blender. Chose the scale (160 px = 1 m), the three assets and the docs layout, and approved the brief. Approved every build plan. Looked in Blender's viewport after each build. **Hand edit:** changed the lamp post's flame colour (and rejected an accidental window-colour change). Approved the oil drop's squashed-sphere shape. Chose smooth shading. **Rejected** the highlight ball. Chose the weld and the pit prop's braces. **Human check in Godot:** found the oil drop too small and the frame too big, and chose both revisions (drop ×2; frame 0.8 m wide, 0.12 m timber). Accepted the revised room. |
 | **Claude (Claude Code, Opus 5.5)** | Installed Blender, uv and the MCP, and registered the server. Read the add-on's source before it was enabled. Measured the A2 game and drafted the brief's numbers. Proposed every build plan and wrote and ran **all Blender code** through the MCP (kept verbatim in `tools/blender/build_*.py`). Read every hand edit back. Wrote the export script, `tools/check_glb.py`, `godot/tests/check_a3_assets.gd`, the asset room scene and orbit camera, and the scripted captures in `evidence/`. Tested that each check can fail. Wrote the drafts of every A3 document. |
 | **Generative models** | None. A3 used no image, mesh, audio or text generator for any asset. |
+| **Explainer film** | Claude wrote the script (approved by Rui), the stills, captures, beat sheet and evidence, and built it with the Brutalist toolkit; narration is Kokoro TTS. Rui chose screenshots instead of screen recordings, took the three screenshots shown (S1–S3), approved the script, watched the whole master ("成片我完整看过了，没问题") and uploaded it. |
 
 **What Claude got wrong**, and how it was caught:
 - The first plan used a "miner's lantern" and a 1.75 m miner from a wrong memory note. Caught by reading

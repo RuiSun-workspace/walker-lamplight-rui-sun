@@ -117,7 +117,7 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
 - **Observed (Claude):** Rui's edit changed the Base Color (what glTF exports), not the material's
   viewport colour, which is still `#ffcf5a`. In Solid shading the flame therefore still looks like the old
   colour; Material Preview shows the new one.
-- **What the hand edit taught me about the interface (Rui):** *Rui to add.*
+- **What the hand edit taught me about the interface (Rui):** *Rui did not add this (asked 2026-10-15).*
 - **Saved:** `blender/lamp_post.blend` (step 7b, by code at Rui's request). Claude reopened it headless:
   the numbers and colours above are what the file holds. `.blend1` backups are git-ignored.
 - **Human / AI:** Rui chose the assets and scale, approved the plan, looked in the viewport, made the
@@ -144,7 +144,8 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
   - After steps 1–2, Rui chose **smooth shading** and to **try the highlight ball**.
   - Read-back before changing anything: the cone was **already smooth-shaded** and the body was not.
     Claude's code had not done that. Its source is **unconfirmed**: Claude asked whether Rui clicked Shade
-    Smooth with the cone selected, and the answer did not come through. *Rui to add.*
+    Smooth with the cone selected, and the answer did not come through. *Rui did not add this (asked again
+    2026-10-15); it stays unconfirmed.*
   - Claude added the highlight ball (24 triangles, `#ffe08a`, total 118 of 120). Claude's description of
     the look: it read as a stuck-on bead, not a highlight. **Rui rejected it:** "感觉高光球有点丑，不要了吧"
     ("the highlight ball looks a bit ugly, drop it").
@@ -160,7 +161,7 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
 - **Open:**
   - The amber looks paler under Blender's Material Preview light than on the dark game background. Judge
     it in Godot.
-  - The cone's smooth shading source: *Rui to add.*
+  - The cone's smooth shading source: unconfirmed (Rui did not add it).
 
 ## 2026-10-15 — pit_prop, built through the MCP
 
@@ -230,3 +231,31 @@ Raw timestamped install log (Claude's, kept outside the repo): `F:\7270\a3-setup
 - **Open:** Rui did not comment on the colours rendering brighter than their hex values. That is recorded
   as a known limitation, not as a confirmed pass. The room's neutral light is not the game's dark, warm
   lighting either.
+
+## 2026-10-15 — the explainer film
+
+- **Plan (Claude) → approved (Rui):** Brutalist `godot-gamedev`, walker mode, about 4 minutes. A2's game files are
+  listed as exclusions in the evidence ledger, because the checker inventories all of `godot/`. Blender code is
+  shown in stills, because code panels may only quote `godot/` files.
+- **Rui's footage:** Claude first prepared scratch files for two screen recordings. **Rui:** "我不想录视频，要求里说了截图也行"
+  ("I don't want to record video; the assignment says screenshots are fine"). Rui took three screenshots instead:
+  - S1: the real prompt in the Claude app;
+  - S2: lamp_post with its Dimensions;
+  - S3: the flame's Base Color at FDFFA6.
+  Skipping video meant the film shows the real prompt from the real session, not a re-run.
+- **Script:** Claude drafted the 18-beat script with narration and labels; Rui approved it. One change before
+  rendering: the greeting "Sawubona" was already used by other toolkit reels, so it became "Mingalaba".
+- **What the pipeline caught (Claude):**
+  - The first code-panel renders overflowed. B10 lost the OilDrop node, and B12's wrapped lines pushed out the
+    two lines the narration is about. Both excerpts were shortened and re-rendered.
+  - Gate F refused the first compile because the docs were not at the reel root.
+  - The second compile refused six slates, because the stills must be `media/Bxx.png`.
+  - Gate V then passed with 0 BLOCKER and 0 MAJOR. `verify_gamedev.py` passed. The master is −24.4 LUFS.
+- **Evidence re-run for the film:** in throw-away copies, the three deliberate faults were run again (3, 1 and 4
+  FAIL lines). The "before" room was re-rendered from `8d07135`'s `.blend` files. Its re-exported files fail the new
+  size checks, which proves they are the old sizes.
+- **Rui watched the whole master:** "成片我完整看过了，没问题" ("I watched the whole film; no problems"). Rui uploaded it
+  to Northeastern OneDrive. Master SHA-256 `78d42317c8f59a1ff1cf25bad6637178802ae50fd5ba39585e9d6aedb7baadd3`, 265.03 s, source `4b4b77f`.
+- **Human / AI:** Rui chose screenshots over video, took S1–S3, approved the script and accepted the master. Claude
+  wrote the script, made the captures, stills and evidence, rendered the film and wrote this entry. The narration
+  is Kokoro TTS.

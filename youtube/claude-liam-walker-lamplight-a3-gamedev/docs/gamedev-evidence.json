@@ -1,0 +1,423 @@
+{
+ "schema_version": 1,
+ "teaching_contract": "code-then-result-v1",
+ "source_revision": "4b4b77fe9602b880e79b8ecd1da4c0d93f6e80bf",
+ "build_id": "b7d1c7d6b3a8c4b70b8716089fd5a01a09afbb0a77ce0ce6034f193cdafd9c9e",
+ "files": [
+  {
+   "path": "assets/models/lamp_post.glb",
+   "sha256": "573b364f737e56c197bcd46b8f288e1b131cb5a01f8176f18b93b48c50b901bc",
+   "role": "3D asset (glTF binary)",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "assets/models/lamp_post.glb.import",
+   "sha256": "296c30084a56e4030e5c92a73669d6004cde49a640d1c392421704c89d4fb029",
+   "role": "import settings",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "assets/models/oil_drop.glb",
+   "sha256": "b6f53de04af12b1836201b287e27f0f23fee304de7cb040a00f5ac876a4af9a1",
+   "role": "3D asset (glTF binary)",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "assets/models/oil_drop.glb.import",
+   "sha256": "e4b23fc14f164c72a7c333f79b297e5f7e2da2199e563dc5bf0500be1c71a0ed",
+   "role": "import settings",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "assets/models/pit_prop.glb",
+   "sha256": "e8e8014ee320ee4f1014b9bc18e7eda04b39d21b9bb5344d2ff7adc67320992a",
+   "role": "3D asset (glTF binary)",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "assets/models/pit_prop.glb.import",
+   "sha256": "69e325f49f8e6f9bcad5a8b91f9cc18101acbf858e2af3d17baaa30c3cca0c68",
+   "role": "import settings",
+   "component_ids": [
+    "three-assets"
+   ]
+  },
+  {
+   "path": "game3d/asset_room.tscn",
+   "sha256": "35031859db28c59387eec50dc7685c7194025cfa591d961089e335279027891b",
+   "role": "scene",
+   "component_ids": [
+    "asset-room"
+   ]
+  },
+  {
+   "path": "game3d/orbit_camera.gd",
+   "sha256": "5a57acf29afc71a7f64b0c0f771a08dad6514eab7c1e770f17c5348f07e1daa5",
+   "role": "script",
+   "component_ids": [
+    "asset-room"
+   ]
+  },
+  {
+   "path": "tests/capture_a3_room.gd",
+   "sha256": "ae64189734d4d349f16246d1a850518be1408dc940f3b22140935f794f621a5a",
+   "role": "script",
+   "component_ids": [
+    "asset-room"
+   ]
+  },
+  {
+   "path": "tests/check_a3_assets.gd",
+   "sha256": "58feddea986b21654b30b780e94283321c2e8620e1551719873d7b823d5e90ca",
+   "role": "script",
+   "component_ids": [
+    "headless-check"
+   ]
+  }
+ ],
+ "components": [
+  {
+   "id": "three-assets",
+   "explanation": "lamp_post, oil_drop and pit_prop: built in Blender through the MCP (tools/blender/build_*.py), all transforms applied, exported as glTF binary with +Y Up (tools/blender/export_glb.py); Godot imports them with root scale 1.0.",
+   "beat_ids": [
+    "B06",
+    "B07",
+    "B08",
+    "B09",
+    "B14"
+   ],
+   "files": [
+    "assets/models/lamp_post.glb",
+    "assets/models/lamp_post.glb.import",
+    "assets/models/oil_drop.glb",
+    "assets/models/oil_drop.glb.import",
+    "assets/models/pit_prop.glb",
+    "assets/models/pit_prop.glb.import"
+   ]
+  },
+  {
+   "id": "asset-room",
+   "explanation": "asset_room.tscn: a 4 x 2 m floor at y 0, one DirectionalLight3D plus ambient, the three instanced assets at height 0 and a Wick-sized stand-in box; orbit_camera.gd lets a viewer (or the capture driver) look from behind and below; capture_a3_room.gd saves scripted evidence screenshots.",
+   "beat_ids": [
+    "B10",
+    "B11"
+   ],
+   "files": [
+    "game3d/asset_room.tscn",
+    "game3d/orbit_camera.gd",
+    "tests/capture_a3_room.gd"
+   ]
+  },
+  {
+   "id": "headless-check",
+   "explanation": "check_a3_assets.gd loads each imported .glb and the room and checks size, bounds, base at y 0, upright axis, node scale and rotation, triangles, albedo, and each asset against the Floor node's top (30 checks).",
+   "beat_ids": [
+    "B12",
+    "B13"
+   ],
+   "files": [
+    "tests/check_a3_assets.gd"
+   ]
+  }
+ ],
+ "excerpts": [
+  {
+   "beat_id": "B10",
+   "path": "game3d/asset_room.tscn",
+   "start_line": 42,
+   "end_line": 54,
+   "text": "[node name=\"LampPost\" parent=\".\" instance=ExtResource(\"1_lamp\")]\nposition = Vector3(-1.4, 0, 0)\n\n[node name=\"WickStandIn\" type=\"MeshInstance3D\" parent=\".\"]\nposition = Vector3(-0.8, 0.175, 0)\nmesh = SubResource(\"BoxMesh_wick\")\nsurface_material_override/0 = SubResource(\"Material_wick\")\n\n[node name=\"PitProp\" parent=\".\" instance=ExtResource(\"3_pit\")]\nposition = Vector3(0.3, 0, 0)\n\n[node name=\"OilDrop\" parent=\".\" instance=ExtResource(\"2_oil\")]\nposition = Vector3(1.5, 0, 0)"
+  },
+  {
+   "beat_id": "B12",
+   "path": "tests/check_a3_assets.gd",
+   "start_line": 154,
+   "end_line": 158,
+   "text": "\t\t\t\tvar b := merged_aabb(node, null)\n\t\t\t\tvar over_floor := b.position.x >= floor_box.position.x and b.end.x <= floor_box.end.x \\\n\t\t\t\t\tand b.position.z >= floor_box.position.z and b.end.z <= floor_box.end.z\n\t\t\t\t# measured against the Floor node's own top, not against the asset itself\n\t\t\t\tcheck(asset + \".rests_on_floor\", absf(b.position.y - floor_y) <= TOL and over_floor,"
+  }
+ ],
+ "exclusions": [
+  {
+   "path": ".gitignore",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/mus_loop.ogg",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/mus_loop.ogg.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_exit.ogg",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_exit.ogg.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_hurt.ogg",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_hurt.ogg.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_jump.ogg",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_jump.ogg.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_pickup.ogg",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/audio/sfx_pickup.ogg.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_celebrate.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_celebrate.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_climb.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_climb.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_ember.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_ember.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_fall.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_fall.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_hurt.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_hurt.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_idle.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_idle.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_jump.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_jump.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_pickup.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_pickup.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_walk.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/char/wick_walk.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/bg_rock.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/bg_rock.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/ladder.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/ladder.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/oil_drop.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/oil_drop.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/spikes.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/spikes.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/tiles_rock.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/tiles_rock.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/tiles_rock_top.png",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "assets/env/tiles_rock_top.png.import",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "audio/audio_director.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "audio/default_bus_layout.tres",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "features/player/player.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "features/player/tuning.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "game/lighting.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "game/main.tscn",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "game/overlay.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "game/session.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "levels/first_steps.json",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "levels/lamplight_tunnel.json",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "levels/lamplight_tunnel_v1_two_tunnels.json",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "project.godot",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/capture_evidence.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/capture_film.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/capture_game.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/route_driver.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/test_audio.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/test_game.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/test_keyboard.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/test_oil.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "tests/test_wick.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  },
+  {
+   "path": "ui/hud.gd",
+   "reason": "Assignment 2's 2D asset slice, unchanged by A3 (only Godot-generated .uid files were added); explained by the A2 film claude-liam-walker-lamplight-gamedev.mp4 (SHA-256 f0ae6284…41d7); outside this film's scope"
+  }
+ ],
+ "code_result_pairs": [
+  {
+   "code_beat": "B10",
+   "result_beat": "B11",
+   "observation": "The room as saved: floor, light, the three assets at height 0 beside the Wick-sized box; the scripted camera goes behind (9 s) and below (13 s), where the one-sided floor shows every asset's closed underside.",
+   "media": {
+    "path": "media/B11.mp4",
+    "sha256": "57a8569f51fac6709b3cf525ca7a9abc1b5a68a25769dc93f91a643c3a5436f4"
+   }
+  },
+  {
+   "code_beat": "B12",
+   "result_beat": "B13",
+   "observation": "Recorded output: check_a3_assets 30 checks, 0 failed; check_glb 18, 0 failed; and the three deliberate faults (+Y Up off, drop lifted 0.05 m, stale files) each producing FAIL lines.",
+   "media": {
+    "path": "media/B13.png",
+    "sha256": "9183ca22e14900f94060c037dfc331ab711e98a403b55c57fb3cb9b0bbef7b3a"
+   }
+  }
+ ]
+}

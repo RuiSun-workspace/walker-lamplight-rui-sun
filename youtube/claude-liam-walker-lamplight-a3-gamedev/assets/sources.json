@@ -1,0 +1,62 @@
+{
+ "rui_blender_notes": {
+  "path": "C:\\Users\\18500\\Desktop\\7270\\Assignment2\\walker-lamplight-rui-sun\\docs\\a3\\blender-session.png",
+  "sha256": "0dfacb883ab10f23d8d08b76056df34a2b1d91c0b560882529326bf95e223155"
+ },
+ "rui_s1_prompt": {
+  "path": "C:\\Users\\18500\\Pictures\\Screenshots\\屏幕截图 2026-10-15 194200.png",
+  "sha256": "d6b62288f5cc80fbc621bf5ddcac971b05979952861836f37ff4981e454ba1bd"
+ },
+ "rui_s2_lamp_post": {
+  "path": "C:\\Users\\18500\\Pictures\\Screenshots\\屏幕截图 2026-10-15 194558.png",
+  "sha256": "bcca554826261c4f560d328683b8b102ffc0b4af9d112888218fdf8c837674cc"
+ },
+ "rui_s3_flame_hex": {
+  "path": "C:\\Users\\18500\\Pictures\\Screenshots\\屏幕截图 2026-10-15 194826.png",
+  "sha256": "6ecf38540f9ff44e4c6d2a75ac0bc962217bbdc32471feec87b2052c817f3fdb"
+ },
+ "look_lamp_parts": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792092756211-4flx8f.png",
+  "sha256": "e023f21d775c5d1bc091623d864c28a36dc6c55b9f15ca23d146666071e5ffcc"
+ },
+ "look_lamp_joined": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792093396538-ukgtpm.png",
+  "sha256": "e7e841b491f8edf95edd8fef459b11f23fb7d34d7533d79e2f59a19ba761720a"
+ },
+ "look_drop_flat": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792094391108-nzl577.png",
+  "sha256": "45c0fd456ac195063660832ccfa843ab4eeac1f037149c7fc1ed1fa5eaef9653"
+ },
+ "look_drop_highlight": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792094615303-s7tsgs.png",
+  "sha256": "6e7ee5cd99ad98b4f308f376de22e57baaa50ffa65656de087cb4751c2cf13d7"
+ },
+ "look_drop_welded": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792094812484-s523tk.png",
+  "sha256": "499108233af8e68064639ae82f20d5a2e3dc0bda34196de18b10a9f7a3ad6769"
+ },
+ "look_pit_plain": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792095126521-mto7tw.png",
+  "sha256": "f1f318459c0275e8e18e32780c8c737eedbfce706e2e60e1350b77b4956cf6e3"
+ },
+ "look_pit_braced": {
+  "path": "C:\\Users\\18500\\.claude\\projects\\C--Users-18500-Desktop-7270-Assignment1\\730d3bcf-f7af-4d79-a291-8251757baafd\\tool-results\\mcp-blender-blob-1792095356581-othnmp.png",
+  "sha256": "a8ccf8d84669155df2aeaf0ecd41f4035afd3a75ee312845197d7315234f1646"
+ },
+ "sprite_oil_drop": {
+  "path": "C:\\Users\\18500\\Desktop\\7270\\Assignment2\\walker-lamplight-rui-sun\\godot\\assets\\env\\oil_drop.png",
+  "sha256": "003d1bd06e2c685b50398298fe7df5715b34037174b443b15d305aa536c6a482"
+ },
+ "room_before": {
+  "path": "F:\\7270\\reels\\claude-liam-walker-lamplight-a3-gamedev\\_frames\\room-front-before\\f00000030.png",
+  "sha256": "ba7317dcbc233a79fd46a57cdbddf6cdfb69ef7c9053ff15aaf4f9fd736bb3c2"
+ },
+ "room_after": {
+  "path": "F:\\7270\\reels\\claude-liam-walker-lamplight-a3-gamedev\\_frames\\room-front-after\\f00000030.png",
+  "sha256": "6d10c4613dd90a2a5baf2f1c5f46e79ccb01e27b02ed55c6e8952d41f69638c3"
+ },
+ "test_output": {
+  "path": "F:\\7270\\reels\\claude-liam-walker-lamplight-a3-gamedev\\capture\\test-output.txt",
+  "sha256": "7839e3a65695cbf63101afc5c8bc678a42e02f29b4ae452e46f21644c80d04b6"
+ }
+}
